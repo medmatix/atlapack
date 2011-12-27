@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.68)
-AC_INIT([atlapack],[0.1.0],[marco.maggi-ipsu@poste.it])
+AC_INIT([atlapack],[0.1.1],[marco.maggi-ipsu@poste.it])
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([lapack/])
