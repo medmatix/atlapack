@@ -9,6 +9,15 @@ AC_CONFIG_SRCDIR([lapack/])
 AM_MAINTAINER_MODE
 AC_CANONICAL_HOST
 
+AC_ARG_ENABLE([xblas],
+  [AC_HELP_STRING([--enable-xblas],[enable use of XBLAS])],
+  [case "${enableval}" in
+     yes) USEXBLAS=true ;;
+     no)  USEXBLAS=false ;;
+     *)   AC_MSG_ERROR([bad value ${enableval} for --enable-xblas]) ;;
+   esac],[USEXBLAS=false])
+AM_CONDITIONAL([USEXBLAS],[test X$USEXBLAS = xtrue])
+
 AC_LANG([Fortran 77])
 
 dnl Checks for programs.
@@ -16,6 +25,9 @@ AC_PROG_F77
 AC_PROG_F77_C_O
 AC_F77_LIBRARY_LDFLAGS
 AC_F77_WRAPPERS
+
+AC_CHECK_LIB([blas],[ddot],,[AC_MSG_FAILURE([test for BLAS library failed])])
+AC_CHECK_HEADERS([blas.h],,[AC_MSG_ERROR([test for BLAS header failed])])
 
 AC_LANG([C])
 AC_PROG_CC

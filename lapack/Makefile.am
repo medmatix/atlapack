@@ -2,6 +2,37 @@
 
 MACHINE_DEP_DIR	= $(srcdir)/../machine-dependent
 
+### Timer for the SECOND and DSECND routines
+#
+# Default: SECOND and DSECND will  use a call to the EXTERNAL FUNCTION
+# ETIME.
+#
+#TIMER    = EXT_ETIME
+#
+# For  RS6K :  SECOND  and DSECND  will  use a  call  to the  EXTERNAL
+# FUNCTION ETIME_
+#
+# TIMER    = EXT_ETIME_
+#
+# For  gfortran compiler: SECOND  and DSECND  will use  a call  to the
+# INTERNAL FUNCTION ETIME.
+TIMER    = INT_ETIME
+# If your  Fortran compiler does  not provide etime (like  Nag Fortran
+# Compiler, etc...)  SECOND and DSECND will use a call to the INTERNAL
+# FUNCTION CPU_TIME
+#
+#TIMER    = INT_CPU_TIME
+#
+#If neither  of this  works...you can use  the NONE value...   In that
+#case, SECOND and DSECND will always return 0
+#
+#TIMER     = NONE
+
+#page
+## --------------------------------------------------------------------
+## Sources.
+## --------------------------------------------------------------------
+
 # The functions LSAME, SECOND, DSECND,  SLAMCH, and DLAMCH may have to
 # be   installed  before   compiling  the   library.   Refer   to  the
 # installation guide, LAPACK Working Note 41, for instructions.
@@ -192,7 +223,7 @@ DSLASRC = \
 	sgetrf.f
 
 # Single precision real LAPACK routines using extra precision.
-ifdef USEXBLAS
+if USEXBLAS
 SXLASRC = \
 	sgesvxx.f	sgerfsx.f	sla_geamv.f	\
 	ssysvxx.f	ssyrfsx.f	sposvxx.f	\
@@ -332,7 +363,7 @@ CLASRC = \
 	ctpqrt2.f	ctpmqrt.f	ctprfb.f
 
 # Single precision complex LAPACK routines using extra precision.
-ifdef USEXBLAS
+if USEXBLAS
 CXLASRC = \
 	cgesvxx.f	cgerfsx.f	csysvxx.f	\
 	csyrfsx.f	cposvxx.f	cporfsx.f	\
@@ -473,7 +504,7 @@ DLASRC = \
 	dtpqrt2.f	dtpmqrt.f	dtprfb.f
 
 # Double precision real LAPACK routines using extra precision.
-ifdef USEXBLAS
+if USEXBLAS
 DXLASRC = \
 	dgesvxx.f	dgerfsx.f	dsysvxx.f	\
 	dsyrfsx.f	dposvxx.f	dporfsx.f	\
@@ -617,7 +648,7 @@ ZLASRC = \
 	ztpqrt2.f	ztpmqrt.f	ztprfb.f
 
 # Double precision complex LAPACK routines using extra precision.
-ifdef USEXBLAS
+if USEXBLAS
 ZXLASRC = \
 	zgesvxx.f	zgerfsx.f	zsysvxx.f	\
 	zsyrfsx.f	zposvxx.f	zporfsx.f	\
@@ -638,75 +669,36 @@ ZXLASRC = \
 	zla_lin_berr.f		zla_wwaddw.f
 endif
 
-ALLOBJ = $(SLASRC) $(DLASRC) $(DSLASRC) $(CLASRC) $(ZLASRC) $(ZCLASRC) \
-   $(SCLAUX) $(DZLAUX) $(ALLAUX)
-
-ifdef USEXBLAS
-ALLXOBJ = $(SXLASRC) $(DXLASRC) $(CXLASRC) $(ZXLASRC)
-endif
-
 #page
+## --------------------------------------------------------------------
+## Library.
+## --------------------------------------------------------------------
 
-all: ../$(LAPACKLIB)
+ALLOBJ	= \
+	$(SLASRC)	$(DLASRC)	$(DSLASRC)	\
+	$(CLASRC)	$(ZLASRC)	$(ZCLASRC)	\
+	$(SCLAUX)	$(DZLAUX)	$(ALLAUX)
+ALLXOBJ = $(SXLASRC) $(DXLASRC) $(CXLASRC) $(ZXLASRC)
 
-../$(LAPACKLIB): $(ALLOBJ) $(ALLXOBJ)
-	$(ARCH) $(ARCHFLAGS) $@ $(ALLOBJ) $(ALLXOBJ)
-	$(RANLIB) $@
+lib_LTLIBRARIES		= liblapack.la
+liblapack_la_LDFLAGS	= -version-info 1:0:0
 
-single: $(SLASRC) $(DSLASRC) $(SXLASRC) $(SCLAUX) $(ALLAUX)
-	$(ARCH) $(ARCHFLAGS) ../$(LAPACKLIB) $(SLASRC) $(DSLASRC) \
-	$(SXLASRC) $(SCLAUX) $(ALLAUX) $(ALLXAUX)
-	$(RANLIB) ../$(LAPACKLIB)
-
-complex: $(CLASRC) $(ZCLASRC) $(CXLASRC) $(SCLAUX) $(ALLAUX)
-	$(ARCH) $(ARCHFLAGS) ../$(LAPACKLIB) $(CLASRC) $(ZCLASRC) \
-	$(CXLASRC) $(SCLAUX) $(ALLAUX) $(ALLXAUX)
-	$(RANLIB) ../$(LAPACKLIB)
-
-double: $(DLASRC) $(DSLASRC) $(DXLASRC) $(DZLAUX) $(ALLAUX)
-	$(ARCH) $(ARCHFLAGS) ../$(LAPACKLIB) $(DLASRC) $(DSLASRC) \
-	$(DXLASRC) $(DZLAUX) $(ALLAUX) $(ALLXAUX)
-	$(RANLIB) ../$(LAPACKLIB)
-
-complex16: $(ZLASRC) $(ZCLASRC) $(ZXLASRC) $(DZLAUX) $(ALLAUX)
-	$(ARCH) $(ARCHFLAGS) ../$(LAPACKLIB) $(ZLASRC) $(ZCLASRC) \
-	$(ZXLASRC) $(DZLAUX) $(ALLAUX) $(ALLXAUX)
-	$(RANLIB) ../$(LAPACKLIB)
-
-$(ALLAUX): $(FRC)
-$(SCLAUX): $(FRC)
-$(DZLAUX): $(FRC)
-$(SLASRC): $(FRC)
-$(CLASRC): $(FRC)
-$(DLASRC): $(FRC)
-$(ZLASRC): $(FRC)
-$(ZCLASRC): $(FRC)
-$(DSLASRC): $(FRC)
-ifdef USEXBLAS
-$(SXLASRC): $(FRC)
-$(CXLASRC): $(FRC)
-$(DXLASRC): $(FRC)
-$(ZXLASRC): $(FRC)
+if USEXBLAS
+liblapack_la_SOURCES	= $(ALLOBJ)
+else
+liblapack_la_SOURCES	= $(ALLOBJ) $(ALLXOBJ)
 endif
 
 # .o.f:
 # 	$(FORTRAN) $(OPTS) -c $< -o $@
 
+### Without optimisation options
+#
 # slaruv.o: slaruv.f ; $(FORTRAN) $(NOOPT) -c $< -o $@
 # dlaruv.o: dlaruv.f ; $(FORTRAN) $(NOOPT) -c $< -o $@
 # sla_wwaddw.o: sla_wwaddw.f ; $(FORTRAN) $(NOOPT) -c $< -o $@
 # dla_wwaddw.o: dla_wwaddw.f ; $(FORTRAN) $(NOOPT) -c $< -o $@
 # cla_wwaddw.o: cla_wwaddw.f ; $(FORTRAN) $(NOOPT) -c $< -o $@
 # zla_wwaddw.o: zla_wwaddw.f ; $(FORTRAN) $(NOOPT) -c $< -o $@
-
-#page
-## --------------------------------------------------------------------
-## Library.
-## --------------------------------------------------------------------
-
-lib_LTLIBRARIES		= liblapack.la
-liblapack_la_LDFLAGS	= -version-info 1:0:0
-liblapack_la_SOURCES	=
-
 
 ### end of file
