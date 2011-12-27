@@ -28,7 +28,6 @@ AC_F77_LIBRARY_LDFLAGS
 AC_F77_WRAPPERS
 
 AC_CHECK_LIB([blas],[ddot],,[AC_MSG_FAILURE([test for BLAS library failed])])
-AC_CHECK_HEADERS([blas.h],,[AC_MSG_ERROR([test for BLAS header failed])])
 
 AC_LANG([C])
 AC_PROG_CC
