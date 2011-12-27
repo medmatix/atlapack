@@ -684,9 +684,9 @@ lib_LTLIBRARIES		= liblapack.la
 liblapack_la_LDFLAGS	= -version-info 1:0:0
 
 if USEXBLAS
-liblapack_la_SOURCES	= $(ALLOBJ)
-else
 liblapack_la_SOURCES	= $(ALLOBJ) $(ALLXOBJ)
+else
+liblapack_la_SOURCES	= $(ALLOBJ)
 endif
 
 # .o.f:

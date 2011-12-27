@@ -3,8 +3,6 @@ AC_PREREQ(2.68)
 AC_INIT([atlapack],[0.1.0],[marco.maggi-ipsu@poste.it])
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE
-LT_PREREQ([2.2])
-LT_INIT
 AC_CONFIG_SRCDIR([lapack/])
 AM_MAINTAINER_MODE
 AC_CANONICAL_HOST
@@ -18,6 +16,9 @@ AC_ARG_ENABLE([xblas],
    esac],[USEXBLAS=false])
 AM_CONDITIONAL([USEXBLAS],[test X$USEXBLAS = xtrue])
 
+LT_PREREQ([2.2])
+LT_INIT
+LT_LANG([Fortran 77])
 AC_LANG([Fortran 77])
 
 dnl Checks for programs.

@@ -2222,6 +2222,10 @@ XBLAS_SRC_SOURCES = \
 lib_LTLIBRARIES		= liblapacke.la
 liblapacke_la_LDFLAGS	= -version-info 1:0:0
 liblapacke_la_LIBADD	= ../lapack/liblapack.la
+if USEXBLAS
+liblapacke_la_SOURCES	= $(SRC_SOURCES) $(UTILS_SOURCES) $(XBLAS_SRC_SOURCES)
+else
 liblapacke_la_SOURCES	= $(SRC_SOURCES) $(UTILS_SOURCES)
+endif
 
 ### end of file
