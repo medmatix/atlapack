@@ -5,4 +5,6 @@ check_PROGRAMS	= dgesvd
 LDADD		= ../lapacke/liblapacke.la
 TESTS		= $(check_PROGRAMS)
 
+EXTRA_DIST	= test-utils.h
+
 ### end of file
