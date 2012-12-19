@@ -1,11 +1,12 @@
 ## Process this file with automake to produce Makefile.in
 
+ACLOCAL_MFLAGS		= -I m4
 AUTOMAKE_OPTIONS	= foreign
 SUBDIRS			= lapack lapacke tests
 dist_doc_DATA		= README COPYING
 
 EXTRA_DIST		= \
-	README COPYING INSTALL			\
+	INSTALL					\
 	\
 	machine-dependent/LAPACK_version.f	\
 	machine-dependent/dlamch.f		\

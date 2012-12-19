@@ -134,7 +134,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 3. Install
 ----------
 
-Do this:
+From a  proper distribution tarball,  we can do  this, after
+extracting the archive:
 
     $ cd atlapack-0.1.0
     $ mkdir "=build"
@@ -150,6 +151,12 @@ then do it:
     $ make
     $ make check
     $ make install
+
+  From a repository checkout or  snapshot (the ones from the
+Github  site): we  must first  run the  script "autogen.sh",
+from the top source directory, to generate the needed files;
+for  this  we need  to  have  installed the  GNU  Autotools:
+Automake, Autoconf, Libtool.
 
   The Makefile supports  the DESTDIR environment variable to
 install files in a  temporary location, example: to see what
@@ -206,9 +213,13 @@ World Wide Web and anonymous ftp:
 
 	      <http://www.netlib.org/lapack/>
 
+the development of this package takes place at:
+
+	  <http://github.com/marcomaggi/atlapack/>
+
 the last revision of this package is available from:
 
-	   <http://github.com/marcomaggi/atlapack/>
+	<http://code.google.com/p/libtoolisations/>
 
 
 ### end of file
