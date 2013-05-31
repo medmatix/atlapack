@@ -12,8 +12,8 @@ prefix=/usr/local
     --enable-maintainer-mode                    \
     --disable-static --enable-shared            \
     --prefix="${prefix}"                        \
-    CFLAGS='-O3 -march=i686 -mtune=i686'        \
-    FFLAGS='-O3 -march=i686 -mtune=i686'        \
+    CFLAGS='-O3'				\
+    FFLAGS='-O3'				\
     "$@"
 
 ### end of file

@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-ACLOCAL_MFLAGS		= -I m4
+ACLOCAL_MFLAGS		= -I autotools
 AUTOMAKE_OPTIONS	= foreign
 SUBDIRS			= lapack lapacke tests
 dist_doc_DATA		= README COPYING
