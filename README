@@ -208,6 +208,7 @@ but  it is  suggested to  build the  shared  libraries using
 ATBLAS:
 
 	   <http://github.com/marcomaggi/atblas/>
+	 <http://sourceforge.net/projects/atblas/>
 
 LAPACK is  available on Netlib  and can be obtained  via the
 World Wide Web and anonymous ftp:
@@ -218,9 +219,13 @@ the development of this package takes place at:
 
 	  <http://github.com/marcomaggi/atlapack/>
 
+and as backup at:
+
+	<http://sourceforge.net/projects/atlapack/>
+
 the last revision of this package is available from:
 
-	<http://code.google.com/p/libtoolisations/>
+     <http://sourceforge.net/projects/atlapack/files/>
 
 
 ### end of file
