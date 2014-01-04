@@ -1,4 +1,4 @@
-*> \brief \b DLAQP2
+*> \brief \b DLAQP2 computes a QR factorization with column pivoting of the matrix block.
 *
 *  =========== DOCUMENTATION ===========
 *
@@ -122,7 +122,7 @@
 *> \author Univ. of Colorado Denver 
 *> \author NAG Ltd. 
 *
-*> \date November 2011
+*> \date November 2013
 *
 *> \ingroup doubleOTHERauxiliary
 *
@@ -149,10 +149,10 @@
       SUBROUTINE DLAQP2( M, N, OFFSET, A, LDA, JPVT, TAU, VN1, VN2,
      $                   WORK )
 *
-*  -- LAPACK auxiliary routine (version 3.4.0) --
+*  -- LAPACK auxiliary routine (version 3.5.0) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     November 2011
+*     November 2013
 *
 *     .. Scalar Arguments ..
       INTEGER            LDA, M, N, OFFSET
@@ -217,7 +217,7 @@
             CALL DLARFG( 1, A( M, I ), A( M, I ), 1, TAU( I ) )
          END IF
 *
-         IF( I.LE.N ) THEN
+         IF( I.LT.N ) THEN
 *
 *           Apply H(i)**T to A(offset+i:m,i+1:n) from the left.
 *

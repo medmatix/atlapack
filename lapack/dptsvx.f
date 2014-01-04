@@ -1,4 +1,4 @@
-*> \brief \b DPTSVX
+*> \brief <b> DPTSVX computes the solution to system of linear equations A * X = B for PT matrices</b>
 *
 *  =========== DOCUMENTATION ===========
 *
@@ -116,7 +116,7 @@
 *>
 *> \param[in,out] DF
 *> \verbatim
-*>          DF is or output) DOUBLE PRECISION array, dimension (N)
+*>          DF is DOUBLE PRECISION array, dimension (N)
 *>          If FACT = 'F', then DF is an input argument and on entry
 *>          contains the n diagonal elements of the diagonal matrix D
 *>          from the L*D*L**T factorization of A.
@@ -127,7 +127,7 @@
 *>
 *> \param[in,out] EF
 *> \verbatim
-*>          EF is or output) DOUBLE PRECISION array, dimension (N-1)
+*>          EF is DOUBLE PRECISION array, dimension (N-1)
 *>          If FACT = 'F', then EF is an input argument and on entry
 *>          contains the (n-1) subdiagonal elements of the unit
 *>          bidiagonal factor L from the L*D*L**T factorization of A.
@@ -220,18 +220,18 @@
 *> \author Univ. of Colorado Denver 
 *> \author NAG Ltd. 
 *
-*> \date November 2011
+*> \date September 2012
 *
-*> \ingroup doubleOTHERcomputational
+*> \ingroup doublePTsolve
 *
 *  =====================================================================
       SUBROUTINE DPTSVX( FACT, N, NRHS, D, E, DF, EF, B, LDB, X, LDX,
      $                   RCOND, FERR, BERR, WORK, INFO )
 *
-*  -- LAPACK computational routine (version 3.4.0) --
+*  -- LAPACK driver routine (version 3.4.2) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     November 2011
+*     September 2012
 *
 *     .. Scalar Arguments ..
       CHARACTER          FACT

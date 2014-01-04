@@ -1,4 +1,4 @@
-*> \brief \b ZLA_SYRCOND_X
+*> \brief \b ZLA_SYRCOND_X computes the infinity norm condition number of op(A)*diag(x) for symmetric indefinite matrices.
 *
 *  =========== DOCUMENTATION ===========
 *
@@ -124,7 +124,7 @@
 *> \author Univ. of Colorado Denver 
 *> \author NAG Ltd. 
 *
-*> \date November 2011
+*> \date September 2012
 *
 *> \ingroup complex16SYcomputational
 *
@@ -133,10 +133,10 @@
      $                                         LDAF, IPIV, X, INFO,
      $                                         WORK, RWORK )
 *
-*  -- LAPACK computational routine (version 3.4.0) --
+*  -- LAPACK computational routine (version 3.4.2) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     November 2011
+*     September 2012
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
@@ -154,7 +154,7 @@
       INTEGER            KASE
       DOUBLE PRECISION   AINVNM, ANORM, TMP
       INTEGER            I, J
-      LOGICAL            UP
+      LOGICAL            UP, UPPER
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
@@ -181,8 +181,15 @@
       ZLA_SYRCOND_X = 0.0D+0
 *
       INFO = 0
-      IF( N.LT.0 ) THEN
+      UPPER = LSAME( UPLO, 'U' )
+      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+         INFO = -1
+      ELSE IF( N.LT.0 ) THEN
          INFO = -2
+      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+         INFO = -4
+      ELSE IF( LDAF.LT.MAX( 1, N ) ) THEN
+         INFO = -6
       END IF
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZLA_SYRCOND_X', -INFO )

@@ -1,4 +1,4 @@
-*> \brief \b SLASQ3
+*> \brief \b SLASQ3 checks for deflation, computes a shift and calls dqds. Used by sbdsqr.
 *
 *  =========== DOCUMENTATION ===========
 *
@@ -173,7 +173,7 @@
 *> \author Univ. of Colorado Denver 
 *> \author NAG Ltd. 
 *
-*> \date November 2011
+*> \date September 2012
 *
 *> \ingroup auxOTHERcomputational
 *
@@ -182,10 +182,10 @@
      $                   ITER, NDIV, IEEE, TTYPE, DMIN1, DMIN2, DN, DN1,
      $                   DN2, G, TAU )
 *
-*  -- LAPACK computational routine (version 3.4.0) --
+*  -- LAPACK computational routine (version 3.4.2) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     November 2011
+*     September 2012
 *
 *     .. Scalar Arguments ..
       LOGICAL            IEEE
@@ -267,8 +267,8 @@
          Z( NN-3 ) = Z( NN-7 )
          Z( NN-7 ) = S
       END IF
-      IF( Z( NN-5 ).GT.Z( NN-3 )*TOL2 ) THEN
-         T = HALF*( ( Z( NN-7 )-Z( NN-3 ) )+Z( NN-5 ) )
+      T = HALF*( ( Z( NN-7 )-Z( NN-3 ) )+Z( NN-5 ) )
+      IF( Z( NN-5 ).GT.Z( NN-3 )*TOL2.AND.T.NE.ZERO ) THEN
          S = Z( NN-3 )*( Z( NN-5 ) / T )
          IF( S.LE.T ) THEN
             S = Z( NN-3 )*( Z( NN-5 ) /
@@ -331,15 +331,15 @@
 *
    70 CONTINUE
 *
-      CALL SLASQ5( I0, N0, Z, PP, TAU, DMIN, DMIN1, DMIN2, DN,
-     $             DN1, DN2, IEEE )
+      CALL SLASQ5( I0, N0, Z, PP, TAU, SIGMA, DMIN, DMIN1, DMIN2, DN,
+     $             DN1, DN2, IEEE, EPS )
 *
       NDIV = NDIV + ( N0-I0+2 )
       ITER = ITER + 1
 *
 *     Check status.
 *
-      IF( DMIN.GE.ZERO .AND. DMIN1.GT.ZERO ) THEN
+      IF( DMIN.GE.ZERO .AND. DMIN1.GE.ZERO ) THEN
 *
 *        Success.
 *

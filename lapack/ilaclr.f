@@ -1,4 +1,4 @@
-*> \brief \b ILACLR
+*> \brief \b ILACLR scans a matrix for its last non-zero row.
 *
 *  =========== DOCUMENTATION ===========
 *
@@ -71,17 +71,17 @@
 *> \author Univ. of Colorado Denver 
 *> \author NAG Ltd. 
 *
-*> \date November 2011
+*> \date September 2012
 *
 *> \ingroup complexOTHERauxiliary
 *
 *  =====================================================================
       INTEGER FUNCTION ILACLR( M, N, A, LDA )
 *
-*  -- LAPACK auxiliary routine (version 3.4.0) --
+*  -- LAPACK auxiliary routine (version 3.4.2) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     November 2011
+*     September 2012
 *
 *     .. Scalar Arguments ..
       INTEGER            M, N, LDA
@@ -111,12 +111,9 @@
          ILACLR = 0
          DO J = 1, N
             I=M
-            DO WHILE ((A(I,J).NE.ZERO).AND.(I.GE.1))
-              I=I-1
-              IF (I.EQ.0) THEN
-                 EXIT
-              END IF
-            ENDDO         
+            DO WHILE((A(MAX(I,1),J).EQ.ZERO).AND.(I.GE.1))
+               I=I-1
+            ENDDO
             ILACLR = MAX( ILACLR, I )
          END DO
       END IF

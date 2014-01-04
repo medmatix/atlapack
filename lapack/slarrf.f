@@ -1,4 +1,4 @@
-*> \brief \b SLARRF
+*> \brief \b SLARRF finds a new relatively robust representation such that at least one of the eigenvalues is relatively isolated.
 *
 *  =========== DOCUMENTATION ===========
 *
@@ -174,7 +174,7 @@
 *> \author Univ. of Colorado Denver 
 *> \author NAG Ltd. 
 *
-*> \date November 2011
+*> \date September 2012
 *
 *> \ingroup auxOTHERauxiliary
 *
@@ -193,10 +193,10 @@
      $                   SPDIAM, CLGAPL, CLGAPR, PIVMIN, SIGMA,
      $                   DPLUS, LPLUS, WORK, INFO )
 *
-*  -- LAPACK auxiliary routine (version 3.4.0) --
+*  -- LAPACK auxiliary routine (version 3.4.2) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     November 2011
+*     September 2012
 *
 *     .. Scalar Arguments ..
       INTEGER            CLSTRT, CLEND, INFO, N
@@ -210,10 +210,9 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      REAL               FOUR, MAXGROWTH1, MAXGROWTH2, ONE, QUART, TWO,
-     $                   ZERO
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0,
-     $                     FOUR = 4.0E0, QUART = 0.25E0,
+      REAL               MAXGROWTH1, MAXGROWTH2, ONE, QUART, TWO
+      PARAMETER          ( ONE = 1.0E0, TWO = 2.0E0,
+     $                     QUART = 0.25E0,
      $                     MAXGROWTH1 = 8.E0,
      $                     MAXGROWTH2 = 8.E0 )
 *     ..

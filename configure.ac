@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.68)
-AC_INIT([LAPACK with GNU Autotools],[0.1.4],[marco.maggi-ipsu@poste.it],
+AC_INIT([LAPACK with GNU Autotools],[3.5.0],[marco.maggi-ipsu@poste.it],
   [atlapack],[http://github.com/marcomaggi/atlapack/])
 AC_CONFIG_SRCDIR([lapack/])
 AC_CONFIG_MACRO_DIR([autotools])
@@ -8,7 +8,7 @@ AC_CONFIG_AUX_DIR([autotools])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE([-Wall foreign dist-xz no-dist-gzip])
+AM_INIT_AUTOMAKE([-Wall foreign dist-xz no-dist-gzip subdir-objects])
 AM_MAINTAINER_MODE
 
 AM_PROG_AR

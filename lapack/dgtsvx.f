@@ -1,4 +1,4 @@
-*> \brief \b DGTSVX
+*> \brief <b> DGTSVX computes the solution to system of linear equations A * X = B for GT matrices <b>
 *
 *  =========== DOCUMENTATION ===========
 *
@@ -133,7 +133,7 @@
 *>
 *> \param[in,out] DLF
 *> \verbatim
-*>          DLF is or output) DOUBLE PRECISION array, dimension (N-1)
+*>          DLF is DOUBLE PRECISION array, dimension (N-1)
 *>          If FACT = 'F', then DLF is an input argument and on entry
 *>          contains the (n-1) multipliers that define the matrix L from
 *>          the LU factorization of A as computed by DGTTRF.
@@ -145,7 +145,7 @@
 *>
 *> \param[in,out] DF
 *> \verbatim
-*>          DF is or output) DOUBLE PRECISION array, dimension (N)
+*>          DF is DOUBLE PRECISION array, dimension (N)
 *>          If FACT = 'F', then DF is an input argument and on entry
 *>          contains the n diagonal elements of the upper triangular
 *>          matrix U from the LU factorization of A.
@@ -157,7 +157,7 @@
 *>
 *> \param[in,out] DUF
 *> \verbatim
-*>          DUF is or output) DOUBLE PRECISION array, dimension (N-1)
+*>          DUF is DOUBLE PRECISION array, dimension (N-1)
 *>          If FACT = 'F', then DUF is an input argument and on entry
 *>          contains the (n-1) elements of the first superdiagonal of U.
 *>
@@ -167,7 +167,7 @@
 *>
 *> \param[in,out] DU2
 *> \verbatim
-*>          DU2 is or output) DOUBLE PRECISION array, dimension (N-2)
+*>          DU2 is DOUBLE PRECISION array, dimension (N-2)
 *>          If FACT = 'F', then DU2 is an input argument and on entry
 *>          contains the (n-2) elements of the second superdiagonal of
 *>          U.
@@ -179,7 +179,7 @@
 *>
 *> \param[in,out] IPIV
 *> \verbatim
-*>          IPIV is or output) INTEGER array, dimension (N)
+*>          IPIV is INTEGER array, dimension (N)
 *>          If FACT = 'F', then IPIV is an input argument and on entry
 *>          contains the pivot indices from the LU factorization of A as
 *>          computed by DGTTRF.
@@ -284,19 +284,19 @@
 *> \author Univ. of Colorado Denver 
 *> \author NAG Ltd. 
 *
-*> \date November 2011
+*> \date September 2012
 *
-*> \ingroup doubleOTHERcomputational
+*> \ingroup doubleGTsolve
 *
 *  =====================================================================
       SUBROUTINE DGTSVX( FACT, TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF,
      $                   DU2, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR,
      $                   WORK, IWORK, INFO )
 *
-*  -- LAPACK computational routine (version 3.4.0) --
+*  -- LAPACK driver routine (version 3.4.2) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     November 2011
+*     September 2012
 *
 *     .. Scalar Arguments ..
       CHARACTER          FACT, TRANS

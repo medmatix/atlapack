@@ -43,3 +43,5 @@ mkinstalldirs
 ltmain.sh
 m4/
 autotools/
+.dirstamp
+*.lo

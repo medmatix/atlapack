@@ -1,4 +1,4 @@
-*> \brief \b ZGETC2
+*> \brief \b ZGETC2 computes the LU factorization with complete pivoting of the general n-by-n matrix.
 *
 *  =========== DOCUMENTATION ===========
 *
@@ -98,7 +98,7 @@
 *> \author Univ. of Colorado Denver 
 *> \author NAG Ltd. 
 *
-*> \date November 2011
+*> \date November 2013
 *
 *> \ingroup complex16GEauxiliary
 *
@@ -111,10 +111,10 @@
 *  =====================================================================
       SUBROUTINE ZGETC2( N, A, LDA, IPIV, JPIV, INFO )
 *
-*  -- LAPACK auxiliary routine (version 3.4.0) --
+*  -- LAPACK auxiliary routine (version 3.5.0) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     November 2011
+*     November 2013
 *
 *     .. Scalar Arguments ..
       INTEGER            INFO, LDA, N
@@ -203,6 +203,12 @@
          INFO = N
          A( N, N ) = DCMPLX( SMIN, ZERO )
       END IF
+*
+*     Set last pivots to N
+*
+      IPIV( N ) = N
+      JPIV( N ) = N
+*
       RETURN
 *
 *     End of ZGETC2

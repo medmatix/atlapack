@@ -175,7 +175,7 @@
 *> \author Univ. of Colorado Denver 
 *> \author NAG Ltd. 
 *
-*> \date November 2011
+*> \date November 2013
 *
 *> \ingroup doubleOTHERcomputational
 *
@@ -216,10 +216,10 @@
       SUBROUTINE DTPMQRT( SIDE, TRANS, M, N, K, L, NB, V, LDV, T, LDT,
      $                    A, LDA, B, LDB, WORK, INFO )
 *
-*  -- LAPACK computational routine (version 3.4.0) --
+*  -- LAPACK computational routine (version 3.5.0) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     November 2011
+*     November 2013
 *
 *     .. Scalar Arguments ..
       CHARACTER SIDE, TRANS
@@ -235,7 +235,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LEFT, RIGHT, TRAN, NOTRAN
-      INTEGER            I, IB, MB, LB, KF, Q
+      INTEGER            I, IB, MB, LB, KF, LDAQ, LDVQ
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -257,10 +257,12 @@
       TRAN   = LSAME( TRANS, 'T' )
       NOTRAN = LSAME( TRANS, 'N' )
 *      
-      IF( LEFT ) THEN
-         Q = M
+      IF ( LEFT ) THEN
+         LDVQ = MAX( 1, M )
+         LDAQ = MAX( 1, K )
       ELSE IF ( RIGHT ) THEN
-         Q = N
+         LDVQ = MAX( 1, N )
+         LDAQ = MAX( 1, M )
       END IF
       IF( .NOT.LEFT .AND. .NOT.RIGHT ) THEN
          INFO = -1
@@ -274,16 +276,16 @@
          INFO = -5
       ELSE IF( L.LT.0 .OR. L.GT.K ) THEN
          INFO = -6         
-      ELSE IF( NB.LT.1 .OR. NB.GT.K ) THEN
+      ELSE IF( NB.LT.1 .OR. (NB.GT.K .AND. K.GT.0) ) THEN
          INFO = -7
-      ELSE IF( LDV.LT.MAX( 1, Q ) ) THEN
-         INFO = -8
+      ELSE IF( LDV.LT.LDVQ ) THEN
+         INFO = -9
       ELSE IF( LDT.LT.NB ) THEN
-         INFO = -10
-      ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
-         INFO = -12
+         INFO = -11
+      ELSE IF( LDA.LT.LDAQ ) THEN
+         INFO = -13
       ELSE IF( LDB.LT.MAX( 1, M ) ) THEN
-         INFO = -12
+         INFO = -15
       END IF
 *
       IF( INFO.NE.0 ) THEN

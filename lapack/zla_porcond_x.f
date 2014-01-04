@@ -1,4 +1,4 @@
-*> \brief \b ZLA_PORCOND_X
+*> \brief \b ZLA_PORCOND_X computes the infinity norm condition number of op(A)*diag(x) for Hermitian positive-definite matrices.
 *
 *  =========== DOCUMENTATION ===========
 *
@@ -116,7 +116,7 @@
 *> \author Univ. of Colorado Denver 
 *> \author NAG Ltd. 
 *
-*> \date November 2011
+*> \date September 2012
 *
 *> \ingroup complex16POcomputational
 *
@@ -125,10 +125,10 @@
      $                                         LDAF, X, INFO, WORK,
      $                                         RWORK )
 *
-*  -- LAPACK computational routine (version 3.4.0) --
+*  -- LAPACK computational routine (version 3.4.2) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     November 2011
+*     September 2012
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
@@ -144,7 +144,7 @@
 *     .. Local Scalars ..
       INTEGER            KASE, I, J
       DOUBLE PRECISION   AINVNM, ANORM, TMP
-      LOGICAL            UP
+      LOGICAL            UP, UPPER
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
@@ -171,8 +171,15 @@
       ZLA_PORCOND_X = 0.0D+0
 *
       INFO = 0
-      IF( N.LT.0 ) THEN
+      UPPER = LSAME( UPLO, 'U' )
+      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+         INFO = -1
+      ELSE IF ( N.LT.0 ) THEN
          INFO = -2
+      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+         INFO = -4
+      ELSE IF( LDAF.LT.MAX( 1, N ) ) THEN
+         INFO = -6
       END IF
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZLA_PORCOND_X', -INFO )

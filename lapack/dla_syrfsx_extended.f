@@ -1,4 +1,4 @@
-*> \brief \b DLA_SYRFSX_EXTENDED
+*> \brief \b DLA_SYRFSX_EXTENDED improves the computed solution to a system of linear equations for symmetric indefinite matrices by performing extra-precise iterative refinement and provides error bounds and backward error estimates for the solution.
 *
 *  =========== DOCUMENTATION ===========
 *
@@ -374,7 +374,7 @@
 *> \verbatim
 *>          INFO is INTEGER
 *>       = 0:  Successful exit.
-*>       < 0:  if INFO = -i, the ith argument to DSYTRS had an illegal
+*>       < 0:  if INFO = -i, the ith argument to DLA_SYRFSX_EXTENDED had an illegal
 *>             value
 *> \endverbatim
 *
@@ -386,7 +386,7 @@
 *> \author Univ. of Colorado Denver 
 *> \author NAG Ltd. 
 *
-*> \date November 2011
+*> \date September 2012
 *
 *> \ingroup doubleSYcomputational
 *
@@ -399,10 +399,10 @@
      $                                RTHRESH, DZ_UB, IGNORE_CWISE,
      $                                INFO )
 *
-*  -- LAPACK computational routine (version 3.4.0) --
+*  -- LAPACK computational routine (version 3.4.2) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     November 2011
+*     September 2012
 *
 *     .. Scalar Arguments ..
       INTEGER            INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE,
@@ -428,7 +428,7 @@
      $                   DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX,
      $                   DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z,
      $                   EPS, HUGEVAL, INCR_THRESH
-      LOGICAL            INCR_PREC
+      LOGICAL            INCR_PREC, UPPER
 *     ..
 *     .. Parameters ..
       INTEGER            UNSTABLE_STATE, WORKING_STATE, CONV_STATE,
@@ -472,7 +472,27 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF ( INFO.NE.0 ) RETURN
+      INFO = 0
+      UPPER = LSAME( UPLO, 'U' )
+      IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
+         INFO = -2
+      ELSE IF( N.LT.0 ) THEN
+         INFO = -3
+      ELSE IF( NRHS.LT.0 ) THEN
+         INFO = -4
+      ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
+         INFO = -6
+      ELSE IF( LDAF.LT.MAX( 1, N ) ) THEN
+         INFO = -8
+      ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
+         INFO = -13
+      ELSE IF( LDY.LT.MAX( 1, N ) ) THEN
+         INFO = -15
+      END IF
+      IF( INFO.NE.0 ) THEN
+         CALL XERBLA( 'DLA_SYRFSX_EXTENDED', -INFO )
+         RETURN
+      END IF
       EPS = DLAMCH( 'Epsilon' )
       HUGEVAL = DLAMCH( 'Overflow' )
 *     Force HUGEVAL to Inf
