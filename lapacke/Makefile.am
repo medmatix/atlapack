@@ -2262,7 +2262,7 @@ AM_CFLAGS		= -I $(srcdir)/src -I $(srcdir)/utils
 
 lib_LTLIBRARIES		= liblapacke.la
 liblapacke_la_LDFLAGS	= -version-info 1:0:0
-liblapacke_la_LIBADD	= ../lapack/liblapack.la
+liblapacke_la_LIBADD	= ../lapack/liblapack.la ../tmglib/libtmglib.la
 if USEXBLAS
 liblapacke_la_SOURCES	= $(SRC_SOURCES) $(MATGEN_SOURCES) $(UTILS_SOURCES) $(SRCX_SOURCES)
 else

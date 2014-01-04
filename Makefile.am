@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 AUTOMAKE_OPTIONS	= foreign
-SUBDIRS			= lapack lapacke tests
+SUBDIRS			= lapack tmglib lapacke tests
 dist_doc_DATA		= README COPYING
 
 EXTRA_DIST		= \
