@@ -1985,7 +1985,7 @@ SRC_SOURCES	= \
 	src/lapacke_csyr.c \
 	src/lapacke_zsyr_work.c \
 	src/lapacke_csyr_work.c \
-	lsrc/apacke_ilaver.c
+	src/lapacke_ilaver.c
 
 # To be included only when using XBLAS.
 SRCX_SOURCES = \
