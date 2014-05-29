@@ -3,8 +3,8 @@ AC_PREREQ(2.68)
 AC_INIT([LAPACK with GNU Autotools],[3.5.0],[marco.maggi-ipsu@poste.it],
   [atlapack],[http://github.com/marcomaggi/atlapack/])
 AC_CONFIG_SRCDIR([lapack/])
-AC_CONFIG_MACRO_DIR([autotools])
-AC_CONFIG_AUX_DIR([autotools])
+AC_CONFIG_MACRO_DIR([meta/autotools])
+AC_CONFIG_AUX_DIR([meta/autotools])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
@@ -57,11 +57,7 @@ AC_C_CONST
 AC_TYPE_SIZE_T
 
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile
-  lapack/Makefile
-  tmglib/Makefile
-  lapacke/Makefile
-  tests/Makefile])
+AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
 
 dnl end of file
