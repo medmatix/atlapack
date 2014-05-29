@@ -270,11 +270,17 @@ upgrade ATLAPACK with the new source files we do:
 
     $ cp newlapack/TESTING/MATGEN/*.f atlapack/tmglib/
 
-7. We can examine the list of new files with:
+7. Download the archive of manual pages from LAPACK's site and unpack it
+   under "atlapack/doc/":
+
+    $ cd atlapack/doc
+    $ tar xvzf /path/to/manpages.tgz
+
+8. We can examine the list of new files with:
 
     $ git status
 
-8. Update the  lists of files in "atlapack/Makefile.am".  Yes,  we use a
+9. Update the  lists of files in "atlapack/Makefile.am".  Yes,  we use a
    single Makefile.am  here.  Notice that  the files must  include their
    source pathname relative to the top source directory.
 
