@@ -14,6 +14,7 @@ Topics
   B. Bugs
   C. Resources
   D. How to upgrade to a new LAPACK release
+  E. Formatting file lists under GNU Emacs.
 
 
 1. Introduction
@@ -138,6 +139,12 @@ then do it:
     $ make check
     $ make install
 
+if we are on a luxury multicore CPU,  we can go wild with the -j option;
+for example:
+
+    $ make -j4
+    $ make -j4 check
+
   From  a repository  checkout or  snapshot  (the ones  from the  Github
 site): we  must first run the  script "autogen.sh", from the  top source
 directory,  to generate  the  needed files;  for this  we  need to  have
@@ -233,8 +240,8 @@ in the file "configure.ac".
 directory "newlapack" and  ATLAPACK is in the  directory "atlapack".  To
 upgrade ATLAPACK with the new source files we do:
 
-0.  Create   a  new   branch  in  the   git  repository,   for  example
-    "upgrade-to-3.5.0", and check it out.
+0.   Create  a   new  branch   in  the   git  repository,   for  example
+   "upgrade-to-3.5.0", and check it out.
 
 1. Copy the LAPACK Fortran source files:
 
@@ -253,7 +260,7 @@ upgrade ATLAPACK with the new source files we do:
 
 4. Copy the LAPACKE source files:
 
-    $ cp newlapack/lapacke/include/*.c atlapack/lapacke/src/
+    $ cp newlapack/lapacke/src/*.c atlapack/lapacke/src/
 
 5. Copy the LAPACKE utils source files:
 
@@ -267,17 +274,21 @@ upgrade ATLAPACK with the new source files we do:
 
     $ git status
 
-8. Update the  lists of files in  "atlapack/lapack/Makefile.am" with the
-   lists of files from "newlapack/SRC/Makefile".
-
-9. Update the lists of  files in "atlapack/lapacke/Makefile.am" with the
-   lists    of   files    from   "newlapack/lapacke/src/Makefile"    and
-   "newlapack/lapacke/src/Makefile".
-
-10. Update the lists of  files in "atlapack/tmglib/Makefile.am" with the
-    lists of files from "newlapack/TESTING/MATGEN/Makefile".
+8. Update the  lists of files in "atlapack/Makefile.am".  Yes,  we use a
+   single Makefile.am  here.  Notice that  the files must  include their
+   source pathname relative to the top source directory.
 
 
+E. Formatting file lists under GNU Emacs
+----------------------------------------
+
+When using GNU Emacs to edit the  Makefile.am, it can be useful to apply
+function "my-makefile-reformat-list-of-files" defined in the module:
+
+   meta/emacs/my-makefile.el
+
+it  reformats a  list  of files  allowing the  insertion  of a  pathname
+prefix; see its documentation.
 
 
 ### end of file
