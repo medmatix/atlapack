@@ -30,6 +30,7 @@ config.guess
 config.h.in
 config.sub
 config.cache
+config.cache-bare
 configure
 depcomp
 test-driver
@@ -44,4 +45,3 @@ ltmain.sh
 m4/
 autotools/
 .dirstamp
-*.lo
