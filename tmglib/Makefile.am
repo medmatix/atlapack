@@ -57,7 +57,9 @@ TMGLIB_ALLOBJ = \
 	$(TMGLIB_SMATGEN) $(TMGLIB_CMATGEN) $(TMGLIB_SCATGEN) \
 	$(TMGLIB_DMATGEN) $(TMGLIB_ZMATGEN) $(TMGLIB_DZATGEN)
 
-noinst_LTLIBRARIES	= libtmglib.la
+if WANT_MATGEN
+lib_LTLIBRARIES		= libtmglib.la
+endif
 libtmglib_la_LDFLAGS	= -version-info 1:0:0
 libtmglib_la_SOURCES	= $(TMGLIB_ALLOBJ)
 

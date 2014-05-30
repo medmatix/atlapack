@@ -2073,6 +2073,7 @@ LAPACKE_SRCX_SOURCES = \
 	src/lapacke_zgesvxx_work.c	\
 	src/lapacke_zsysvxx_work.c
 
+if WANT_MATGEN
 LAPACKE_MATGEN_SOURCES = \
 	src/lapacke_clatms.c \
 	src/lapacke_clatms_work.c \
@@ -2102,6 +2103,7 @@ LAPACKE_MATGEN_SOURCES = \
 	src/lapacke_slagsy_work.c \
 	src/lapacke_zlagsy.c \
 	src/lapacke_zlagsy_work.c
+endif
 
 LAPACKE_UTILS_SOURCES = \
 	utils/lapacke_cgb_nancheck.c \
@@ -2258,12 +2260,14 @@ LAPACKE_UTILS_SOURCES = \
 
 lib_LTLIBRARIES		= liblapacke.la
 liblapacke_la_LDFLAGS	= -version-info 1:0:0
+if WANT_MATGEN
 liblapacke_la_LIBADD	= ../lapack/liblapack.la ../tmglib/libtmglib.la
+else
+liblapacke_la_LIBADD	= ../lapack/liblapack.la
+endif
 liblapacke_la_SOURCES	= $(LAPACKE_SRC_SOURCES) $(LAPACKE_MATGEN_SOURCES) $(LAPACKE_UTILS_SOURCES)
 if USEXBLAS
 liblapacke_la_SOURCES	+= $(LAPACKE_SRCX_SOURCES)
-else
-
 endif
 
 ### end of file

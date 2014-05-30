@@ -17,6 +17,8 @@ fi
     --disable-static --enable-shared            \
     --prefix="${prefix}"                        \
     --libdir="${libdir}"                        \
+    --enable-matgen				\
+    --enable-xblas				\
     CFLAGS='-O3'				\
     FFLAGS='-O3'				\
     "$@"

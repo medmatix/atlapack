@@ -910,12 +910,11 @@ LAPACK_ALLXOBJ = \
 	$(LAPACK_CXLASRC) $(LAPACK_ZXLASRC)
 
 lib_LTLIBRARIES		= liblapack.la
-liblapack_la_LDFLAGS	= -version-info 1:0:0
+liblapack_la_LDFLAGS	= -version-info 1:0:0 $(BLAS_LIBS)
 
-if USEXBLAS
-liblapack_la_SOURCES	= $(LAPACK_ALLOBJ) $(LAPACK_ALLXOBJ)
-else
 liblapack_la_SOURCES	= $(LAPACK_ALLOBJ)
+if USEXBLAS
+liblapack_la_SOURCES	+= $(LAPACK_ALLXOBJ)
 endif
 
 ### end of file

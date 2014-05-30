@@ -19,12 +19,25 @@ AC_PROG_MKDIR_P
 
 AC_ARG_ENABLE([xblas],
   [AS_HELP_STRING([--enable-xblas],[enable use of XBLAS])],
-  [case "${enableval}" in
-     yes) USEXBLAS=true ;;
-     no)  USEXBLAS=false ;;
-     *)   AC_MSG_ERROR([bad value ${enableval} for --enable-xblas]) ;;
-   esac],[USEXBLAS=false])
+  [AS_IF([test "x${enableval}" = xyes],
+         [USEXBLAS=true],
+         [test "x${enableval}" = xno],
+         [USEXBLAS=false],
+         [AC_MSG_ERROR([bad value ${enableval} for --enable-xblas])])],
+  [USEXBLAS=false])
 AM_CONDITIONAL([USEXBLAS],[test X$USEXBLAS = xtrue])
+
+AC_MSG_CHECKING([whether to install matgen library])
+AC_ARG_ENABLE([matgen],
+  [AS_HELP_STRING([--enable-matgen],[enable installation of matgen library])],
+  [AS_IF([test "x${enableval}" = xyes],
+         [USEMATGEN=true],
+         [test "x${enableval}" = xno],
+         [USEMATGEN=false],
+         [AC_MSG_ERROR([bad value ${enableval} for --enable-matgen])])],
+  [USEMATGEN=false])
+AC_MSG_RESULT([$enableval])
+AM_CONDITIONAL([WANT_MATGEN],[test X$USEMATGEN = xtrue])
 
 LT_PREREQ([2.4])
 LT_INIT
@@ -38,7 +51,11 @@ AC_PROG_F77_C_O
 AC_F77_LIBRARY_LDFLAGS
 AC_F77_WRAPPERS
 
-AC_CHECK_LIB([blas],[ddot],,[AC_MSG_FAILURE([test for BLAS library failed])])
+dnl Checks for libraries.
+#AC_CHECK_LIB([blas],[ddot],,[AC_MSG_FAILURE([test for BLAS library failed])])
+
+dnl This defines for substitution BLAS_LIBS.
+PKG_CHECK_MODULES([BLAS],[blas >= 0.2.0])
 
 AC_LANG([C])
 AC_PROG_CC
