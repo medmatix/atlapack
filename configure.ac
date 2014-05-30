@@ -91,7 +91,13 @@ AM_PROG_CC_C_O
 AC_PROG_CC_STDC
 
 dnl This is required for some tests.
-AC_CHECK_LIB([m],[cabs])
+AC_CHECK_LIB([m],[cabs],
+  [AS_VAR_SET([MATH_LIBS],[-lm])
+   AS_VAR_SET([atlapack_FOUND_MATH_LIB],[yes])],
+  [AS_VAR_SET([MATH_LIBS])
+   AS_VAR_SET([atlapack_FOUND_MATH_LIB],[no])])
+AC_SUBST([MATH_LIBS])
+AM_CONDITIONAL([FOUND_MATH_LIB],[test "x$atlapack_FOUND_MATH_LIB" = xyes])
 
 dnl CBLAS is needed only for some test files.  This defines for
 dnl substitution CBLAS_LIBS and CBLAS_CFLAGS.

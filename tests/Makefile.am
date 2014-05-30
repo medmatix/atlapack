@@ -8,8 +8,11 @@ EXTRA_DIST	= \
 	cblas-cgeqrf.c
 
 check_PROGRAMS	= dgels
+
 if WANT_CBLAS
+if FOUND_MATH_LIB
 check_PROGRAMS	+= cblas-cgeqrf
+endif
 endif
 
 TESTS		= $(check_PROGRAMS)
@@ -18,7 +21,7 @@ TESTS		= $(check_PROGRAMS)
 
 dgels_LDADD		= ../lapacke/liblapacke.la
 
-cblas_cgeqrf_LDADD	= ../lapacke/liblapacke.la  $(CBLAS_LIBS)
+cblas_cgeqrf_LDADD	= ../lapacke/liblapacke.la $(MATH_LIBS) $(CBLAS_LIBS)
 cblas_cgeqrf_CPPFLAGS	= $(CBLAS_CFLAGS)
 
 ### end of file
