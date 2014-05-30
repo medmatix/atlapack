@@ -245,7 +245,7 @@ LAPACK_DSLASRC = \
 # Single precision real LAPACK routines using extra precision.
 if USEXBLAS
 LAPACK_SXLASRC =	\
-	sgesvxx.	f	sgerfsx.f	\
+	sgesvxx.f		sgerfsx.f	\
 	sla_gerfsx_extended.f	sla_geamv.f	\
 	sla_gercond.f		sla_gerpvgrw.f	\
 	ssysvxx.f		ssyrfsx.f	\
