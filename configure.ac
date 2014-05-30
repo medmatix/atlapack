@@ -90,7 +90,7 @@ AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_CC_STDC
 
-dnl This is required for some tests
+dnl This is required for some tests.
 AC_CHECK_LIB([m],[cabs])
 
 dnl CBLAS is needed only for some test files.  This defines for
