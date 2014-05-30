@@ -18,7 +18,7 @@ fi
     --prefix="${prefix}"                        \
     --libdir="${libdir}"                        \
     --enable-matgen				\
-    --enable-xblas				\
+    --with-cblas				\
     CFLAGS='-O3'				\
     FFLAGS='-O3'				\
     "$@"

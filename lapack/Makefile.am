@@ -244,16 +244,20 @@ LAPACK_DSLASRC = \
 
 # Single precision real LAPACK routines using extra precision.
 if USEXBLAS
-LAPACK_SXLASRC = \
-	sgesvxx.f	sgerfsx.f	sla_gerfsx_extended.f	\
-	sla_geamv.f	sla_gercond.f	sla_gerpvgrw.f		\
-	ssysvxx.f	ssyrfsx.f	sla_syrfsx_extended.f	\
-	sla_syamv.f	sla_syrcond.f	sla_syrpvgrw.f		\
-	sposvxx.f	sporfsx.f	sla_porfsx_extended.f	\
-	sla_porcond.f	sla_porpvgrw.f	sgbsvxx.f		\
-	sgbrfsx.f	sla_gbrfsx_extended.f			\
-	sla_gbamv.f	sla_gbrcond.f	sla_gbrpvgrw.f		\
-	sla_lin_berr.f	slarscl2.f	slascl2.f		\
+LAPACK_SXLASRC =	\
+	sgesvxx.	f	sgerfsx.f	\
+	sla_gerfsx_extended.f	sla_geamv.f	\
+	sla_gercond.f		sla_gerpvgrw.f	\
+	ssysvxx.f		ssyrfsx.f	\
+	sla_syrfsx_extended.f	sla_syamv.f	\
+	sla_syrcond.f		sla_syrpvgrw.f	\
+	sposvxx.f		sporfsx.f	\
+	sla_porfsx_extended.f	sla_porcond.f	\
+	sla_porpvgrw.f		sgbsvxx.f	\
+	sgbrfsx.f		sla_gbrfsx_extended.f	\
+	sla_gbamv.f		sla_gbrcond.f	\
+	sla_gbrpvgrw.f		sla_lin_berr.f	\
+	slarscl2.f		slascl2.f	\
 	sla_wwaddw.f
 endif
 
@@ -453,25 +457,25 @@ LAPACK_CLASRC = \
 
 # Single precision complex LAPACK routines using extra precision.
 if USEXBLAS
-LAPACK_CXLASRC = \
-	cgesvxx.f		cgerfsx.f		\
-	cla_gerfsx_extended.f	cla_geamv.f		\
-	cla_gercond_c.f		cla_gercond_x.f		\
-	cla_gerpvgrw.f		csysvxx.f		\
+LAPACK_CXLASRC =	\
+	cgesvxx.f		cgerfsx.f	\
+	cla_gerfsx_extended.f	cla_geamv.f	\
+	cla_gercond_c.f		cla_gercond_x.f	\
+	cla_gerpvgrw.f		csysvxx.f	\
 	csyrfsx.f		cla_syrfsx_extended.f	\
-	cla_syamv.f		cla_syrcond_c.f		\
-	cla_syrcond_x.f		cla_syrpvgrw.f		\
-	cposvxx.f		cporfsx.f		\
-	cla_porfsx_extended.f	cla_porcond_c.f		\
-	cla_porcond_x.f		cla_porpvgrw.f		\
-	cgbsvxx.f		cgbrfsx.f		\
-	cla_gbrfsx_extended.f	cla_gbamv.f		\
-	cla_gbrcond_c.f		cla_gbrcond_x.f		\
-	cla_gbrpvgrw.f		chesvxx.f		\
+	cla_syamv.f		cla_syrcond_c.f	\
+	cla_syrcond_x.f		cla_syrpvgrw.f	\
+	cposvxx.f		cporfsx.f	\
+	cla_porfsx_extended.f	cla_porcond_c.f	\
+	cla_porcond_x.f		cla_porpvgrw.f	\
+	cgbsvxx.f		cgbrfsx.f	\
+	cla_gbrfsx_extended.f	cla_gbamv.f	\
+	cla_gbrcond_c.f		cla_gbrcond_x.f	\
+	cla_gbrpvgrw.f		chesvxx.f	\
 	cherfsx.f		cla_herfsx_extended.f	\
-	cla_heamv.f		cla_hercond_c.f		\
-	cla_hercond_x.f		cla_herpvgrw.f		\
-	cla_lin_berr.f		clarscl2.f		\
+	cla_heamv.f		cla_hercond_c.f	\
+	cla_hercond_x.f		cla_herpvgrw.f	\
+	cla_lin_berr.f		clarscl2.f	\
 	clascl2.f		cla_wwaddw.f
 endif
 
@@ -659,20 +663,20 @@ LAPACK_DLASRC = 	\
 
 # Double precision real LAPACK routines using extra precision.
 if USEXBLAS
-LAPACK_DXLASRC = \
-	dgesvxx.f		dgerfsx.f		\
-	dla_gerfsx_extended.f	dla_geamv.f		\
-	dla_gercond.f		dla_gerpvgrw.f		\
-	dsysvxx.f		dsyrfsx.f		\
-	dla_syrfsx_extended.f	dla_syamv.f		\
-	dla_syrcond.f		dla_syrpvgrw.f		\
-	dposvxx.f		dporfsx.f		\
-	dla_porfsx_extended.f	dla_porcond.f		\
-	dla_porpvgrw.f		dgbsvxx.f		\
+LAPACK_DXLASRC =	\
+	dgesvxx.f		dgerfsx.f	\
+	dla_gerfsx_extended.f	dla_geamv.f	\
+	dla_gercond.f		dla_gerpvgrw.f	\
+	dsysvxx.f		dsyrfsx.f	\
+	dla_syrfsx_extended.f	dla_syamv.f	\
+	dla_syrcond.f		dla_syrpvgrw.f	\
+	dposvxx.f		dporfsx.f	\
+	dla_porfsx_extended.f	dla_porcond.f	\
+	dla_porpvgrw.f		dgbsvxx.f	\
 	dgbrfsx.f		dla_gbrfsx_extended.f	\
-	dla_gbamv.f		dla_gbrcond.f		\
-	dla_gbrpvgrw.f		dla_lin_berr.f		\
-	dlarscl2.f		dlascl2.f		\
+	dla_gbamv.f		dla_gbrcond.f	\
+	dla_gbrpvgrw.f		dla_lin_berr.f	\
+	dlarscl2.f		dlascl2.f	\
 	dla_wwaddw.f
 endif
 

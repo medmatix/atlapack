@@ -2260,10 +2260,9 @@ LAPACKE_UTILS_SOURCES = \
 
 lib_LTLIBRARIES		= liblapacke.la
 liblapacke_la_LDFLAGS	= -version-info 1:0:0
-if WANT_MATGEN
-liblapacke_la_LIBADD	= ../lapack/liblapack.la ../tmglib/libtmglib.la
-else
 liblapacke_la_LIBADD	= ../lapack/liblapack.la
+if WANT_MATGEN
+liblapacke_la_LIBADD	+= ../tmglib/libtmglib.la
 endif
 liblapacke_la_SOURCES	= $(LAPACKE_SRC_SOURCES) $(LAPACKE_MATGEN_SOURCES) $(LAPACKE_UTILS_SOURCES)
 if USEXBLAS

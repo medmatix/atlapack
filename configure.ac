@@ -17,30 +17,58 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_MKDIR_P
 
+LT_PREREQ([2.4])
+LT_INIT
+
+dnl page
+dnl components inclusion
+
+AC_MSG_CHECKING([whether to include xblas-based routines])
 AC_ARG_ENABLE([xblas],
-  [AS_HELP_STRING([--enable-xblas],[enable use of XBLAS])],
-  [AS_IF([test "x${enableval}" = xyes],
-         [USEXBLAS=true],
-         [test "x${enableval}" = xno],
-         [USEXBLAS=false],
-         [AC_MSG_ERROR([bad value ${enableval} for --enable-xblas])])],
-  [USEXBLAS=false])
-AM_CONDITIONAL([USEXBLAS],[test X$USEXBLAS = xtrue])
+  [AS_HELP_STRING([--enable-xblas],[enable use of XBLAS routines])],
+  [AS_IF([test "x$enableval" = xyes],
+         [USEXBLAS=yes],
+         [test "x$enableval" = xno],
+         [USEXBLAS=no],
+         [AC_MSG_ERROR([bad value $enableval for --enable-xblas])])],
+  [USEXBLAS=no])
+AC_MSG_RESULT([$USEXBLAS])
+AM_CONDITIONAL([USEXBLAS],[test "x$USEXBLAS" = xyes])
+
+dnl FIXME use of XBLAS routines always fails because it requires
+dnl routines that are not available in BLAS.  XBLAS is actually a
+dnl separate package:
+dnl
+dnl   <http://www.netlib.org/xblas/>
+dnl
+AS_IF([test "X$USEXBLAS" = xyes],
+      [AC_MSG_ERROR([enabling XBLAS routines is currently broken])])
 
 AC_MSG_CHECKING([whether to install matgen library])
 AC_ARG_ENABLE([matgen],
   [AS_HELP_STRING([--enable-matgen],[enable installation of matgen library])],
-  [AS_IF([test "x${enableval}" = xyes],
-         [USEMATGEN=true],
-         [test "x${enableval}" = xno],
-         [USEMATGEN=false],
-         [AC_MSG_ERROR([bad value ${enableval} for --enable-matgen])])],
-  [USEMATGEN=false])
-AC_MSG_RESULT([$enableval])
-AM_CONDITIONAL([WANT_MATGEN],[test X$USEMATGEN = xtrue])
+  [AS_IF([test "x$enableval" = xyes],
+         [USEMATGEN=yes],
+         [test "x$enableval" = xno],
+         [USEMATGEN=no],
+         [AC_MSG_ERROR([bad value $enableval for --enable-matgen])])],
+  [USEMATGEN=no])
+AM_CONDITIONAL([WANT_MATGEN],[test "x$USEMATGEN" = xyes])
 
-LT_PREREQ([2.4])
-LT_INIT
+AC_MSG_CHECKING([whether to search CBLAS for some test programs])
+AC_ARG_WITH([cblas],
+  [AS_HELP_STRING([--with-cblas],[search CBLAS for some test programs])],
+  [AS_IF([test "x$withval" = xyes],
+         [USECBLAS=yes],
+         [test "x$withval" = xno],
+         [USECBLAS=no],
+         [AC_MSG_ERROR([bad value $withval for --enable-cblas])])],
+  [USECBLAS=no])
+AC_MSG_RESULT([$USECBLAS])
+AM_CONDITIONAL([WANT_CBLAS],[test "x$USECBLAS" = xyes])
+
+dnl page
+dnl languages and external libraries
 
 LT_LANG([Fortran 77])
 AC_LANG([Fortran 77])
@@ -62,9 +90,13 @@ AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_CC_STDC
 
-AC_PROG_INSTALL
-AC_PROG_LN_S
-AC_PROG_MAKE_SET
+dnl This is required for some tests
+AC_CHECK_LIB([m],[cabs])
+
+dnl CBLAS is needed only for some test files.  This defines for
+dnl substitution CBLAS_LIBS and CBLAS_CFLAGS.
+AS_IF([test "x$USECBLAS" = xyes],
+      [PKG_CHECK_MODULES([CBLAS],[cblas >= 0.2.0])])
 
 dnl Checks for header files.
 AC_HEADER_STDC
@@ -72,6 +104,9 @@ AC_HEADER_STDC
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 AC_TYPE_SIZE_T
+
+dnl page
+dnl done
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile]

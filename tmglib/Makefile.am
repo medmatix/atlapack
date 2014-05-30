@@ -61,6 +61,7 @@ if WANT_MATGEN
 lib_LTLIBRARIES		= libtmglib.la
 endif
 libtmglib_la_LDFLAGS	= -version-info 1:0:0
+#libtmglib_la_LIBADD	= ../lapack/liblapack.la
 libtmglib_la_SOURCES	= $(TMGLIB_ALLOBJ)
 
 ### end of file
