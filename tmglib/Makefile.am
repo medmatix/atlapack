@@ -1,10 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-lib_LTLIBRARIES		= libtmglib.la
-
-#page
-#### sources
-
 TMGLIB_SCATGEN = 	\
 	slatm1.f	slaran.f	\
 	slarnd.f
@@ -62,7 +57,7 @@ TMGLIB_ALLOBJ = \
 	$(TMGLIB_SMATGEN) $(TMGLIB_CMATGEN) $(TMGLIB_SCATGEN) \
 	$(TMGLIB_DMATGEN) $(TMGLIB_ZMATGEN) $(TMGLIB_DZATGEN)
 
-lib_LTLIBRARIES		= libtmglib.la
+noinst_LTLIBRARIES	= libtmglib.la
 libtmglib_la_LDFLAGS	= -version-info 1:0:0
 libtmglib_la_SOURCES	= $(TMGLIB_ALLOBJ)
 

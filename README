@@ -297,7 +297,7 @@ upgrade ATLAPACK with the new source files we do:
 
    and update the file lists in "atlapack/doc/Makefile.am".
 
-8. We can examine the list of new files with:
+  At last, we can examine the list of new files with:
 
     $ git status
 

@@ -61,6 +61,7 @@ AC_CONFIG_FILES([Makefile]
   [lapack/Makefile]
   [tmglib/Makefile]
   [lapacke/Makefile]
+  [tests/Makefile]
   [doc/Makefile])
 AC_OUTPUT
 
