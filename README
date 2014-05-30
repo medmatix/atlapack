@@ -236,6 +236,13 @@ It is a good idea to keep  the version of this package synchronised with
 the version of the corresponding  LAPACK release.  The version number is
 in the file "configure.ac".
 
+  It is  suggested to use a  single "Makefile.am" file, to  make it easy
+for  the make  program  to infer  dependencies;  unfortunately, in  this
+package there are  ``many'' files, and a single makefile  would hit some
+host platform limits on arguments  length.  For this reason this package
+makes use of multiple "Makefile.am" files; it is still possible to build
+the package with parallel make processes.
+
   Let's say  the archive  of a new  release of LAPACK  is unpacked  in a
 directory "newlapack" and  ATLAPACK is in the  directory "atlapack".  To
 upgrade ATLAPACK with the new source files we do:
@@ -247,9 +254,13 @@ upgrade ATLAPACK with the new source files we do:
 
     $ cp newlapack/SRC/*.f atlapack/lapack/
 
+   and update the file lists in "atlapack/lapack/Makefile.am".
+
 2. Copy the LAPACK machine dependent files:
 
     $ cp newlapack/INSTALL/*.f atlapack/lapack/machine-dependent/
+
+   and update the file lists in "atlapack/lapack/Makefile.am".
 
 3. Copy the LAPACKE include files:
 
@@ -258,17 +269,25 @@ upgrade ATLAPACK with the new source files we do:
        lapacke/src/lapacke_mangling_with_flags.h \
        lapacke/src/lapacke_mangling.h
 
+   and update the file lists in "atlapack/lapacke/Makefile.am".
+
 4. Copy the LAPACKE source files:
 
     $ cp newlapack/lapacke/src/*.c atlapack/lapacke/src/
+
+   and update the file lists in "atlapack/lapacke/Makefile.am".
 
 5. Copy the LAPACKE utils source files:
 
     $ cp newlapack/lapacke/utils/*.c atlapack/lapacke/utils/
 
+   and update the file lists in "atlapack/lapacke/Makefile.am".
+
 6. Copy the MATGEN utils source files:
 
     $ cp newlapack/TESTING/MATGEN/*.f atlapack/tmglib/
+
+   and update the file lists in "atlapack/tmglib/Makefile.am".
 
 7. Download the archive of manual pages from LAPACK's site and unpack it
    under "atlapack/doc/":
@@ -276,13 +295,11 @@ upgrade ATLAPACK with the new source files we do:
     $ cd atlapack/doc
     $ tar xvzf /path/to/manpages.tgz
 
+   and update the file lists in "atlapack/doc/Makefile.am".
+
 8. We can examine the list of new files with:
 
     $ git status
-
-9. Update the  lists of files in "atlapack/Makefile.am".  Yes,  we use a
-   single Makefile.am  here.  Notice that  the files must  include their
-   source pathname relative to the top source directory.
 
 
 E. Formatting file lists under GNU Emacs
