@@ -1,0 +1,15 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+
+## ------------------------------------------------------------
+
+Name: @PACKAGE_NAME@
+Description: Linear Algebra PACKage (LAPACK) library
+Version: @MY_LAPACK_PKG_CONFIG_VERSION@
+Libs: -L${libdir} -llapack
+
+### end of file
+# Local Variables:
+# mode: script
+# End:

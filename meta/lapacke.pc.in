@@ -1,0 +1,16 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+includedir=@includedir@
+libdir=@libdir@
+
+Name: @PACKAGE_NAME@
+Description: C Linear Algebra PACKage (LAPACK) library
+Version: @MY_LAPACKE_PKG_CONFIG_VERSION@
+Requires.private: lapack >= @MY_LAPACK_PKG_CONFIG_VERSION@ matgen >= @MY_MATGEN_PKG_CONFIG_VERSION@
+Libs: -L${libdir} -llapacke
+Cflags: -I${includedir}
+
+### end of file
+# Local Variables:
+# mode: script
+# End:

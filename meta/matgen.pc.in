@@ -1,0 +1,15 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+
+## ------------------------------------------------------------
+
+Name: @PACKAGE_NAME@
+Description: LAPACK math generation
+Version: @MY_MATGEN_PKG_CONFIG_VERSION@
+Libs: -L${libdir} -lmatgen
+
+### end of file
+# Local Variables:
+# mode: script
+# End:

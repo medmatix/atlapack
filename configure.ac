@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.68)
-AC_INIT([LAPACK with GNU Autotools],[3.5.0],[marco.maggi-ipsu@poste.it],
+AC_INIT([LAPACK with GNU Autotools],[3.5.0.1],[marco.maggi-ipsu@poste.it],
   [atlapack],[http://github.com/marcomaggi/atlapack/])
 AC_CONFIG_SRCDIR([lapack/])
 AC_CONFIG_MACRO_DIR([meta/autotools])
@@ -19,6 +19,11 @@ AC_PROG_MKDIR_P
 
 LT_PREREQ([2.4])
 LT_INIT
+
+dnl This is the version stored in the pkg-config data file.
+AC_SUBST([MY_LAPACK_PKG_CONFIG_VERSION],[3.5.0])
+AC_SUBST([MY_MATGEN_PKG_CONFIG_VERSION],[3.5.0])
+AC_SUBST([MY_LAPACKE_PKG_CONFIG_VERSION],[3.5.0])
 
 dnl page
 dnl components inclusion
@@ -120,7 +125,10 @@ AC_CONFIG_FILES([Makefile]
   [tmglib/Makefile]
   [lapacke/Makefile]
   [tests/Makefile]
-  [doc/Makefile])
+  [doc/Makefile]
+  [meta/lapack.pc]
+  [meta/lapacke.pc]
+  [meta/matgen.pc])
 AC_OUTPUT
 
 dnl end of file
