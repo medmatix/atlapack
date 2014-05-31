@@ -3,11 +3,7 @@
 # Read "Parallel Test Harness" in the documentation of GNU Automake to
 # understand how to use this interface for "make check".
 
-EXTRA_DIST	= \
-	dgels.c			\
-	cblas-cgeqrf.c
-
-check_PROGRAMS	= dgels
+check_PROGRAMS	= dgels dgesv
 
 if WANT_CBLAS
 if FOUND_MATH_LIB
@@ -20,6 +16,9 @@ TESTS		= $(check_PROGRAMS)
 ## --------------------------------------------------------------------
 
 dgels_LDADD		= ../lapacke/liblapacke.la
+
+dgesv_LDADD		= ../lapacke/liblapacke.la
+dgesv_SOURCES		= dgesv.c atlapack-test-utils.h
 
 cblas_cgeqrf_LDADD	= ../lapacke/liblapacke.la $(MATH_LIBS) $(CBLAS_LIBS)
 cblas_cgeqrf_CPPFLAGS	= $(CBLAS_CFLAGS)
