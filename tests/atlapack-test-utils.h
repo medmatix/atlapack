@@ -36,11 +36,12 @@
 
 #define EPSILON		1e-3
 
+/* ------------------------------------------------------------------ */
 
 static void
-print_row_major_matrix (const char * matrix_name, const double * X_,
-			const int number_of_rows,
-			const int number_of_columns)
+print_double_row_major_matrix (const char * matrix_name, const double * X_,
+			       const int number_of_rows,
+			       const int number_of_columns)
 /* Given an array  representing a matrix in row-major  order: display it
    to stdout in row-major order. */
 {
@@ -57,11 +58,30 @@ print_row_major_matrix (const char * matrix_name, const double * X_,
   }
   printf("\n");
 }
+void
+print_partial_pivoting_matrix (const char * description, const int * P_,
+			       const int number_of_rows)
+{
+  int	N = number_of_rows;
+  int	(*P)[N] = (void*)P_;
+  printf("\tPartial pivoting vector and matrix: %s\n\t(dimension %d x %d):\n",
+	 description, number_of_rows, number_of_rows);
+  for (int i=0; i<N; ++i) {
+    int		j = 0;
+    printf("\t| (%d,%d) %d | ", 1+i, 1+j, (*P)[i]);
+    printf("| (%d,%d) %d ", 1+i, 1+j, (((1+j) == (*P)[i])? 1 : 0));
+    for (++j; j<N; ++j) {
+      printf("  (%d,%d) %d ", 1+i, 1+j, (((1+j) == (*P)[i])? 1 : 0));
+    }
+    printf(" |\n");
+  }
+  printf("\n");
+}
 static void
-row_major_compare_result_and_expected_result (const char * description,
-					      const double * X_, const double * R_,
-					      const int number_of_rows,
-					      const int number_of_columns)
+compare_double_row_major_result_and_expected_result (const char * description,
+						     const double * X_, const double * R_,
+						     const int number_of_rows,
+						     const int number_of_columns)
 /* Given two  arrays representing  matrices in row-major  order: compare
    them as result of computation  (X) and expected result of computation
    (R); print log messages to stdout. */
@@ -79,11 +99,50 @@ row_major_compare_result_and_expected_result (const char * description,
     }
   }
   if (error) {
-    printf("\tWrong result \"%s\" in row-major computation.\n", description);
+    printf("\tWrong result \"%s\" in row-major computation.\n\n", description);
     exit(EXIT_FAILURE);
   } else {
-    printf("\tThe result \"%s\" equals the expected one, up to epsilon = %lg.\n",
+    printf("\tThe result \"%s\" equals the expected one, up to epsilon = %lg.\n\n",
 	   description, EPSILON);
+  }
+}
+
+static void
+double_row_major_split_LU (const double * A_,
+			   const double * L_, const double * U_,
+			   const int number_of_rows_and_columns)
+/* Given  an array  representing A  matrix decomposed  in LU  form: fill
+ * other arrays with the L elemets and the U elements.  The matrices are
+ * meant to have the format:
+ *
+ *    | u_11 u_12 u_13 |    |  1     0   0 |    | u_11 u_12 u_13 |
+ *  A=| l_21 u_22 u_23 |  L=| l_21   1   0 |  U=|  0   u_22 u_23 |
+ *    | l_31 l_32 u_33 |    | l_31 l_32  1 |    |  0    0   u_33 |
+ */
+{
+  const int	N = number_of_rows_and_columns;
+  double	(*A)[N][N] = (void*)A_;
+  double	(*L)[N][N] = (void*)L_;
+  double	(*U)[N][N] = (void*)U_;
+  for (int i=0; i<N; ++i) {
+    for (int j=0; j<N; ++j) {
+      if (i < j) {
+	(*L)[i][j] = 0.0;
+      } else if (i == j) {
+	(*L)[i][j] = 1.0;
+      } else {
+	(*L)[i][j] = (*A)[i][j];
+      }
+    }
+  }
+  for (int i=0; i<N; ++i) {
+    for (int j=0; j<N; ++j) {
+      if (i <= j) {
+	(*U)[i][j] = (*A)[i][j];
+      } else {
+	(*U)[i][j] = 0.0;
+      }
+    }
   }
 }
 
