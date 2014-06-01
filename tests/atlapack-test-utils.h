@@ -58,24 +58,78 @@ print_double_row_major_matrix (const char * matrix_name, const double * X_,
   }
   printf("\n");
 }
-void
-print_partial_pivoting_matrix (const char * description, const int * P_,
-			       const int number_of_rows)
+static void
+print_int_row_major_matrix (const char * matrix_name, const int * X_,
+			    const int number_of_rows,
+			    const int number_of_columns)
+/* Given an array  representing a matrix in row-major  order: display it
+   to stdout in row-major order. */
 {
-  int	N = number_of_rows;
-  int	(*P)[N] = (void*)P_;
-  printf("\tPartial pivoting vector and matrix: %s\n\t(dimension %d x %d):\n",
-	 description, number_of_rows, number_of_rows);
-  for (int i=0; i<N; ++i) {
+  const int	(*X)[number_of_rows][number_of_columns] = (void*)X_;
+  printf("\tRow-major matrix %s\n\t(dimension %d x %d) (displayed in row-major order):\n",
+	 matrix_name, number_of_rows, number_of_columns);
+  for (int i=0; i<number_of_rows; ++i) {
     int		j = 0;
-    printf("\t| (%d,%d) %d | ", 1+i, 1+j, (*P)[i]);
-    printf("| (%d,%d) %d ", 1+i, 1+j, (((1+j) == (*P)[i])? 1 : 0));
-    for (++j; j<N; ++j) {
-      printf("  (%d,%d) %d ", 1+i, 1+j, (((1+j) == (*P)[i])? 1 : 0));
+    printf("\t| (%d,%d) %d ", 1+i, 1+j, (*X)[i][j]);
+    for (++j; j<number_of_columns; ++j) {
+      printf("  (%d,%d) %d ", 1+i, 1+j, (*X)[i][j]);
     }
     printf(" |\n");
   }
   printf("\n");
+}
+
+/* ------------------------------------------------------------------ */
+
+void
+print_partial_pivoting_vector_and_permutation_matrix_LU (const int * IPIV_,
+							 const int number_of_indices,
+							 const int number_of_rows)
+/* When the permutation is applied  to a rectangular matrix (rather than
+   a  square one):  the number  of indices  differs from  the number  of
+   rows.*/
+{
+  int	(*IPIV)[number_of_indices] = (void*)IPIV_;
+  int	N = number_of_rows;
+  int	declare_perms[N];
+  int	P[N][N];
+  printf("\tLAPACK's partial pivoting vector, sequence of permutations,\n\t1-based indexes:\n");
+  {
+    int		i = 0;
+    printf("\t| (%d) %d | first swap line %d with line %d\n", 1+i, (*IPIV)[i], 1+i, (*IPIV)[i]);
+    for (++i; i<number_of_indices; ++i) {
+      printf("\t| (%d) %d | then  swap line %d with line %d\n", 1+i, (*IPIV)[i], 1+i, (*IPIV)[i]);
+    }
+  }
+
+  /* Build a declarative permutation vector  in which element i declares
+     the permutation performed on row i. */
+  {
+    for (int i=0; i<number_of_rows; ++i) {
+      declare_perms[i] = 1+i;
+    }
+    for (int i=0; i<number_of_rows; ++i) {
+      /* Fortran has 1-based indexes, C has 0-based indexes. */
+      int idx = (*IPIV)[i] - 1;
+      int	tmp = declare_perms[idx];
+      declare_perms[idx] = declare_perms[i];
+      declare_perms[i] = tmp;
+    }
+    printf("\tpermutations declaration vector, every index represents the row permutation,\n\t1-based indexes:\n");
+    for (int i=0; i<number_of_rows; ++i) {
+      printf("\t| (%d) %d | line %d is swapped with with line %d\n", 1+i, declare_perms[i], 1+i, declare_perms[i]);
+    }
+  }
+
+  /* Build the permutation matrix. */
+  {
+    memset(&P[0][0], 0, sizeof(int) * N * N);
+    for (int i=0; i<number_of_rows; ++i) {
+      P[i][declare_perms[i]-1] = 1;
+    }
+    print_int_row_major_matrix("P permutation of A', where: A = P A' = P L U",
+			       &P[0][0], N, N);
+  }
 }
 static void
 compare_double_row_major_result_and_expected_result (const char * description,

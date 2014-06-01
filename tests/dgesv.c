@@ -1,6 +1,9 @@
 /* This test program is built from  examples from the Net.  See both the
  * manual page for the Fortran routine dgesv(3) and the prototype of the
- * C function in "lapacke.h".
+ * C function "LAPACKE_dgesv()" in the header file "lapacke.h"; see also
+ * the manual  page dgemm(3),  which is  installed along  with ATLAPACK,
+ * which documents the BLAS routine  DGEMM and the header file "cblas.h"
+ * for the prototype of "cblas_dgemm()".
  *
  * We want to solve the system of equations:
  *
@@ -8,7 +11,7 @@
  *     3 * x1 + 4 * x2 + 5 * x3 = 8
  *     6 * x1 + 7 * x2 + 8 * x3 = 7
  *
- * in matrix notation:
+ * to determine the unknowns x1, x2 and x3; in matrix notation we write:
  *
  *     -       -   -  -     - -
  *    | 0  1  2 | | x1 |   | 9 |
@@ -16,7 +19,7 @@
  *    | 6  7  8 | | x3 |   | 7 |
  *     -       -   -  -     - -
  *
- * abstracting:
+ * and abstracting:
  *
  *     -             -   -  -     -  -
  *    | a11  a12  a13 | | x1 |   | b1 |
@@ -24,7 +27,53 @@
  *    | a31  a32  a33 | | x3 |   | b3 |
  *     -             -   -  -     -  -
  *
- * and we will use the symbols: A X = B.
+ * and we  will use the symbols:  A X =  B, where A is  the coefficients
+ * matrix, X is the vector of unknowns, B is the right-hand side vector.
+ * The LAPACK routines are capable of handling X and B as matrices, but,
+ * in this test program, we limit ourselves to column vectors.
+ *
+ * How LAPACK's routine DGESV does it?  It factorises the matrix A in LU
+ * form  with   partial  pivoting;  for   an  introduction  to   the  LU
+ * factorisation see:
+ *
+ *    <http://en.wikipedia.org/wiki/Lu_decomposition>
+ *
+ * Whatever the actual implementation, we  can think of the algorithm as
+ * follows:  first,   to  make  the  factorisation   possible  and  more
+ * convenient, it permutes the rows of matrix A obtaining a matrix A'; A
+ * can be rebuilt from A' by left-multiplying by a permutation matrix P:
+ *
+ *    A = P A'
+ *
+ * then it factorises  A' in the product of a  lower triangular matrix L
+ * and an upper triangular matrix U:
+ *
+ *    A' = L U
+ *
+ * so that the system becomes:
+ *
+ *    A X = B  =>  P A' X = B  =>  P L U X = B
+ *
+ * and finally it determines X.
+ *
+ * The resulting matrices L and U have elements:
+ *
+ *         -          -          -           -
+ *        |  1   0   0 |        | u11 u12 u13 |
+ *    L = | l21  1   0 |    U = |  0  u22 u23 |
+ *        | l31 l32  1 |        |  0   0  u33 |
+ *         -          -          -           -
+ *
+ * and DGESV returns them in packed  form by mutating its parameter A as
+ * follows:
+ *
+ *         -           -
+ *        | u11 u12 u13 |
+ *    A = | l21 u22 u23 |
+ *        | l31 l32 u33 |
+ *         -           -
+ *
+ * The permutation matrix P is returned by DGESV in its IPIV parameter.
  */
 
 #include <stdio.h>
@@ -62,10 +111,10 @@ doit_in_row_major (void)
     7.0
   };
   /* Result of computation: permuted matrix A decomposed in LU. */
-  double	LU[N][N];
+  double	packedLU[N][N];
   /* Result of computation: unknowns. */
   double	X[N][LDB];
-  /* Result of  computation: array  of permutation  indexes representing
+  /* Result of  computation: vector of permutation  indexes representing
      the partial pivoting matrix. */
   lapack_int	ipiv[N];
   /* Result of computation: error code, zero if success. */
@@ -77,16 +126,19 @@ doit_in_row_major (void)
     28.0/3.0
   };
 
-  /* Load  the  original coefficients  matrix  from  A  to LU.   The  LU
-     decomposition result of  dgesv() will be stored  in LU, overwriting
-     it. */
-  memcpy(LU, A, sizeof(double) * N * N);
+  /* Load the original  coefficients matrix from A to  packedLU.  The LU
+     factorisation  result  of  dgesv()  will  be  stored  in  packedLU,
+     overwriting it. */
+  memcpy(packedLU, A, sizeof(double) * N * N);
   /* Load  the right-hand  side from  B to  X.  The  unknowns result  of
      dgesv() will be stored in X, overwriting it. */
   memcpy(X, B, sizeof(double) * N * NRHS);
 
   /* Do it. */
-  info	= LAPACKE_dgesv(LAPACK_ROW_MAJOR, N, NRHS, (double*)&LU[0][0], LDA, &ipiv[0], &X[0][0], LDB);
+  info	= LAPACKE_dgesv(LAPACK_ROW_MAJOR, N, NRHS,
+			&packedLU[0][0], LDA,
+			&ipiv[0],
+			&X[0][0], LDB);
 
   /* If something went wrong in the function call INFO is non-zero: exit
      with failure. */
@@ -103,29 +155,30 @@ doit_in_row_major (void)
   compare_double_row_major_result_and_expected_result("computed unknowns",
 						      &X[0][0], &R[0][0], N, NRHS);
 
-  print_partial_pivoting_matrix("P, it permutes A before LU factorisation", &ipiv[0], N);
-  print_double_row_major_matrix("LU representing L and U packed in single matrix",
-				&LU[0][0], N, N);
+  print_partial_pivoting_vector_and_permutation_matrix_LU(&ipiv[0], N, N);
+  print_double_row_major_matrix("packedLU representing L and U packed in single matrix",
+				&packedLU[0][0], N, N);
   {
     double	L[N][N];
     double	U[N][N];
-    double_row_major_split_LU(&LU[0][0], &L[0][0], &U[0][0], N);
-    print_double_row_major_matrix("L, component of LU", &L[0][0], N, N);
-    print_double_row_major_matrix("U, component of LU", &U[0][0], N, N);
+    double_row_major_split_LU(&packedLU[0][0], &L[0][0], &U[0][0], N);
+    print_double_row_major_matrix("L, elements of packedLU", &L[0][0], N, N);
+    print_double_row_major_matrix("U, elements of packedLU", &U[0][0], N, N);
 
     /* Multiply L and U to verify that  the result is indeed PA; we need
-     * CBLAS for this.  We need to inspect the header file "cblas.h"; in
-     * general DGEMM does:
+     * CBLAS for this.  In general DGEMM does:
      *
      *   \alpha A B + \beta C
      *
-     * and here we want to do:
+     * where A, B and C are matrices; here we want to do:
      *
      *   1.0 L U + 0 R
      *
-     * where R  is a matrix  whose contents  at input are  not important
-     * here, and whose contents at output are the result of the product.
-     * The prototype of "cblas_dgemm()" is:
+     * where R  is a matrix whose  contents at input are  not important,
+     * and whose contents at output are the result of the operation.  We
+     * need to  inspect both  the header file  "cblas.h" and  the source
+     * file  "dgemm.f"  for the  documentation  of  the parameters;  the
+     * prototype of "cblas_dgemm()" is:
      *
      *    void cblas_dgemm(const enum CBLAS_ORDER Order,
      *                     const enum CBLAS_TRANSPOSE TransA,
@@ -137,6 +190,17 @@ doit_in_row_major (void)
      *                     const double beta,
      *                     double *C, const int ldc);
      *
+     * In our  case all the matrices  are in row-major order  and we the
+     * representations in the  arrays A and B are not  transposed, so: M
+     * is the number of rows of A and C; N is the number of columns of B
+     * and of columns of C; K is the  number of columns of A and rows of
+     * B.  In other words:
+     *
+     *    A has dimensions M x K
+     *    B has dimensions K x N
+     *    C has dimensions M x N
+     *
+     * obviously the product AB has dimensions M x N.
      */
     {
       double	alpha = 1.0;
@@ -145,7 +209,7 @@ doit_in_row_major (void)
       cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
 		  N, N, N,
 		  alpha, &L[0][0], LDA, &U[0][0], LDA, beta, &R[0][0], LDA);
-      print_double_row_major_matrix("R = LU, must be equal to PA", &R[0][0], N, N);
+      print_double_row_major_matrix("R = L U, it must be such that A = P R", &R[0][0], N, N);
     }
   }
 }

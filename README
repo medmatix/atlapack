@@ -176,7 +176,28 @@ to really do it:
 4. Usage
 --------
 
-Read the documentation.
+Read the  documentation.  ATLAPACK installs  manual pages for  both BLAS
+and  LAPACK  routines.   Remember  that there  are  documents  available
+online:
+
+* Quick reference for BLAS routines:
+
+     <http://www.netlib.org/blas/blasqr.pdf>
+
+* Notes on how to use the CBLAS:
+
+     <http://www.netlib.org/blas/blast-forum/cinterface.pdf>
+
+* The online LAPACK User Guide:
+
+     <http://www.netlib.org/lapack/lug/>
+
+  Some (but not all) of the included  test programs are also meant to be
+usage examples, with extensive comments and explanatory output displayed
+to stdout.  After running the test  suite with "make check", see the log
+files under:
+
+   $(builddir)/tests/
 
 
 A. Credits
