@@ -37,22 +37,32 @@
 
 #define EPSILON		1e-3
 
-static void print_double_row_major_matrix (const char * matrix_name,
-					   const int number_of_rows,
-					   const int number_of_cols,
-					   double X[number_of_rows][number_of_cols]);
+void print_double_row_major_matrix (const char * matrix_name,
+				    const int number_of_rows,
+				    const int number_of_cols,
+				    double X[number_of_rows][number_of_cols]);
 
-static void print_double_col_major_matrix (const char * matrix_name,
-					   const int number_of_rows,
-					   const int number_of_cols,
-					   double X[number_of_cols][number_of_rows]);
+void print_double_col_major_matrix (const char * matrix_name,
+				    const int number_of_rows,
+				    const int number_of_cols,
+				    double X[number_of_cols][number_of_rows]);
+
+void print_complex_row_major_matrix (const char * matrix_name,
+				     const int number_of_rows,
+				     const int number_of_cols,
+				     lapack_complex_double X[number_of_rows][number_of_cols]);
+
+void print_complex_col_major_matrix (const char * matrix_name,
+				     const int number_of_rows,
+				     const int number_of_cols,
+				     lapack_complex_double X[number_of_cols][number_of_rows]);
 
 
 /** --------------------------------------------------------------------
  ** Comparing arrays.
  ** ----------------------------------------------------------------- */
 
-static void
+void
 compare_double_row_major_result_and_expected_result (const char * description,
 						     const lapack_int number_of_rows,
 						     const lapack_int number_of_cols,
@@ -66,7 +76,7 @@ compare_double_row_major_result_and_expected_result (const char * description,
   for (int i=0; i<number_of_rows; ++i) {
     for (int j=0; j<number_of_cols; ++j) {
       if (fabs(X[i][j] - R[i][j]) > EPSILON) {
-	printf("\tError in result (row=%d, col=%d): X = %lf, R = %lf\n",
+	printf("\tError in result (row=%d, col=%d): X = %+10lf, R = %+10lf\n",
 	       i, j, X[i][j], R[i][j]);
 	error = 1;
       }
@@ -80,7 +90,7 @@ compare_double_row_major_result_and_expected_result (const char * description,
 	   description, EPSILON);
   }
 }
-static void
+void
 compare_double_col_major_result_and_expected_result (const char * description,
 						     const lapack_int number_of_rows,
 						     const lapack_int number_of_cols,
@@ -94,8 +104,71 @@ compare_double_col_major_result_and_expected_result (const char * description,
   for (int i=0; i<number_of_rows; ++i) {
     for (int j=0; j<number_of_cols; ++j) {
       if (fabs(X[j][i] - R[j][i]) > EPSILON) {
-	printf("\tError in result (row=%d, col=%d): X = %lf, R = %lf\n",
+	printf("\tError in result (row=%d, col=%d): X = %+10lf, R = %+10lf\n",
 	       i, j, X[j][i], R[j][i]);
+	error = 1;
+      }
+    }
+  }
+  if (error) {
+    printf("\tWrong result \"%s\" in row-major computation.\n\n", description);
+    exit(EXIT_FAILURE);
+  } else {
+    printf("\tThe result \"%s\" equals the expected one, up to epsilon = %lg.\n\n",
+	   description, EPSILON);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+
+void
+compare_complex_row_major_result_and_expected_result (const char * description,
+						      const lapack_int number_of_rows,
+						      const lapack_int number_of_cols,
+						      lapack_complex_double X[number_of_rows][number_of_cols],
+						      lapack_complex_double R[number_of_rows][number_of_cols])
+/* Given two  arrays representing  matrices in row-major  order: compare
+   them as result of computation  (X) and expected result of computation
+   (R); print log messages to stdout. */
+{
+  int		error = 0;
+  for (int i=0; i<number_of_rows; ++i) {
+    for (int j=0; j<number_of_cols; ++j) {
+      if (cabs(X[i][j] - R[i][j]) > EPSILON) {
+	printf("\tError in result (row=%d, col=%d): X = %+10lf%-+lfi, R = %+10lf%-+lfi\n",
+	       i, j,
+	       lapack_complex_double_real(X[i][j]), lapack_complex_double_imag(X[i][j]),
+	       lapack_complex_double_real(R[i][j]), lapack_complex_double_imag(R[i][j]));
+	error = 1;
+      }
+    }
+  }
+  if (error) {
+    printf("\tWrong result \"%s\" in row-major computation.\n\n", description);
+    exit(EXIT_FAILURE);
+  } else {
+    printf("\tThe result \"%s\" equals the expected one, up to epsilon = %lg.\n\n",
+	   description, EPSILON);
+  }
+}
+void
+compare_complex_col_major_result_and_expected_result (const char * description,
+						      const lapack_int number_of_rows,
+						      const lapack_int number_of_cols,
+						      lapack_complex_double X[number_of_cols][number_of_rows],
+						      lapack_complex_double R[number_of_cols][number_of_rows])
+/* Given two  arrays representing  matrices in row-major  order: compare
+   them as result of computation  (X) and expected result of computation
+   (R); print log messages to stdout. */
+{
+  int		error = 0;
+  for (int i=0; i<number_of_rows; ++i) {
+    for (int j=0; j<number_of_cols; ++j) {
+      if (fabs(X[j][i] - R[j][i]) > EPSILON) {
+	printf("\tError in result (row=%d, col=%d): X = %+10lf%-+lfi, R = %+10lf%-+lfi\n",
+	       i, j,
+	       lapack_complex_double_real(X[j][i]), lapack_complex_double_imag(X[j][i]),
+	       lapack_complex_double_real(R[j][i]), lapack_complex_double_imag(R[j][i]));
 	error = 1;
       }
     }
@@ -114,7 +187,7 @@ compare_double_col_major_result_and_expected_result (const char * description,
  ** LU factorisation utilities.
  ** ----------------------------------------------------------------- */
 
-static void
+void
 double_row_major_split_LU (const int N,
 			   double A[N][N], double L[N][N], double U[N][N])
 /* Given  an array  representing A  matrix decomposed  in LU  form: fill
@@ -147,7 +220,7 @@ double_row_major_split_LU (const int N,
     }
   }
 }
-static void
+void
 double_col_major_split_LU (const int N,
 			   double A[N][N], double L[N][N], double U[N][N])
 /* Given  an array  representing A  matrix decomposed  in LU  form: fill
@@ -181,12 +254,84 @@ double_col_major_split_LU (const int N,
   }
 }
 
+/* ------------------------------------------------------------------ */
+
+void
+complex_row_major_split_LU (const int N,
+			    lapack_complex_double A[N][N],
+			    lapack_complex_double L[N][N],
+			    lapack_complex_double U[N][N])
+/* Given  an array  representing A  matrix decomposed  in LU  form: fill
+ * other arrays with the L elemets and the U elements.  The matrices are
+ * meant to have the format:
+ *
+ *    | u_11 u_12 u_13 |    |  1     0   0 |    | u_11 u_12 u_13 |
+ *  A=| l_21 u_22 u_23 |  L=| l_21   1   0 |  U=|  0   u_22 u_23 |
+ *    | l_31 l_32 u_33 |    | l_31 l_32  1 |    |  0    0   u_33 |
+ */
+{
+  for (int i=0; i<N; ++i) {
+    for (int j=0; j<N; ++j) {
+      if (i < j) {
+	L[i][j] = lapack_make_complex_double(0.0,0.0);
+      } else if (i == j) {
+	L[i][j] = lapack_make_complex_double(1.0,0.0);
+      } else {
+	L[i][j] = A[i][j];
+      }
+    }
+  }
+  for (int i=0; i<N; ++i) {
+    for (int j=0; j<N; ++j) {
+      if (i <= j) {
+	U[i][j] = A[i][j];
+      } else {
+	U[i][j] = lapack_make_complex_double(0.0,0.0);
+      }
+    }
+  }
+}
+void
+complex_col_major_split_LU (const int N,
+			    lapack_complex_double A[N][N],
+			    lapack_complex_double L[N][N],
+			    lapack_complex_double U[N][N])
+/* Given  an array  representing A  matrix decomposed  in LU  form: fill
+ * other arrays with the L elemets and the U elements.  The matrices are
+ * meant to have the format:
+ *
+ *    | u_11 u_12 u_13 |    |  1     0   0 |    | u_11 u_12 u_13 |
+ *  A=| l_21 u_22 u_23 |  L=| l_21   1   0 |  U=|  0   u_22 u_23 |
+ *    | l_31 l_32 u_33 |    | l_31 l_32  1 |    |  0    0   u_33 |
+ */
+{
+  for (int i=0; i<N; ++i) {
+    for (int j=0; j<N; ++j) {
+      if (i < j) {
+	L[j][i] = lapack_make_complex_double(0.0,0.0);
+      } else if (i == j) {
+	L[j][i] = lapack_make_complex_double(1.0,0.0);
+      } else {
+	L[j][i] = A[j][i];
+      }
+    }
+  }
+  for (int i=0; i<N; ++i) {
+    for (int j=0; j<N; ++j) {
+      if (i <= j) {
+	U[j][i] = A[j][i];
+      } else {
+	U[j][i] = lapack_make_complex_double(0.0,0.0);
+      }
+    }
+  }
+}
 
 /** --------------------------------------------------------------------
  ** Permutation vector and matrix utilities.
  ** ----------------------------------------------------------------- */
 
-static void
+void
 row_major_permutation_matrix_from_ipiv (const int number_of_indices,
 					const int number_of_rows,
 					int IPIV[number_of_indices],
@@ -293,7 +438,7 @@ row_major_permutation_matrix_from_ipiv (const int number_of_indices,
     }
   }
 }
-static void
+void
 col_major_permutation_matrix_from_ipiv (const int number_of_indices,
 					const int number_of_rows,
 					int IPIV[number_of_indices],
@@ -326,9 +471,8 @@ col_major_permutation_matrix_from_ipiv (const int number_of_indices,
   }
 }
 
-/* ------------------------------------------------------------------ */
-
-static void
+
+void
 double_row_major_apply_permutation_matrix (int number_of_rows_in_R,
 					   int number_of_cols_in_R,
 					   int P[number_of_rows_in_R][number_of_rows_in_R],
@@ -356,7 +500,7 @@ double_row_major_apply_permutation_matrix (int number_of_rows_in_R,
     }
   }
 }
-static void
+void
 double_col_major_apply_permutation_matrix (int number_of_rows_in_R,
 					   int number_of_cols_in_R,
 					   int P[number_of_rows_in_R][number_of_rows_in_R],
@@ -385,12 +529,71 @@ double_col_major_apply_permutation_matrix (int number_of_rows_in_R,
   }
 }
 
+/* ------------------------------------------------------------------ */
+
+void
+complex_row_major_apply_permutation_matrix (int number_of_rows_in_R,
+					    int number_of_cols_in_R,
+					    int P[number_of_rows_in_R][number_of_rows_in_R],
+					    lapack_complex_double R[number_of_rows_in_R][number_of_cols_in_R],
+					    lapack_complex_double S[number_of_rows_in_R][number_of_cols_in_R])
+/* We do the product:
+ *
+ *    [S_ij] = [P_ik][R_kj]
+ *
+ * that is:
+ *
+ *    S_ij = \sum_{k=1}^M P_ik R_kj
+ */
+{
+  int		M = number_of_rows_in_R;
+  int		N = number_of_cols_in_R;
+  for (int i=0; i<M; ++i) {
+    for (int j=0; j<N; ++j) {
+      S[i][j] = lapack_make_complex_double(0.0,0.0);
+      for (int k=0; k<M; ++k) {
+	if (1 == P[i][k]) {
+	  S[i][j] += R[k][j];
+	}
+      }
+    }
+  }
+}
+void
+complex_col_major_apply_permutation_matrix (int number_of_rows_in_R,
+					    int number_of_cols_in_R,
+					    int P[number_of_rows_in_R][number_of_rows_in_R],
+					    lapack_complex_double R[number_of_cols_in_R][number_of_rows_in_R],
+					    lapack_complex_double S[number_of_cols_in_R][number_of_rows_in_R])
+/* We do the product:
+ *
+ *    [S_ij] = [P_ik][R_kj]
+ *
+ * that is:
+ *
+ *    S_ij = \sum_{k=1}^M P_ik R_kj
+ */
+{
+  int		M = number_of_rows_in_R;
+  int		N = number_of_cols_in_R;
+  for (int i=0; i<M; ++i) {
+    for (int j=0; j<N; ++j) {
+      S[j][i] = lapack_make_complex_double(0.0,0.0);
+      for (int k=0; k<M; ++k) {
+	if (1 == P[k][i]) {
+	  S[j][i] += R[j][k];
+	}
+      }
+    }
+  }
+}
+
 
 /** --------------------------------------------------------------------
  ** Printing functions.
  ** ----------------------------------------------------------------- */
 
-static void
+void
 print_double_row_major_matrix (const char * matrix_name,
 			       const int number_of_rows,
 			       const int number_of_cols,
@@ -410,7 +613,7 @@ print_double_row_major_matrix (const char * matrix_name,
   }
   printf("\n");
 }
-static void
+void
 print_double_col_major_matrix (const char * matrix_name,
 			       const int number_of_rows,
 			       const int number_of_cols,
@@ -433,7 +636,57 @@ print_double_col_major_matrix (const char * matrix_name,
 
 /* ------------------------------------------------------------------ */
 
-static void
+void
+print_complex_row_major_matrix (const char * matrix_name,
+				const int number_of_rows,
+				const int number_of_cols,
+				lapack_complex_double X[number_of_rows][number_of_cols])
+/* Given an array  representing a matrix in row-major  order: display it
+   to stdout in row-major order. */
+{
+  printf("\tRow-major matrix %s\n\t(dimension %d x %d) (displayed in row-major order):\n",
+	 matrix_name, number_of_rows, number_of_cols);
+  for (int i=0; i<number_of_rows; ++i) {
+    int		j = 0;
+    printf("\t| (%d,%d) %+10lf%-+lfi ", 1+i, 1+j,
+	   lapack_complex_double_real(X[i][j]),
+	   lapack_complex_double_imag(X[i][j]));
+    for (++j; j<number_of_cols; ++j) {
+      printf("  (%d,%d) %+10lf%-+lfi ", 1+i, 1+j,
+	     lapack_complex_double_real(X[i][j]),
+	     lapack_complex_double_imag(X[i][j]));
+    }
+    printf(" |\n");
+  }
+  printf("\n");
+}
+void
+print_complex_col_major_matrix (const char * matrix_name,
+				const int number_of_rows,
+				const int number_of_cols,
+				lapack_complex_double X[number_of_cols][number_of_rows])
+/* Given an array  representing a matrix in col-major  order: display it
+   to stdout in row-major order. */
+{
+  printf("\tCol-major matrix %s\n\t(dimension %d x %d) (displayed in row-major order):\n",
+	 matrix_name, number_of_rows, number_of_cols);
+  for (int i=0; i<number_of_rows; ++i) {
+    int		j = 0;
+    printf("\t| (%d,%d) %+10lf%-+lfi ", 1+i, 1+j,
+	   lapack_complex_double_real(X[j][i]),
+	   lapack_complex_double_imag(X[j][i]));
+    for (++j; j<number_of_cols; ++j) {
+      printf("  (%d,%d) %+10lf%-+lfi ", 1+i, 1+j,
+	     lapack_complex_double_real(X[j][i]),
+	     lapack_complex_double_imag(X[j][i]));
+    }
+    printf(" |\n");
+  }
+  printf("\n");
+}
+
+
+void
 print_int_row_major_matrix (const char * matrix_name,
 			    const int number_of_rows,
 			    const int number_of_cols,
@@ -453,7 +706,7 @@ print_int_row_major_matrix (const char * matrix_name,
   }
   printf("\n");
 }
-static void
+void
 print_int_col_major_matrix (const char * matrix_name,
 			    const int number_of_rows,
 			    const int number_of_cols,
@@ -476,7 +729,7 @@ print_int_col_major_matrix (const char * matrix_name,
 
 /* ------------------------------------------------------------------ */
 
-static void
+void
 print_partial_pivoting_vector_and_permutation_matrix_LU (const int number_of_indices,
 							 const int number_of_rows,
 							 int IPIV[number_of_indices])

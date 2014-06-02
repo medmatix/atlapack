@@ -9,7 +9,7 @@ check_PROGRAMS	= dgels
 
 if WANT_CBLAS
 if FOUND_MATH_LIB
-check_PROGRAMS	+= cgeqrf dgesv
+check_PROGRAMS	+= cgeqrf dgesv zgesv
 endif
 endif
 
@@ -26,6 +26,10 @@ dgels_LDADD		= ../lapacke/liblapacke.la
 dgesv_LDADD		= $(atlapack_cblas_libs)
 dgesv_CPPFLAGS		= $(CBLAS_CFLAGS)
 dgesv_SOURCES		= dgesv.c atlapack-test-utils.h
+
+zgesv_LDADD		= $(atlapack_cblas_libs)
+zgesv_CPPFLAGS		= $(CBLAS_CFLAGS)
+zgesv_SOURCES		= zgesv.c atlapack-test-utils.h
 
 cgeqrf_LDADD		= $(atlapack_cblas_libs) $(MATH_LIBS)
 cgeqrf_CPPFLAGS		= $(CBLAS_CFLAGS)
