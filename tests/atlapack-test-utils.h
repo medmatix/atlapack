@@ -42,6 +42,11 @@ static void print_double_row_major_matrix (const char * matrix_name,
 					   const int number_of_cols,
 					   double X[number_of_rows][number_of_cols]);
 
+static void print_double_col_major_matrix (const char * matrix_name,
+					   const int number_of_rows,
+					   const int number_of_cols,
+					   double X[number_of_cols][number_of_rows]);
+
 
 /** --------------------------------------------------------------------
  ** Comparing arrays.
@@ -63,6 +68,34 @@ compare_double_row_major_result_and_expected_result (const char * description,
       if (fabs(X[i][j] - R[i][j]) > EPSILON) {
 	printf("\tError in result (row=%d, col=%d): X = %lf, R = %lf\n",
 	       i, j, X[i][j], R[i][j]);
+	error = 1;
+      }
+    }
+  }
+  if (error) {
+    printf("\tWrong result \"%s\" in row-major computation.\n\n", description);
+    exit(EXIT_FAILURE);
+  } else {
+    printf("\tThe result \"%s\" equals the expected one, up to epsilon = %lg.\n\n",
+	   description, EPSILON);
+  }
+}
+static void
+compare_double_col_major_result_and_expected_result (const char * description,
+						     const lapack_int number_of_rows,
+						     const lapack_int number_of_cols,
+						     double X[number_of_cols][number_of_rows],
+						     double R[number_of_cols][number_of_rows])
+/* Given two  arrays representing  matrices in row-major  order: compare
+   them as result of computation  (X) and expected result of computation
+   (R); print log messages to stdout. */
+{
+  int		error = 0;
+  for (int i=0; i<number_of_rows; ++i) {
+    for (int j=0; j<number_of_cols; ++j) {
+      if (fabs(X[j][i] - R[j][i]) > EPSILON) {
+	printf("\tError in result (row=%d, col=%d): X = %lf, R = %lf\n",
+	       i, j, X[j][i], R[j][i]);
 	error = 1;
       }
     }
@@ -110,6 +143,39 @@ double_row_major_split_LU (const int N,
 	U[i][j] = A[i][j];
       } else {
 	U[i][j] = 0.0;
+      }
+    }
+  }
+}
+static void
+double_col_major_split_LU (const int N,
+			   double A[N][N], double L[N][N], double U[N][N])
+/* Given  an array  representing A  matrix decomposed  in LU  form: fill
+ * other arrays with the L elemets and the U elements.  The matrices are
+ * meant to have the format:
+ *
+ *    | u_11 u_12 u_13 |    |  1     0   0 |    | u_11 u_12 u_13 |
+ *  A=| l_21 u_22 u_23 |  L=| l_21   1   0 |  U=|  0   u_22 u_23 |
+ *    | l_31 l_32 u_33 |    | l_31 l_32  1 |    |  0    0   u_33 |
+ */
+{
+  for (int i=0; i<N; ++i) {
+    for (int j=0; j<N; ++j) {
+      if (i < j) {
+	L[j][i] = 0.0;
+      } else if (i == j) {
+	L[j][i] = 1.0;
+      } else {
+	L[j][i] = A[j][i];
+      }
+    }
+  }
+  for (int i=0; i<N; ++i) {
+    for (int j=0; j<N; ++j) {
+      if (i <= j) {
+	U[j][i] = A[j][i];
+      } else {
+	U[j][i] = 0.0;
       }
     }
   }
@@ -228,6 +294,41 @@ row_major_permutation_matrix_from_ipiv (const int number_of_indices,
   }
 }
 static void
+col_major_permutation_matrix_from_ipiv (const int number_of_indices,
+					const int number_of_rows,
+					int IPIV[number_of_indices],
+					int perms[number_of_rows],
+					int P[number_of_rows][number_of_rows])
+{
+  int	N = number_of_rows;
+
+  /* Build a declarative permutation vector  in which element i declares
+     the permutation performed on row i. */
+  {
+    for (int i=0; i<number_of_rows; ++i) {
+      perms[i] = 1+i;
+    }
+    for (int i=0; i<number_of_rows; ++i) {
+      /* Fortran has 1-based indexes, C has 0-based indexes. */
+      int	idx = IPIV[i] - 1;
+      int	tmp = perms[idx];
+      perms[idx] = perms[i];
+      perms[i]   = tmp;
+    }
+  }
+
+  /* Build the permutation matrix. */
+  {
+    memset(P, 0, sizeof(int) * N * N);
+    for (int i=0; i<number_of_rows; ++i) {
+      P[perms[i]-1][i] = 1;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+
+static void
 double_row_major_apply_permutation_matrix (int number_of_rows_in_R,
 					   int number_of_cols_in_R,
 					   int P[number_of_rows_in_R][number_of_rows_in_R],
@@ -250,6 +351,34 @@ double_row_major_apply_permutation_matrix (int number_of_rows_in_R,
       for (int k=0; k<M; ++k) {
 	if (1 == P[i][k]) {
 	  S[i][j] += R[k][j];
+	}
+      }
+    }
+  }
+}
+static void
+double_col_major_apply_permutation_matrix (int number_of_rows_in_R,
+					   int number_of_cols_in_R,
+					   int P[number_of_rows_in_R][number_of_rows_in_R],
+					   double R[number_of_cols_in_R][number_of_rows_in_R],
+					   double S[number_of_cols_in_R][number_of_rows_in_R])
+/* We do the product:
+ *
+ *    [S_ij] = [P_ik][R_kj]
+ *
+ * that is:
+ *
+ *    S_ij = \sum_{k=1}^M P_ik R_kj
+ */
+{
+  int		M = number_of_rows_in_R;
+  int		N = number_of_cols_in_R;
+  for (int i=0; i<M; ++i) {
+    for (int j=0; j<N; ++j) {
+      S[j][i] = 0.0;
+      for (int k=0; k<M; ++k) {
+	if (1 == P[k][i]) {
+	  S[j][i] += R[j][k];
 	}
       }
     }
@@ -281,6 +410,26 @@ print_double_row_major_matrix (const char * matrix_name,
   }
   printf("\n");
 }
+static void
+print_double_col_major_matrix (const char * matrix_name,
+			       const int number_of_rows,
+			       const int number_of_cols,
+			       double X[number_of_cols][number_of_rows])
+/* Given an array  representing a matrix in col-major  order: display it
+   to stdout in row-major order. */
+{
+  printf("\tCol-major matrix %s\n\t(dimension %d x %d) (displayed in row-major order):\n",
+	 matrix_name, number_of_rows, number_of_cols);
+  for (int i=0; i<number_of_rows; ++i) {
+    int		j = 0;
+    printf("\t| (%d,%d) %+10lf ", 1+i, 1+j, X[j][i]);
+    for (++j; j<number_of_cols; ++j) {
+      printf("  (%d,%d) %+10lf ", 1+i, 1+j, X[j][i]);
+    }
+    printf(" |\n");
+  }
+  printf("\n");
+}
 
 /* ------------------------------------------------------------------ */
 
@@ -299,6 +448,26 @@ print_int_row_major_matrix (const char * matrix_name,
     printf("\t| (%d,%d) %d ", 1+i, 1+j, X[i][j]);
     for (++j; j<number_of_cols; ++j) {
       printf("  (%d,%d) %d ", 1+i, 1+j, X[i][j]);
+    }
+    printf(" |\n");
+  }
+  printf("\n");
+}
+static void
+print_int_col_major_matrix (const char * matrix_name,
+			    const int number_of_rows,
+			    const int number_of_cols,
+			    int X[number_of_cols][number_of_rows])
+/* Given an array  representing a matrix in col-major  order: display it
+   to stdout in row-major order. */
+{
+  printf("\tRow-major matrix %s\n\t(dimension %d x %d) (displayed in row-major order):\n",
+	 matrix_name, number_of_rows, number_of_cols);
+  for (int i=0; i<number_of_rows; ++i) {
+    int		j = 0;
+    printf("\t| (%d,%d) %d ", 1+i, 1+j, X[j][i]);
+    for (++j; j<number_of_cols; ++j) {
+      printf("  (%d,%d) %d ", 1+i, 1+j, X[j][i]);
     }
     printf(" |\n");
   }
