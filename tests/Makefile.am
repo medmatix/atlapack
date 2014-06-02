@@ -3,6 +3,8 @@
 # Read "Parallel Test Harness" in the documentation of GNU Automake to
 # understand how to use this interface for "make check".
 
+AM_CFLAGS	= -Wall
+
 check_PROGRAMS	= dgels
 
 if WANT_CBLAS

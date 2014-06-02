@@ -37,9 +37,10 @@
 
 #define EPSILON		1e-3
 
-static void print_double_row_major_matrix (const char * matrix_name, const double * X_,
+static void print_double_row_major_matrix (const char * matrix_name,
 					   const int number_of_rows,
-					   const int number_of_cols);
+					   const int number_of_cols,
+					   double X[number_of_rows][number_of_cols]);
 
 
 /** --------------------------------------------------------------------
@@ -48,21 +49,20 @@ static void print_double_row_major_matrix (const char * matrix_name, const doubl
 
 static void
 compare_double_row_major_result_and_expected_result (const char * description,
-						     const double * X_, const double * R_,
-						     const int number_of_rows,
-						     const int number_of_cols)
+						     const lapack_int number_of_rows,
+						     const lapack_int number_of_cols,
+						     double X[number_of_rows][number_of_cols],
+						     double R[number_of_rows][number_of_cols])
 /* Given two  arrays representing  matrices in row-major  order: compare
    them as result of computation  (X) and expected result of computation
    (R); print log messages to stdout. */
 {
-  double	(*X)[number_of_rows][number_of_cols] = (void*)X_;
-  double	(*R)[number_of_rows][number_of_cols] = (void*)R_;
   int		error = 0;
   for (int i=0; i<number_of_rows; ++i) {
     for (int j=0; j<number_of_cols; ++j) {
-      if (fabs((*X)[i][j] - (*R)[i][j]) > EPSILON) {
+      if (fabs(X[i][j] - R[i][j]) > EPSILON) {
 	printf("\tError in result (row=%d, col=%d): X = %lf, R = %lf\n",
-	       i, j, (*X)[i][j], (*R)[i][j]);
+	       i, j, X[i][j], R[i][j]);
 	error = 1;
       }
     }
@@ -82,8 +82,8 @@ compare_double_row_major_result_and_expected_result (const char * description,
  ** ----------------------------------------------------------------- */
 
 static void
-double_row_major_split_LU (const double * A_,
-			   const double * L_, const double * U_,
+double_row_major_split_LU (double * A_,
+			   double * L_, double * U_,
 			   const int number_of_rows_and_columns)
 /* Given  an array  representing A  matrix decomposed  in LU  form: fill
  * other arrays with the L elemets and the U elements.  The matrices are
@@ -270,20 +270,20 @@ double_row_major_apply_permutation_matrix (int number_of_rows_in_R,
  ** ----------------------------------------------------------------- */
 
 static void
-print_double_row_major_matrix (const char * matrix_name, const double * X_,
+print_double_row_major_matrix (const char * matrix_name,
 			       const int number_of_rows,
-			       const int number_of_cols)
+			       const int number_of_cols,
+			       double X[number_of_rows][number_of_cols])
 /* Given an array  representing a matrix in row-major  order: display it
    to stdout in row-major order. */
 {
-  const double	(*X)[number_of_rows][number_of_cols] = (void*)X_;
   printf("\tRow-major matrix %s\n\t(dimension %d x %d) (displayed in row-major order):\n",
 	 matrix_name, number_of_rows, number_of_cols);
   for (int i=0; i<number_of_rows; ++i) {
     int		j = 0;
-    printf("\t| (%d,%d) %+10lf ", 1+i, 1+j, (*X)[i][j]);
+    printf("\t| (%d,%d) %+10lf ", 1+i, 1+j, X[i][j]);
     for (++j; j<number_of_cols; ++j) {
-      printf("  (%d,%d) %+10lf ", 1+i, 1+j, (*X)[i][j]);
+      printf("  (%d,%d) %+10lf ", 1+i, 1+j, X[i][j]);
     }
     printf(" |\n");
   }

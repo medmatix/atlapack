@@ -14,7 +14,8 @@ Topics
   B. Bugs
   C. Resources
   D. How to upgrade to a new LAPACK release
-  E. Formatting file lists under GNU Emacs.
+  E. Formatting file lists under GNU Emacs
+  F. C Language: handling subscripted arrays
 
 
 1. Introduction
@@ -333,6 +334,61 @@ function "my-makefile-reformat-list-of-files" defined in the module:
 
 it  reformats a  list  of files  allowing the  insertion  of a  pathname
 prefix; see its documentation.
+
+
+F. C Language: handling subscripted arrays
+------------------------------------------
+
+When  using  CBLAS and  LAPACKE  we  always  need  to handle  arrays  of
+"lapack_int", double and "lapack_complex_double"  elements.  We want to:
+define  such  arrays for  vectors  and  bidimensional matrices;  pass  a
+pointer to  such arrays as  argument to function calls;  write functions
+that receive such pointers as arguments.
+
+  To define such an  array for a vector and a matrix  of "double" we can
+do:
+
+   void
+   func (int N, int M, double * V_, double * A_)
+   {
+     double (*V)[N]    = (void*)V_;
+     double (*A)[N][M] = (void*)A_;
+     printf("V[0] = %f\n", (*V)[0]);
+     printf("A[0][0]\n",   (*A)[0][0]);
+   }
+   void
+   main (void)
+   {
+     int N = ...;
+     int M = ...;
+     double V[N];
+     double A[N][M];
+     func(N, M, &V[0], &A[0][0]);
+   }
+
+but with the latest versions of the C Language Standard we can also, and
+better, do:
+
+   void
+   func (int N, int M, double V[N], double A[N][M])
+   {
+     printf("V[0] = %f\n", (*V)[0]);
+     printf("A[0][0]\n",   (*A)[0][0]);
+   }
+   void
+   main (void)
+   {
+     int N = ...;
+     int M = ...;
+     double V[N];
+     double A[N][M];
+     func(N, M, V, A);
+   }
+
+  The latter solution is the one adopted in some of the distributed test
+programs; consequently,  such files can  be processed only  by compilers
+supporting the  latest C  Language Standard.  The  GNU C  Compiler works
+fine.
 
 
 ### end of file

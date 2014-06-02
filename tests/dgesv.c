@@ -99,31 +99,31 @@ doit_in_row_major (void)
 #define	LDA	3	/* leading dimension of A */
 #define	LDB	1	/* leading dimension of B */
   /* Operand of computation: coefficients matrix, row-major order. */
-  const double	A[N][N] = {
-    10.0, 1.0, 2.0,
-    3.0, 4.0, 5.0,
-    6.0, 7.0, 8.0
+  double	A[N][N] = {
+    { 10.0, 1.0, 2.0 },
+    {  3.0, 4.0, 5.0 },
+    {  6.0, 7.0, 8.0 }
   };
   /* Operand of computation: right-hand side matrix, row-major order. */
-  const double	B[N][LDB] = {
-    9.0,
-    8.0,
-    7.0
+  double	B[N][LDB] = {
+    { 9.0 },
+    { 8.0 },
+    { 7.0 }
   };
   /* Result of computation: permuted matrix A decomposed in LU. */
   double	packedLU[N][N];
   /* Result of computation: unknowns. */
   double	X[N][LDB];
-  /* Result of computation: vector of partial pivot indexes representing
+  /* Result of computation: tuple  of partial pivot indexes representing
      the permutation matrix. */
   lapack_int	ipiv[N];
   /* Result of computation: error code, zero if success. */
   lapack_int	info;
   /* Expected result of computation, row-major order, non-permuted. */
-  const double	R[N][LDB] = {
-    0.0,
-    -29.0/3.0,
-    28.0/3.0
+  double	R[N][LDB] = {
+    { 0.0 },
+    { -29.0/3.0 },
+    { +28.0/3.0  }
   };
 
   /* Load the original  coefficients matrix from A to  packedLU.  The LU
@@ -149,9 +149,9 @@ doit_in_row_major (void)
 
   /* Result verification. */
   printf("Row-major dgesv results:\n");
-  print_double_row_major_matrix("X, resulting unknowns", &X[0][0], N, NRHS);
+  print_double_row_major_matrix("X, resulting unknowns", N, NRHS, X);
   compare_double_row_major_result_and_expected_result("computed unknowns",
-						      &X[0][0], &R[0][0], N, NRHS);
+						      N, NRHS, X, R);
 
   /* Results logging. */
   {
@@ -210,15 +210,15 @@ doit_in_row_major (void)
     }
     double_row_major_apply_permutation_matrix(N, N, P, R, S);
 
-    print_double_row_major_matrix("A, original coefficient matrix", &A[0][0], N, N);
-    print_double_row_major_matrix("B, original right-hand sides", &B[0][0], N, NRHS);
+    print_double_row_major_matrix("A, original coefficient matrix", N, N, A);
+    print_double_row_major_matrix("B, original right-hand sides", N, NRHS, B);
     print_partial_pivoting_vector_and_permutation_matrix_LU(&ipiv[0], N, N);
     print_double_row_major_matrix("packedLU representing L and U packed in single matrix",
-				  &packedLU[0][0], N, N);
-    print_double_row_major_matrix("L, elements of packedLU", &L[0][0], N, N);
-    print_double_row_major_matrix("U, elements of packedLU", &U[0][0], N, N);
-    print_double_row_major_matrix("R = LU, it must be such that A = PR", &R[0][0], N, N);
-    print_double_row_major_matrix("S = PR = PLU, it must be such that A = S", &S[0][0], N, N);
+				  N, N, packedLU);
+    print_double_row_major_matrix("L, elements of packedLU", N, N, L);
+    print_double_row_major_matrix("U, elements of packedLU", N, N, U);
+    print_double_row_major_matrix("R = LU, it must be such that A = PR", N, N, R);
+    print_double_row_major_matrix("S = PR = PLU, it must be such that A = S", N, N, S);
   }
 }
 
