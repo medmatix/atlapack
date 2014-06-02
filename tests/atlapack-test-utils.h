@@ -82,9 +82,8 @@ compare_double_row_major_result_and_expected_result (const char * description,
  ** ----------------------------------------------------------------- */
 
 static void
-double_row_major_split_LU (double * A_,
-			   double * L_, double * U_,
-			   const int number_of_rows_and_columns)
+double_row_major_split_LU (const int N,
+			   double A[N][N], double L[N][N], double U[N][N])
 /* Given  an array  representing A  matrix decomposed  in LU  form: fill
  * other arrays with the L elemets and the U elements.  The matrices are
  * meant to have the format:
@@ -94,27 +93,23 @@ double_row_major_split_LU (double * A_,
  *    | l_31 l_32 u_33 |    | l_31 l_32  1 |    |  0    0   u_33 |
  */
 {
-  const int	N = number_of_rows_and_columns;
-  double	(*A)[N][N] = (void*)A_;
-  double	(*L)[N][N] = (void*)L_;
-  double	(*U)[N][N] = (void*)U_;
   for (int i=0; i<N; ++i) {
     for (int j=0; j<N; ++j) {
       if (i < j) {
-	(*L)[i][j] = 0.0;
+	L[i][j] = 0.0;
       } else if (i == j) {
-	(*L)[i][j] = 1.0;
+	L[i][j] = 1.0;
       } else {
-	(*L)[i][j] = (*A)[i][j];
+	L[i][j] = A[i][j];
       }
     }
   }
   for (int i=0; i<N; ++i) {
     for (int j=0; j<N; ++j) {
       if (i <= j) {
-	(*U)[i][j] = (*A)[i][j];
+	U[i][j] = A[i][j];
       } else {
-	(*U)[i][j] = 0.0;
+	U[i][j] = 0.0;
       }
     }
   }
@@ -126,11 +121,11 @@ double_row_major_split_LU (double * A_,
  ** ----------------------------------------------------------------- */
 
 static void
-row_major_permutation_matrix_from_ipiv (const int * IPIV_,
-					const int number_of_indices,
+row_major_permutation_matrix_from_ipiv (const int number_of_indices,
 					const int number_of_rows,
-					int * perms_,
-					int * P_)
+					int IPIV[number_of_indices],
+					int perms[number_of_rows],
+					int P[number_of_rows][number_of_rows])
 /* Given  the  array  IPIV_  representing a  LAPACK's  partial  pivoting
  * permutation vectors (for example out  of a LU factorisation): build a
  * declarative permutation vector and a proper permutation matrix.
@@ -207,23 +202,20 @@ row_major_permutation_matrix_from_ipiv (const int * IPIV_,
  * matrix: A = P L U.  P is not applied to A!!!
  */
 {
-  int	(*IPIV)[number_of_indices] = (void*)IPIV_;
   int	N = number_of_rows;
-  int	(*perms)[N] = (void *)perms_;
-  int	(*P)[N][number_of_indices] = (void*)P_;
 
   /* Build a declarative permutation vector  in which element i declares
      the permutation performed on row i. */
   {
     for (int i=0; i<number_of_rows; ++i) {
-      (*perms)[i] = 1+i;
+      perms[i] = 1+i;
     }
     for (int i=0; i<number_of_rows; ++i) {
       /* Fortran has 1-based indexes, C has 0-based indexes. */
-      int idx = (*IPIV)[i] - 1;
-      int	tmp = (*perms)[idx];
-      (*perms)[idx] = (*perms)[i];
-      (*perms)[i] = tmp;
+      int	idx = IPIV[i] - 1;
+      int	tmp = perms[idx];
+      perms[idx] = perms[i];
+      perms[i]   = tmp;
     }
   }
 
@@ -231,7 +223,7 @@ row_major_permutation_matrix_from_ipiv (const int * IPIV_,
   {
     memset(P, 0, sizeof(int) * N * N);
     for (int i=0; i<number_of_rows; ++i) {
-      (*P)[i][(*perms)[i]-1] = 1;
+      P[i][perms[i]-1] = 1;
     }
   }
 }
@@ -293,20 +285,20 @@ print_double_row_major_matrix (const char * matrix_name,
 /* ------------------------------------------------------------------ */
 
 static void
-print_int_row_major_matrix (const char * matrix_name, const int * X_,
+print_int_row_major_matrix (const char * matrix_name,
 			    const int number_of_rows,
-			    const int number_of_cols)
+			    const int number_of_cols,
+			    int X[number_of_rows][number_of_cols])
 /* Given an array  representing a matrix in row-major  order: display it
    to stdout in row-major order. */
 {
-  const int	(*X)[number_of_rows][number_of_cols] = (void*)X_;
   printf("\tRow-major matrix %s\n\t(dimension %d x %d) (displayed in row-major order):\n",
 	 matrix_name, number_of_rows, number_of_cols);
   for (int i=0; i<number_of_rows; ++i) {
     int		j = 0;
-    printf("\t| (%d,%d) %d ", 1+i, 1+j, (*X)[i][j]);
+    printf("\t| (%d,%d) %d ", 1+i, 1+j, X[i][j]);
     for (++j; j<number_of_cols; ++j) {
-      printf("  (%d,%d) %d ", 1+i, 1+j, (*X)[i][j]);
+      printf("  (%d,%d) %d ", 1+i, 1+j, X[i][j]);
     }
     printf(" |\n");
   }
@@ -316,35 +308,33 @@ print_int_row_major_matrix (const char * matrix_name, const int * X_,
 /* ------------------------------------------------------------------ */
 
 static void
-print_partial_pivoting_vector_and_permutation_matrix_LU (const int * IPIV_,
-							 const int number_of_indices,
-							 const int number_of_rows)
+print_partial_pivoting_vector_and_permutation_matrix_LU (const int number_of_indices,
+							 const int number_of_rows,
+							 int IPIV[number_of_indices])
 /* When the permutation is applied  to a rectangular matrix (rather than
    a  square one):  the number  of indices  differs from  the number  of
    rows.*/
 {
-  int	(*IPIV)[number_of_indices] = (void*)IPIV_;
   int	N = number_of_rows;
   int	perms[N];
   int	P[N][number_of_indices];
   printf("\tLAPACK's partial pivoting vector, sequence of permutations,\n\t1-based indexes:\n");
   {
     int		i = 0;
-    printf("\t| (%d) %d | first swap line %d with line %d\n", 1+i, (*IPIV)[i], 1+i, (*IPIV)[i]);
+    printf("\t| (%d) %d | first swap line %d with line %d\n", 1+i, IPIV[i], 1+i, IPIV[i]);
     for (++i; i<number_of_indices; ++i) {
-      printf("\t| (%d) %d | then  swap line %d with line %d\n", 1+i, (*IPIV)[i], 1+i, (*IPIV)[i]);
+      printf("\t| (%d) %d | then  swap line %d with line %d\n", 1+i, IPIV[i], 1+i, IPIV[i]);
     }
   }
 
-  row_major_permutation_matrix_from_ipiv(IPIV_, number_of_indices, number_of_rows,
-					 &perms[0], &P[0][0]);
+  row_major_permutation_matrix_from_ipiv(number_of_indices, number_of_rows, IPIV, perms, P);
 
   printf("\tdeclarative permutations vector, every index represents the row permutation,\n\t1-based indexes:\n");
   for (int i=0; i<number_of_rows; ++i) {
     printf("\t| (%d) %d | line %d is swapped with with line %d\n", 1+i, perms[i], 1+i, perms[i]);
   }
   print_int_row_major_matrix("P permutation of A', where: A = P A' = P L U",
-			     &P[0][0], N, N);
+			     N, N, P);
 }
 
 

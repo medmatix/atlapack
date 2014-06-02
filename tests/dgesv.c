@@ -162,8 +162,8 @@ doit_in_row_major (void)
     double	R[N][N];	/* R = LU */
     double	S[N][N];	/* S = PR = PLU */
 
-    row_major_permutation_matrix_from_ipiv (&ipiv[0], N, N, &perms[0], &P[0][0]);
-    double_row_major_split_LU(&packedLU[0][0], &L[0][0], &U[0][0], N);
+    row_major_permutation_matrix_from_ipiv (N, N, ipiv, perms, P);
+    double_row_major_split_LU(N, packedLU, L, U);
     /* Multiply L and U to verify that  the result is indeed PA; we need
      * CBLAS for this.  In general DGEMM does:
      *
@@ -212,7 +212,7 @@ doit_in_row_major (void)
 
     print_double_row_major_matrix("A, original coefficient matrix", N, N, A);
     print_double_row_major_matrix("B, original right-hand sides", N, NRHS, B);
-    print_partial_pivoting_vector_and_permutation_matrix_LU(&ipiv[0], N, N);
+    print_partial_pivoting_vector_and_permutation_matrix_LU(N, N, ipiv);
     print_double_row_major_matrix("packedLU representing L and U packed in single matrix",
 				  N, N, packedLU);
     print_double_row_major_matrix("L, elements of packedLU", N, N, L);
