@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.68)
-AC_INIT([LAPACK with GNU Autotools],[3.5.0.1],[marco.maggi-ipsu@poste.it],
+AC_INIT([LAPACK with GNU Autotools],[3.5.0.2],[marco.maggi-ipsu@poste.it],
   [atlapack],[http://github.com/marcomaggi/atlapack/])
 AC_CONFIG_SRCDIR([lapack/])
 AC_CONFIG_MACRO_DIR([meta/autotools])

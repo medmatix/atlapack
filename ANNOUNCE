@@ -1,0 +1,52 @@
+Subject: [announce] ATLAPACK revision 3.5.0.2
+
+		 LAPACK and LAPACKE with GNU Autotools
+		 =====================================
+
+
+LAPACK is a library of Fortran  90 with subroutines for solving the most
+commonly  occurring  problems  in   numerical  linear  algebra.   It  is
+freely-available software, and is copyrighted.
+
+  This distribution  repackages the  original LAPACK and  LAPACKE source
+code under the configuration and  installation framework provided by the
+GNU Autotools.  It was last updated with LAPACK 3.5.0.
+
+  ATLAPACK expects a BLAS library to be already installed on the system;
+when  no optimised  library is  available, it  is suggested  to use  the
+ATBLAS distribution.
+
+  The last revision of this package is available from:
+
+	   <http://sourceforge.net/projects/atlapack/files/>
+
+the development of this package takes place at:
+
+		<http://github.com/marcomaggi/atlapack/>
+
+and as backup at:
+
+	      <http://sourceforge.net/projects/atlapack/>
+
+  The original  LAPACK and LAPACKE  distribution is available  on Netlib
+and can be obtained via the World Wide Web and anonymous FTP:
+
+		    <http://www.netlib.org/lapack/>
+
+
+Notes for revision 3.5.0.2
+--------------------------
+
+* The  directory  "scheme"  contains  a table  of  functions  in  Scheme
+  symbolic expression form and a  demo program that automatically builds
+  a Vicare Scheme binding for LAPACKE.  It should be easily adaptable to
+  other Scheme implementations.
+
+
+### end of file
+# Local Variables:
+# coding: utf-8-unix
+# mode: text
+# fill-column: 72
+# paragraph-start: "*"
+# End:
