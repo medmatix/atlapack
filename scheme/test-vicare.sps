@@ -225,7 +225,11 @@
 ;;;     3 * x1 + 4 * x2 + 5 * x3 = 8
 ;;;     6 * x1 + 7 * x2 + 8 * x3 = 7
 ;;;
-;;;to determine the unknowns x1, x2 and x3; in matrix notation we write:
+;;;to determine the unknowns x1, x2 and x3; the expected solution is:
+;;;
+;;;     x1 = 0		x2 = -29/3		x3 = +28/3
+;;;
+;;;In matrix notation we write:
 ;;;
 ;;;     -        -   -  -     - -
 ;;;    | 10  1  2 | | x1 |   | 9 |
@@ -244,7 +248,7 @@
 ;;;and we will use the symbols: A X = B, where A is the coefficients matrix, X is the
 ;;;vector of  unknowns, B  is the  right-hand side vector.   The LAPACK  routines are
 ;;;capable of  handling X  and B  as matrices, but,  in this  test program,  we limit
-;;;ourselves to column vectors.
+;;;ourselves to column vectors: the parameter NRHS is 1.
 ;;;
 ;;;How LAPACK's routine  DGESV does it?  It  factorises the matrix A in  LU form with
 ;;;partial pivoting; for an introduction to the LU factorisation see:
@@ -285,7 +289,8 @@
 ;;;        | l31 l32 u33 |
 ;;;         -           -
 ;;;
-;;;The permutation matrix P is returned by DGESV in its IPIV parameter.
+;;;The permutation matrix P  is returned by DGESV in its  IPIV parameter.  The actual
+;;;solution vector X is stored in B's array, mutating it.
 
   (check
       (let* ((N		3)	;number of equations

@@ -30,7 +30,8 @@
  * and we  will use the symbols:  A X =  B, where A is  the coefficients
  * matrix, X is the vector of unknowns, B is the right-hand side vector.
  * The LAPACK routines are capable of handling X and B as matrices, but,
- * in this test program, we limit ourselves to column vectors.
+ * in  this test  program, we  limit  ourselves to  column vectors:  the
+ * parameter NRHS is 1.
  *
  * How LAPACK's routine DGESV does it?  It factorises the matrix A in LU
  * form  with   partial  pivoting;  for   an  introduction  to   the  LU
