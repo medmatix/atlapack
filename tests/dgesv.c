@@ -13,11 +13,11 @@
  *
  * to determine the unknowns x1, x2 and x3; in matrix notation we write:
  *
- *     -       -   -  -     - -
- *    | 0  1  2 | | x1 |   | 9 |
- *    | 3  4  5 | | x2 | = | 8 |
- *    | 6  7  8 | | x3 |   | 7 |
- *     -       -   -  -     - -
+ *     -        -   -  -     - -
+ *    | 10  1  2 | | x1 |   | 9 |
+ *    |  3  4  5 | | x2 | = | 8 |
+ *    |  6  7  8 | | x3 |   | 7 |
+ *     -        -   -  -     - -
  *
  * and abstracting:
  *
@@ -109,7 +109,7 @@ doit_in_row_major (void)
 #undef LDA
 #undef LDB
 #define	N	3	/* number of equations */
-#define	NRHS	1	/* number of right-hand sides */
+#define	NRHS	1	/* number of right-hand sides = number of columns in B */
 #define	LDA	N	/* leading dimension of A */
 #define	LDB	NRHS	/* leading dimension of B */
   /* Operand of computation: coefficients matrix, row-major order. */
