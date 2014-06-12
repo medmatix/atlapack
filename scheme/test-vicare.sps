@@ -161,6 +161,47 @@
 	(array-set-c-double! P (fxadd1 j) imp)))))
 
 
+;;;; integer vector and matrix helpers
+
+(define* (memory-int-vector->scheme-vector {nslots words.signed-int?} {P pointer?})
+  (receive-and-return (V)
+      (make-vector nslots #f)
+    (do ((i 0 (fxadd1 i)))
+	((fx=? i nslots))
+      (vector-set! V i (array-ref-c-signed-int P i)))))
+
+(define* (scheme-vector->memory-int-vector {V vector?})
+  (define nslots (vector-length V))
+  (define nbytes (* nslots sizeof-double))
+  (receive-and-return (P)
+      (guarded-malloc nbytes)
+    (do ((i 0 (fxadd1 i)))
+	((fx=? i nslots))
+      (array-set-c-signed-int! P i (vector-ref V i)))))
+
+;;; --------------------------------------------------------------------
+
+(define* (memory-int-matrix->scheme-vector {nrows words.signed-int?} {ncols words.signed-int?}
+					   {P pointer?})
+  (define nslots (* nrows ncols))
+  (receive-and-return (V)
+      (make-vector nslots #f)
+    (do ((i 0 (fxadd1 i)))
+	((fx=? i nslots))
+      (vector-set! V i (array-ref-c-signed-int P i)))))
+
+(define* (scheme-vector->memory-int-matrix {nrows words.signed-int?} {ncols words.signed-int?}
+					   {V vector?})
+  (define nslots (vector-length V))
+  (define nbytes (* nslots sizeof-double))
+  (assert (= nslots (* nrows ncols)))
+  (receive-and-return (P)
+      (guarded-malloc nbytes)
+    (do ((i 0 (fxadd1 i)))
+	((fx=? i nslots))
+      (array-set-c-signed-int! P i (vector-ref V i)))))
+
+
 (parametrise ((check-test-name	'real-vectors-helpers))
 
   (check
@@ -213,6 +254,37 @@
 	     (V (memory-cplx-matrix->scheme-vector nrows ncols P)))
 	V)
     => M1)
+
+  (collect))
+
+
+(parametrise ((check-test-name	'int-vectors-helpers))
+
+  (define-constant L
+    '#(1 3 5))
+
+  (check
+      (let* ((N (vector-length L))
+	     (P (scheme-vector->memory-int-vector L))
+	     (V (memory-int-vector->scheme-vector N P)))
+	V)
+    => L)
+
+  (collect))
+
+
+(parametrise ((check-test-name	'int-matrix-helpers))
+
+  (define-constant L
+    '#(11 12 13 21 22 23))
+
+  (check
+      (let* ((nrows 2)
+	     (ncols 3)
+	     (P (scheme-vector->memory-int-matrix nrows ncols L))
+	     (V (memory-int-matrix->scheme-vector nrows ncols P)))
+	V)
+    => L)
 
   (collect))
 
@@ -289,8 +361,17 @@
 ;;;        | l31 l32 u33 |
 ;;;         -           -
 ;;;
-;;;The permutation matrix P  is returned by DGESV in its  IPIV parameter.  The actual
-;;;solution vector X is stored in B's array, mutating it.
+;;;The permutation matrix  P is returned by  DGESV in its IPIV parameter  as an array
+;;;representing a sequence of row permutations to be applied to A':
+;;;
+;;;           - -
+;;;          | 1 | first swap line 1 with line 1
+;;;   ipiv = | 3 | then  swap line 2 with line 3
+;;;          | 3 | then  swap line 3 with line 3
+;;;           - -
+;;;
+;;;The actual solution vector X is stored in B's array, mutating it.
+;;;
 
   (check
       (let* ((N		3)	;number of equations
@@ -308,6 +389,7 @@
 	     (B		(scheme-vector->memory-real-vector '#(9.0 8.0 7.0)))
 	     (ipiv	(guarded-malloc (* N words.SIZEOF_INT))))
         (LAPACKE_dgesv LAPACK_ROW_MAJOR N NRHS A LDA ipiv B LDB)
+;;;	(debug-print 'ipiv (memory-int-vector->scheme-vector N ipiv))
 	(memory-real-vector->scheme-vector B.nslots B))
     (=> flonum-vector=?)
     (vector 0.0 (/ -29.0 3.0) (/ +28.0 3.0)))
