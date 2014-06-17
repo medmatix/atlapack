@@ -63,7 +63,10 @@
  *          -                   -
  *
  * In  addition  to such  results,  LAPACKE's  version of  DGESVD  makes
- * available an additional result: the vector superB.
+ * available an additional result: the  vector superB.  The size of such
+ * vector is MIN(nrows, ncols) and  it contains the superdiagonal of the
+ * working   matrix.   See   the   source  code   of   the  C   function
+ * "LAPACKE_dgesvd()".
  *
  * We  can easily  validate  the results  by  reconstructing the  matrix
  * SIGMA:
