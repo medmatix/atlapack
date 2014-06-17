@@ -35,6 +35,8 @@
 #include <stdlib.h>
 #include <memory.h>
 
+#define IMIN(I,J)	(((I)<=(J))? (I) : (J))
+#define MREF(A)		(&(A)[0][0])
 #define EPSILON		1e-3
 
 void print_double_row_major_matrix (const char * matrix_name,
@@ -76,8 +78,12 @@ compare_double_row_major_result_and_expected_result (const char * description,
   for (int i=0; i<number_of_rows; ++i) {
     for (int j=0; j<number_of_cols; ++j) {
       if (fabs(X[i][j] - R[i][j]) > EPSILON) {
-	printf("\tError in result (row=%d, col=%d): X = %+10lf, R = %+10lf\n",
-	       i, j, X[i][j], R[i][j]);
+	if (0 == error) {
+	  printf("Comparison errors for %dx%d matrix: %s\n(Showing 1-based row and column indices).\n",
+		 number_of_rows, number_of_cols, description);
+	}
+	printf("\tError at (row=%d, col=%d): result = %+10lf, expected = %+10lf\n",
+	       1+i, 1+j, X[i][j], R[i][j]);
 	error = 1;
       }
     }
@@ -104,8 +110,12 @@ compare_double_col_major_result_and_expected_result (const char * description,
   for (int i=0; i<number_of_rows; ++i) {
     for (int j=0; j<number_of_cols; ++j) {
       if (fabs(X[j][i] - R[j][i]) > EPSILON) {
-	printf("\tError in result (row=%d, col=%d): X = %+10lf, R = %+10lf\n",
-	       i, j, X[j][i], R[j][i]);
+	if (0 == error) {
+	  printf("Comparison errors for %dx%d matrix: %s\n(Showing 1-based row and column indices).\n",
+		 number_of_rows, number_of_cols, description);
+	}
+	printf("\tError at (row=%d, col=%d): result = %+10lf, expected = %+10lf\n",
+	       1+i, 1+j, X[j][i], R[j][i]);
 	error = 1;
       }
     }
@@ -135,8 +145,12 @@ compare_complex_row_major_result_and_expected_result (const char * description,
   for (int i=0; i<number_of_rows; ++i) {
     for (int j=0; j<number_of_cols; ++j) {
       if (cabs(X[i][j] - R[i][j]) > EPSILON) {
-	printf("\tError in result (row=%d, col=%d): X = %+10lf%-+lfi, R = %+10lf%-+lfi\n",
-	       i, j,
+	if (0 == error) {
+	  printf("Comparison errors for %dx%d matrix: %s\n(Showing 1-based row and column indices).\n",
+		 number_of_rows, number_of_cols, description);
+	}
+	printf("\tError at (row=%d, col=%d): result = %+10lf%-+lfi, expected = %+10lf%-+lfi\n",
+	       1+i, 1+j,
 	       lapack_complex_double_real(X[i][j]), lapack_complex_double_imag(X[i][j]),
 	       lapack_complex_double_real(R[i][j]), lapack_complex_double_imag(R[i][j]));
 	error = 1;
@@ -165,8 +179,12 @@ compare_complex_col_major_result_and_expected_result (const char * description,
   for (int i=0; i<number_of_rows; ++i) {
     for (int j=0; j<number_of_cols; ++j) {
       if (fabs(X[j][i] - R[j][i]) > EPSILON) {
-	printf("\tError in result (row=%d, col=%d): X = %+10lf%-+lfi, R = %+10lf%-+lfi\n",
-	       i, j,
+	if (0 == error) {
+	  printf("Comparison errors for %dx%d matrix: %s\n(Showing 1-based row and column indices).\n",
+		 number_of_rows, number_of_cols, description);
+	}
+	printf("\tError at (row=%d, col=%d): result = %+10lf%-+lfi, expected = %+10lf%-+lfi\n",
+	       1+i, 1+j,
 	       lapack_complex_double_real(X[j][i]), lapack_complex_double_imag(X[j][i]),
 	       lapack_complex_double_real(R[j][i]), lapack_complex_double_imag(R[j][i]));
 	error = 1;
