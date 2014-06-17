@@ -37,7 +37,9 @@
 
 #define IMIN(I,J)	(((I)<=(J))? (I) : (J))
 #define MREF(A)		(&(A)[0][0])
-#define EPSILON		1e-3
+
+static double	EPSILON		= 1e-3;
+static int	exit_code	= EXIT_SUCCESS;
 
 void print_double_row_major_matrix (const char * matrix_name,
 				    const int number_of_rows,
@@ -90,7 +92,7 @@ compare_double_row_major_result_and_expected_result (const char * description,
   }
   if (error) {
     printf("\tWrong result \"%s\" in row-major computation.\n\n", description);
-    exit(EXIT_FAILURE);
+    exit_code = EXIT_FAILURE;
   } else {
     printf("\tThe result \"%s\" equals the expected one, up to epsilon = %lg.\n\n",
 	   description, EPSILON);
@@ -122,7 +124,7 @@ compare_double_col_major_result_and_expected_result (const char * description,
   }
   if (error) {
     printf("\tWrong result \"%s\" in row-major computation.\n\n", description);
-    exit(EXIT_FAILURE);
+    exit_code = EXIT_FAILURE;
   } else {
     printf("\tThe result \"%s\" equals the expected one, up to epsilon = %lg.\n\n",
 	   description, EPSILON);
@@ -159,7 +161,7 @@ compare_complex_row_major_result_and_expected_result (const char * description,
   }
   if (error) {
     printf("\tWrong result \"%s\" in row-major computation.\n\n", description);
-    exit(EXIT_FAILURE);
+    exit_code = EXIT_FAILURE;
   } else {
     printf("\tThe result \"%s\" equals the expected one, up to epsilon = %lg.\n\n",
 	   description, EPSILON);
@@ -193,7 +195,7 @@ compare_complex_col_major_result_and_expected_result (const char * description,
   }
   if (error) {
     printf("\tWrong result \"%s\" in row-major computation.\n\n", description);
-    exit(EXIT_FAILURE);
+    exit_code = EXIT_FAILURE;
   } else {
     printf("\tThe result \"%s\" equals the expected one, up to epsilon = %lg.\n\n",
 	   description, EPSILON);

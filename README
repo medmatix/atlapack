@@ -250,6 +250,13 @@ the last revision of this package is available from:
 
 	   <http://sourceforge.net/projects/atlapack/files/>
 
+  Always remember that at Netlib's site there are test data, results and
+programs for all the routines in LAPACK:
+
+	    <http://www.nag.co.uk/lapack-ex/lapack-ex.html>
+
+
+
 
 D. How to upgrade to a new LAPACK release
 -----------------------------------------

@@ -6,13 +6,15 @@
 AM_CFLAGS	= -Wall
 
 check_PROGRAMS	= dgels
-XFAIL		=
+XFAIL_TESTS	=
 
 if WANT_CBLAS
 if FOUND_MATH_LIB
-check_PROGRAMS	+= cgeqrf dgesv zgesv \
+check_PROGRAMS	+= \
+	cgeqrf			\
+	dgesv zgesv		\
 	dgesvd
-XFAIL		+= dgesvd
+XFAIL_TESTS	+= dgesvd
 endif
 endif
 

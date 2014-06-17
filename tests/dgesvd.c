@@ -32,12 +32,13 @@
  *     -       -     -           -   -       -
  *
  * in these equations: the elements s11  and s22 are the singular values
- * of the matrix A; the matrix U  is orthogonal and has, as columns, the
- * left  singular  vectors; the  matrix  V  is  orthogonal and  has,  as
- * columns, the right singular vectors.
+ * of  the  matrix A;  the  matrix  U is  orthogonal;  the  matrix V  is
+ * orthogonal.
  *
- * Notice that when looking at V^T,  transposed of V: the *rows* are the
- * right singular vectors.
+ * The first  min(3,2) columns of U  are the left singular  vectors; the
+ * first min(3,2) columns  of V are the right  singular vectors.  Notice
+ * that when looking  at V^T, transposed of V: the  *rows* are the right
+ * singular vectors.
  *
  * The routine DGESVD gives us the singular values in vector format as:
  *
@@ -97,11 +98,9 @@ static void doit_with_netlib_test_data (void);
 int
 main (int argc, const char *const argv[])
 {
-  if (1)
-    doit_with_small_matrix();
-  if (1)
-    doit_with_netlib_test_data();
-  exit(EXIT_SUCCESS);
+  if (1) doit_with_small_matrix();
+  if (1) doit_with_netlib_test_data();
+  exit(exit_code);
 }
 
 
@@ -136,7 +135,11 @@ doit_with_small_matrix (void)
   double		VT[N][N];	/* result: matrix V transposed, the columns of V are the right singular vectors */
   double		superb[IMIN(M,N)-1][1];	/* super diagonal of an internal work matrix, see the source of DGESVD */
 
-  /* expected results */
+  /* Expected results.
+
+     NOTE In  truth: these  values are not  "expected", they  are copied
+     from the log of this very function; so they are the result of a run
+     of this program on my system.  (Marco Maggi; Tue Jun 17, 2014) */
   double		expected_S[N][1] = {
     { +5.634546 },
     { +0.043473 }
@@ -333,7 +336,7 @@ doit_with_netlib_test_data (void)
 
   lapack_int		info;
 
-  printf("\n\n *** DGESVD: LAPACK SITE MATRIX EXAMPLE ***\n\n");
+  printf("\n\n *** DGESVD: NETLIB SITE MATRIX EXAMPLE ***\n\n");
 
   memcpy(A1, A, sizeof(double) * M * N);
 
@@ -453,7 +456,6 @@ doit_with_netlib_test_data (void)
 							   N, N, VT, netlib_expected_VT);
     }
   }
-
 }
 
 /* end of file */
