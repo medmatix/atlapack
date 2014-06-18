@@ -13,8 +13,8 @@ if FOUND_MATH_LIB
 check_PROGRAMS	+= \
 	cgeqrf			\
 	dgesv zgesv		\
-	dgesvd
-XFAIL_TESTS	+= dgesvd
+	dgesvd zgesvd
+XFAIL_TESTS	+= dgesvd zgesvd
 endif
 endif
 
@@ -35,6 +35,10 @@ dgesv_SOURCES		= dgesv.c atlapack-test-utils.h
 dgesvd_LDADD		= $(atlapack_cblas_libs)
 dgesvd_CPPFLAGS		= $(CBLAS_CFLAGS)
 dgesvd_SOURCES		= dgesvd.c atlapack-test-utils.h
+
+zgesvd_LDADD		= $(atlapack_cblas_libs)
+zgesvd_CPPFLAGS		= $(CBLAS_CFLAGS)
+zgesvd_SOURCES		= zgesvd.c atlapack-test-utils.h
 
 zgesv_LDADD		= $(atlapack_cblas_libs)
 zgesv_CPPFLAGS		= $(CBLAS_CFLAGS)

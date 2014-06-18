@@ -35,6 +35,11 @@
 #include <stdlib.h>
 #include <memory.h>
 
+/* This is defined by C11. */
+#ifndef CMPLX
+#  define CMPLX(REAL,IMAG)	((REAL) + (IMAG) * _Complex_I)
+#endif
+
 #define IMIN(I,J)	(((I)<=(J))? (I) : (J))
 #define MREF(A)		(&(A)[0][0])
 

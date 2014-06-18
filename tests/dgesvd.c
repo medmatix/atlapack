@@ -7,7 +7,11 @@
  * To understand this  test program see the manual page  for the Fortran
  * routine dgesvd(3), the prototype of the C function "LAPACKE_dgesvd()"
  * in the header file "lapacke.h" and (unfortunately) the source code of
- * the original routine "dgesvd.f".
+ * "LAPACKE_dgesvd()".
+ *
+ * For an introduction to singular value decomposition see:
+ *
+ *     <http://en.wikipedia.org/wiki/Singular_value_decomposition>
  *
  * What do  we want to  do here?  Let's explain  it with a  small matrix
  * example; given the input matrix:
@@ -81,6 +85,10 @@
  * original A:
  *
  *    U SIGMA V^T = A
+ *
+ * notice that while  the left singular vectors are the  first N columns
+ * of U, we need  the full U to reconstruct the input  matrix A from the
+ * results.
  */
 
 
