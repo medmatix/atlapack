@@ -46,12 +46,12 @@
 static double	EPSILON		= 1e-3;
 static int	exit_code	= EXIT_SUCCESS;
 
-void print_double_row_major_matrix (const char * matrix_name,
+void print_real_row_major_matrix (const char * matrix_name,
 				    const int number_of_rows,
 				    const int number_of_cols,
 				    double X[number_of_rows][number_of_cols]);
 
-void print_double_col_major_matrix (const char * matrix_name,
+void print_real_col_major_matrix (const char * matrix_name,
 				    const int number_of_rows,
 				    const int number_of_cols,
 				    double X[number_of_cols][number_of_rows]);
@@ -72,7 +72,7 @@ void print_complex_col_major_matrix (const char * matrix_name,
  ** ----------------------------------------------------------------- */
 
 void
-compare_double_row_major_result_and_expected_result (const char * description,
+compare_real_row_major_result_and_expected_result (const char * description,
 						     const lapack_int number_of_rows,
 						     const lapack_int number_of_cols,
 						     double X[number_of_rows][number_of_cols],
@@ -104,7 +104,7 @@ compare_double_row_major_result_and_expected_result (const char * description,
   }
 }
 void
-compare_double_col_major_result_and_expected_result (const char * description,
+compare_real_col_major_result_and_expected_result (const char * description,
 						     const lapack_int number_of_rows,
 						     const lapack_int number_of_cols,
 						     double X[number_of_cols][number_of_rows],
@@ -213,7 +213,7 @@ compare_complex_col_major_result_and_expected_result (const char * description,
  ** ----------------------------------------------------------------- */
 
 void
-double_row_major_split_LU (const int N,
+real_row_major_split_LU (const int N,
 			   double A[N][N], double L[N][N], double U[N][N])
 /* Given  an array  representing A  matrix decomposed  in LU  form: fill
  * other arrays with the L elemets and the U elements.  The matrices are
@@ -246,7 +246,7 @@ double_row_major_split_LU (const int N,
   }
 }
 void
-double_col_major_split_LU (const int N,
+real_col_major_split_LU (const int N,
 			   double A[N][N], double L[N][N], double U[N][N])
 /* Given  an array  representing A  matrix decomposed  in LU  form: fill
  * other arrays with the L elemets and the U elements.  The matrices are
@@ -498,7 +498,7 @@ col_major_permutation_matrix_from_ipiv (const int number_of_indices,
 
 
 void
-double_row_major_apply_permutation_matrix (int number_of_rows_in_R,
+real_row_major_apply_permutation_matrix (int number_of_rows_in_R,
 					   int number_of_cols_in_R,
 					   int P[number_of_rows_in_R][number_of_rows_in_R],
 					   double R[number_of_rows_in_R][number_of_cols_in_R],
@@ -526,7 +526,7 @@ double_row_major_apply_permutation_matrix (int number_of_rows_in_R,
   }
 }
 void
-double_col_major_apply_permutation_matrix (int number_of_rows_in_R,
+real_col_major_apply_permutation_matrix (int number_of_rows_in_R,
 					   int number_of_cols_in_R,
 					   int P[number_of_rows_in_R][number_of_rows_in_R],
 					   double R[number_of_cols_in_R][number_of_rows_in_R],
@@ -619,10 +619,10 @@ complex_col_major_apply_permutation_matrix (int number_of_rows_in_R,
  ** ----------------------------------------------------------------- */
 
 void
-print_double_row_major_matrix (const char * matrix_name,
-			       const int number_of_rows,
-			       const int number_of_cols,
-			       double X[number_of_rows][number_of_cols])
+print_real_row_major_matrix (const char * matrix_name,
+			     const int number_of_rows,
+			     const int number_of_cols,
+			     double X[number_of_rows][number_of_cols])
 /* Given an array  representing a matrix in row-major  order: display it
    to stdout in row-major order. */
 {
@@ -639,7 +639,7 @@ print_double_row_major_matrix (const char * matrix_name,
   printf("\n");
 }
 void
-print_double_col_major_matrix (const char * matrix_name,
+print_real_col_major_matrix (const char * matrix_name,
 			       const int number_of_rows,
 			       const int number_of_cols,
 			       double X[number_of_cols][number_of_rows])

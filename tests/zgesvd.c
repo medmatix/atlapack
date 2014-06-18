@@ -191,17 +191,17 @@ doit_with_small_matrix (void)
     if (0) {
       print_complex_row_major_matrix ("A1, output matrix", M, N, A1);
     }
-    print_double_row_major_matrix ("S, computed singular values", N, 1, S);
+    print_real_row_major_matrix ("S, computed singular values", N, 1, S);
     print_complex_row_major_matrix ("SIGMA, matrix having singular values on the main diagonal",
 				    M, N, SIGMA);
     print_complex_row_major_matrix ("U, the columns are the left singular vectors", M, M, U);
     print_complex_row_major_matrix ("V transposed, the rows are the right singular vectors", N, N, VT);
-    print_double_row_major_matrix ("superb", IMIN(M,N)-1, 1, superb);
+    print_real_row_major_matrix ("superb", IMIN(M,N)-1, 1, superb);
   }
 
   /* Comparison between computed results and expected results. */
   if (1) {
-    compare_double_row_major_result_and_expected_result ("S, singular values",
+    compare_real_row_major_result_and_expected_result ("S, singular values",
 							 N, 1, S, expected_S);
     compare_complex_row_major_result_and_expected_result ("recomputed A",
 							  M, N, A, recomputed_A);
@@ -383,17 +383,17 @@ doit_with_netlib_test_data (void)
     if (0) {
       print_complex_row_major_matrix ("A1, output matrix", M, N, A1);
     }
-    print_double_row_major_matrix ("S, computed singular values", N, 1, S);
+    print_real_row_major_matrix ("S, computed singular values", N, 1, S);
     print_complex_row_major_matrix ("SIGMA, matrix having singular values on the main diagonal",
 				    M, N, SIGMA);
     print_complex_row_major_matrix ("U, the first N columns are the left singular vectors", M, M, U);
     print_complex_row_major_matrix ("V conjugate-transposed, the rows are the right singular vectors", N, N, VH);
-    print_double_row_major_matrix ("superb", IMIN(M,N)-1, 1, superb);
+    print_real_row_major_matrix ("superb", IMIN(M,N)-1, 1, superb);
   }
 
   /* Comparison between computed results and netlib_expected results. */
   if (1) {
-    compare_double_row_major_result_and_expected_result ("S, singular values",
+    compare_real_row_major_result_and_expected_result ("S, singular values",
 							 N, 1, S, netlib_expected_S);
     compare_complex_row_major_result_and_expected_result ("recomputed A",
 							  M, N, A, recomputed_A);

@@ -164,8 +164,8 @@ doit_in_row_major (void)
 
   /* Result verification. */
   printf("Row-major dgesv results:\n");
-  print_double_row_major_matrix("X, resulting unknowns", N, NRHS, X);
-  compare_double_row_major_result_and_expected_result("computed unknowns",
+  print_real_row_major_matrix("X, resulting unknowns", N, NRHS, X);
+  compare_real_row_major_result_and_expected_result("computed unknowns",
 						      N, NRHS, X, R);
 
   /* Results logging. */
@@ -178,7 +178,7 @@ doit_in_row_major (void)
     double	S[N][N];	/* S = PR = PLU */
 
     row_major_permutation_matrix_from_ipiv (N, N, ipiv, perms, P);
-    double_row_major_split_LU(N, packedLU, L, U);
+    real_row_major_split_LU(N, packedLU, L, U);
     /* Multiply L and U to verify that  the result is indeed PA; we need
      * CBLAS for this.  In general DGEMM does:
      *
@@ -223,17 +223,17 @@ doit_in_row_major (void)
 		  N, N, N,
 		  alpha, &L[0][0], LDA, &U[0][0], LDA, beta, &R[0][0], LDA);
     }
-    double_row_major_apply_permutation_matrix(N, N, P, R, S);
+    real_row_major_apply_permutation_matrix(N, N, P, R, S);
 
-    print_double_row_major_matrix("A, original coefficient matrix", N, N, A);
-    print_double_row_major_matrix("B, original right-hand sides", N, NRHS, B);
+    print_real_row_major_matrix("A, original coefficient matrix", N, N, A);
+    print_real_row_major_matrix("B, original right-hand sides", N, NRHS, B);
     print_partial_pivoting_vector_and_permutation_matrix_LU(N, N, ipiv);
-    print_double_row_major_matrix("packedLU representing L and U packed in single matrix",
+    print_real_row_major_matrix("packedLU representing L and U packed in single matrix",
 				  N, N, packedLU);
-    print_double_row_major_matrix("L, elements of packedLU", N, N, L);
-    print_double_row_major_matrix("U, elements of packedLU", N, N, U);
-    print_double_row_major_matrix("R = LU, it must be such that A = PR", N, N, R);
-    print_double_row_major_matrix("S = PR = PLU, it must be such that A = S", N, N, S);
+    print_real_row_major_matrix("L, elements of packedLU", N, N, L);
+    print_real_row_major_matrix("U, elements of packedLU", N, N, U);
+    print_real_row_major_matrix("R = LU, it must be such that A = PR", N, N, R);
+    print_real_row_major_matrix("S = PR = PLU, it must be such that A = S", N, N, S);
   }
 }
 
@@ -296,8 +296,8 @@ doit_in_col_major (void)
 
   /* Result verification. */
   printf("Row-major dgesv results:\n");
-  print_double_col_major_matrix("X, resulting unknowns", NRHS, LDB, X);
-  compare_double_col_major_result_and_expected_result("computed unknowns",
+  print_real_col_major_matrix("X, resulting unknowns", NRHS, LDB, X);
+  compare_real_col_major_result_and_expected_result("computed unknowns",
 						      NRHS, LDB, X, R);
 
   /* Results logging. */
@@ -310,7 +310,7 @@ doit_in_col_major (void)
     double	S[N][N];	/* S = PR = PLU */
 
     col_major_permutation_matrix_from_ipiv (N, N, ipiv, perms, P);
-    double_col_major_split_LU(N, packedLU, L, U);
+    real_col_major_split_LU(N, packedLU, L, U);
     /* Multiply L and U to verify that  the result is indeed PA; we need
      * CBLAS for this.  In general DGEMM does:
      *
@@ -355,17 +355,17 @@ doit_in_col_major (void)
 		  N, N, N,
 		  alpha, &L[0][0], LDA, &U[0][0], LDA, beta, &R[0][0], LDA);
     }
-    double_col_major_apply_permutation_matrix(N, N, P, R, S);
+    real_col_major_apply_permutation_matrix(N, N, P, R, S);
 
-    print_double_col_major_matrix("A, original coefficient matrix", N, N, A);
-    print_double_col_major_matrix("B, original right-hand sides", NRHS, LDB, B);
+    print_real_col_major_matrix("A, original coefficient matrix", N, N, A);
+    print_real_col_major_matrix("B, original right-hand sides", NRHS, LDB, B);
     print_partial_pivoting_vector_and_permutation_matrix_LU(N, N, ipiv);
-    print_double_col_major_matrix("packedLU representing L and U packed in single matrix",
+    print_real_col_major_matrix("packedLU representing L and U packed in single matrix",
 				  N, N, packedLU);
-    print_double_col_major_matrix("L, elements of packedLU", N, N, L);
-    print_double_col_major_matrix("U, elements of packedLU", N, N, U);
-    print_double_col_major_matrix("R = LU, it must be such that A = PR", N, N, R);
-    print_double_col_major_matrix("S = PR = PLU, it must be such that A = S", N, N, S);
+    print_real_col_major_matrix("L, elements of packedLU", N, N, L);
+    print_real_col_major_matrix("U, elements of packedLU", N, N, U);
+    print_real_col_major_matrix("R = LU, it must be such that A = PR", N, N, R);
+    print_real_col_major_matrix("S = PR = PLU, it must be such that A = S", N, N, S);
   }
 }
 
