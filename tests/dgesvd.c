@@ -298,6 +298,8 @@ doit_with_netlib_test_data (void)
 #undef ldU
 #undef ldVT
 #define matrix_order	LAPACK_ROW_MAJOR
+  /* The left singular vectors are the first N columns of U, but we need
+     the full U to reconstruct the input matrix A from the results. */
 #define jobU		'A'	/* option: return all the M columns of U in the matrix U */
 #define jobVT		'A'	/* option: return all the N rows of V^T in the matrix VT */
 #define M		6	/* number of rows in the input matrix A */
@@ -320,14 +322,20 @@ doit_with_netlib_test_data (void)
   double		VT[N][N];	/* result: matrix V transposed, the columns of V are the right singular vectors */
   double		superb[IMIN(M,N)-1][1];	/* super diagonal of an internal work matrix, see the source of DGESVD */
 
-  /* expected results */
+  double		left_singular_vectors[M][N]; /* result: the first N columns of U are the left singular vectors */
+
+  /* These expected values are from the Netlib site.
+
+     NOTE Netlib does  not give us the full expected  U matrix, only the
+     expected left singular  vectors: the first N columns  of U.  (Marco
+     Maggi; Wed Jun 18, 2014) */
   double		netlib_expected_S[N][1] = {
     { 9.9966 },
     { 3.6831 },
     { 1.3569 },
     { 0.5000 }
   };
-  double		netlib_expected_U[M][M] = {
+  double		netlib_expected_left_singular_vectors[M][N] = {
     {  0.2774,  0.6003,  0.1277, -0.1323 },
     {  0.2020,  0.0301, -0.2805, -0.7034 },
     {  0.2918, -0.3348, -0.6453, -0.1906 },
@@ -434,6 +442,13 @@ doit_with_netlib_test_data (void)
     memcpy(recomputed_A, R2, sizeof(double) * M * N);
   }
 
+  /* Extract the left singular vectors from the full U matrix. */
+  for (int i=0; i<M; ++i) {
+    for (int j=0; j<N; ++j) {
+      left_singular_vectors[i][j] = U[i][j];
+    }
+  }
+
   /* Result logging */
   {
     print_real_row_major_matrix ("A, input matrix", M, N, A);
@@ -445,7 +460,7 @@ doit_with_netlib_test_data (void)
     print_real_row_major_matrix ("S, computed singular values", N, 1, S);
     print_real_row_major_matrix ("SIGMA, matrix having singular values on the main diagonal",
 				   M, N, SIGMA);
-    print_real_row_major_matrix ("U, the columns are the left singular vectors", M, M, U);
+    print_real_row_major_matrix ("U, the first N columns are the left singular vectors", M, M, U);
     print_real_row_major_matrix ("V transposed, the rows are the right singular vectors", N, N, VT);
     print_real_row_major_matrix ("superb", IMIN(M,N)-1, 1, superb);
   }
@@ -461,8 +476,10 @@ doit_with_netlib_test_data (void)
        computed U and  VT are different from the expected  ones from the
        Netlib's test data.  (Marco Maggi; Tue Jun 17, 2014) */
     if (1) {
-      compare_real_row_major_result_and_expected_result ("U, matrix of left singular vectors",
-							   M, M, U, netlib_expected_U);
+      compare_real_row_major_result_and_expected_result ("matrix of left singular vectors",
+							 M, N,
+							 left_singular_vectors,
+							 netlib_expected_left_singular_vectors);
       compare_real_row_major_result_and_expected_result ("V^T, transposed matrix of right singular vectors",
 							   N, N, VT, netlib_expected_VT);
     }
