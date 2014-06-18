@@ -246,7 +246,8 @@ doit_in_row_major (void)
     print_real_row_major_matrix("L, elements of packedLU", N, N, L);
     print_real_row_major_matrix("U, elements of packedLU", N, N, U);
     print_real_row_major_matrix("R = LU, it must be such that A = PR", N, N, R);
-    print_real_row_major_matrix("S = PR = PLU, it must be such that A = S", N, N, reconstructed_A);
+    print_real_row_major_matrix("reconstructed_A = PR = PLU, it must be such that A = reconstructed_A",
+				N, N, reconstructed_A);
   }
 }
 

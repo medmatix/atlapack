@@ -73,7 +73,7 @@
  *        | l31 l32 u33 |
  *         -           -
  *
- * The permutation matrix P is returned by DGESV in its IPIV parameter.
+ * The permutation matrix P is returned by ZGESV in its IPIV parameter.
  */
 
 
@@ -133,19 +133,28 @@ doit_in_row_major (void)
   lapack_int	ipiv[N];
   /* Result of computation: error code, zero if success. */
   lapack_int	info;
+
   /* Expected result of computation, row-major order, non-permuted. */
-  lapack_complex_double	R[N][LDB] = {
+  lapack_complex_double	expected_X[N][LDB] = {
     { lapack_make_complex_double(0.0, 0.0) },
     { lapack_make_complex_double(-29.0/3.0, 0.0) },
     { lapack_make_complex_double(+28.0/3.0, 0.0) }
   };
 
+  /* Data needed to reconstruct A from the results. */
+  int			perms[N];	/* permutations vector */
+  int			P[N][N];	/* permutation matrix */
+  lapack_complex_double	L[N][N];	/* lower triangular matrix */
+  lapack_complex_double	U[N][N];	/* upper triangular matrix */
+  lapack_complex_double	R[N][N];	/* R = LU */
+  lapack_complex_double	reconstructed_A[N][N];	/* reconstructed_A = PR = PLU */
+
   /* Load the original  coefficients matrix from A to  packedLU.  The LU
-     factorisation  result  of  dgesv()  will  be  stored  in  packedLU,
+     factorisation  result  of  zgesv()  will  be  stored  in  packedLU,
      overwriting it. */
   memcpy(packedLU, A, sizeof(lapack_complex_double) * N * N);
   /* Load  the right-hand  side from  B to  X.  The  unknowns result  of
-     dgesv() will be stored in X, overwriting it. */
+     zgesv() will be stored in X, overwriting it. */
   memcpy(X, B, sizeof(lapack_complex_double) * N * NRHS);
 
   /* Do it. */
@@ -161,20 +170,8 @@ doit_in_row_major (void)
     exit(EXIT_FAILURE);
   }
 
-  /* Result verification. */
-  printf("Row-major dgesv results:\n");
-  print_complex_row_major_matrix("X, resulting unknowns", N, NRHS, X);
-  compare_complex_row_major_result_and_expected_result("computed unknowns",
-						       N, NRHS, X, R);
-  /* Results logging. */
+  /* Reconstructing A from the results. */
   {
-    int		perms[N];	/* permutations vector */
-    int		P[N][N];	/* permutation matrix */
-    lapack_complex_double	L[N][N];	/* lower triangular matrix */
-    lapack_complex_double	U[N][N];	/* upper triangular matrix */
-    lapack_complex_double	R[N][N];	/* R = LU */
-    lapack_complex_double	S[N][N];	/* S = PR = PLU */
-
     row_major_permutation_matrix_from_ipiv (N, N, ipiv, perms, P);
     complex_row_major_split_LU(N, packedLU, L, U);
 
@@ -222,17 +219,32 @@ doit_in_row_major (void)
 		  N, N, N,
 		  &alpha, &L[0][0], LDA, &U[0][0], LDA, &beta, &R[0][0], LDA);
     }
-    complex_row_major_apply_permutation_matrix(N, N, P, R, S);
+    complex_row_major_apply_permutation_matrix(N, N, P, R, reconstructed_A);
+  }
 
+  printf("Row-major zgesv results:\n");
+
+  /* Result verification. */
+  {
+    compare_complex_row_major_result_and_expected_result("computed unknowns",
+							 N, NRHS, X, expected_X);
+    compare_complex_row_major_result_and_expected_result("reconstructed A",
+							 N, N, reconstructed_A, A);
+  }
+
+  /* Results logging. */
+  {
+    print_complex_row_major_matrix("X, resulting unknowns", N, NRHS, X);
     print_complex_row_major_matrix("A, original coefficient matrix", N, N, A);
     print_complex_row_major_matrix("B, original right-hand sides", N, NRHS, B);
     print_partial_pivoting_vector_and_permutation_matrix_LU(N, N, ipiv);
     print_complex_row_major_matrix("packedLU representing L and U packed in single matrix",
-				  N, N, packedLU);
+				   N, N, packedLU);
     print_complex_row_major_matrix("L, elements of packedLU", N, N, L);
     print_complex_row_major_matrix("U, elements of packedLU", N, N, U);
     print_complex_row_major_matrix("R = LU, it must be such that A = PR", N, N, R);
-    print_complex_row_major_matrix("S = PR = PLU, it must be such that A = S", N, N, S);
+    print_complex_row_major_matrix("reconstructed_A = PR = PLU, it must be such that A = reconstructed_A",
+				   N, N, reconstructed_A);
   }
 }
 
@@ -267,10 +279,19 @@ doit_in_col_major (void)
   lapack_int	ipiv[N];
   /* Result of computation: error code, zero if success. */
   lapack_int	info;
+
   /* Expected result of computation, col-major order, non-permuted. */
-  lapack_complex_double	R[NRHS][LDB] = {
+  lapack_complex_double	expected_X[NRHS][LDB] = {
     { lapack_make_complex_double(0.0,0.0), lapack_make_complex_double(-29/3.0,0.0), lapack_make_complex_double(+28.0/3.0,0.0) }
   };
+
+  /* Data needed to reconstruct A from the results. */
+  int			perms[N];	/* permutations vector */
+  int			P[N][N];	/* permutation matrix */
+  lapack_complex_double	L[N][N];	/* lower triangular matrix */
+  lapack_complex_double	U[N][N];	/* upper triangular matrix */
+  lapack_complex_double	R[N][N];	/* R = LU */
+  lapack_complex_double	reconstructed_A[N][N];	/* reconstructed_A = PR = PLU */
 
   /* Load the original  coefficients matrix from A to  packedLU.  The LU
      factorisation  result  of  zgesv()  will  be  stored  in  packedLU,
@@ -289,25 +310,12 @@ doit_in_col_major (void)
   /* If something went wrong in the function call INFO is non-zero: exit
      with failure. */
   if (0 != info) {
-    printf("Error computing solution with row-major operands: INFO=%d.\n", info);
+    printf("Error computing solution with col-major operands: INFO=%d.\n", info);
     exit(EXIT_FAILURE);
   }
 
-  /* Result verification. */
-  printf("Row-major zgesv results:\n");
-  print_complex_col_major_matrix("X, resulting unknowns", NRHS, LDB, X);
-  compare_complex_col_major_result_and_expected_result("computed unknowns",
-						       NRHS, LDB, X, R);
-
-  /* Results logging. */
+  /* Reconstructing A from the results. */
   {
-    int		perms[N];	/* permutations vector */
-    int		P[N][N];	/* permutation matrix */
-    lapack_complex_double	L[N][N];	/* lower triangular matrix */
-    lapack_complex_double	U[N][N];	/* upper triangular matrix */
-    lapack_complex_double	R[N][N];	/* R = LU */
-    lapack_complex_double	S[N][N];	/* S = PR = PLU */
-
     col_major_permutation_matrix_from_ipiv (N, N, ipiv, perms, P);
     complex_col_major_split_LU(N, packedLU, L, U);
     /* Multiply L and U to verify that  the result is indeed PA; we need
@@ -335,7 +343,7 @@ doit_in_col_major (void)
      *                     const void *beta,
      *                     void *C, const int ldc);
      *
-     * In our  case all the matrices  are in row-major order  and we the
+     * In our case all the matrices are in column-major order and we the
      * representations in the  arrays A and B are not  transposed, so: M
      * is the number of rows of A and C; N is the number of columns of B
      * and of columns of C; K is the  number of columns of A and rows of
@@ -354,8 +362,22 @@ doit_in_col_major (void)
 		  N, N, N,
 		  &alpha, &L[0][0], LDA, &U[0][0], LDA, &beta, &R[0][0], LDA);
     }
-    complex_col_major_apply_permutation_matrix(N, N, P, R, S);
+    complex_col_major_apply_permutation_matrix(N, N, P, R, reconstructed_A);
+  }
 
+  printf("Column-major zgesv results:\n");
+
+  /* Result verification. */
+  {
+    compare_complex_col_major_result_and_expected_result("computed unknowns",
+							 NRHS, LDB, X, expected_X);
+    compare_complex_col_major_result_and_expected_result("reconstructed A",
+							 N, N, reconstructed_A, A);
+  }
+
+  /* Results logging. */
+  {
+    print_complex_col_major_matrix("X, resulting unknowns", NRHS, LDB, X);
     print_complex_col_major_matrix("A, original coefficient matrix", N, N, A);
     print_complex_col_major_matrix("B, original right-hand sides", NRHS, LDB, B);
     print_partial_pivoting_vector_and_permutation_matrix_LU(N, N, ipiv);
@@ -364,7 +386,8 @@ doit_in_col_major (void)
     print_complex_col_major_matrix("L, elements of packedLU", N, N, L);
     print_complex_col_major_matrix("U, elements of packedLU", N, N, U);
     print_complex_col_major_matrix("R = LU, it must be such that A = PR", N, N, R);
-    print_complex_col_major_matrix("S = PR = PLU, it must be such that A = S", N, N, S);
+    print_complex_col_major_matrix("reconstructed_A = PR = PLU, it must be such that A = reconstructed_A",
+				   N, N, reconstructed_A);
   }
 }
 
