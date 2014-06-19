@@ -174,8 +174,8 @@ doit_in_row_major (void)
 
   /* Reconstructing A from the results. */
   {
-    row_major_permutation_matrix_from_ipiv (N, N, ipiv, perms, P);
-    complex_row_major_split_LU(N, packedLU, L, U);
+    row_major_PLU_permutation_matrix_from_ipiv (N, N, ipiv, perms, P);
+    complex_row_major_split_LU(N, N, N, packedLU, L, U);
 
     /* Multiply L and U to verify that  the result is indeed PA; we need
      * CBLAS for this.  In general ZGEMM does:
@@ -239,7 +239,7 @@ doit_in_row_major (void)
     print_complex_row_major_matrix("X, resulting unknowns", N, NRHS, X);
     print_complex_row_major_matrix("A, original coefficient matrix", N, N, A);
     print_complex_row_major_matrix("B, original right-hand sides", N, NRHS, B);
-    print_partial_pivoting_vector_and_permutation_matrix_LU(N, N, ipiv);
+    print_row_major_PLU_partial_pivoting_vectors_and_matrix (N, N, ipiv, perms, P);
     print_complex_row_major_matrix("packedLU representing L and U packed in single matrix",
 				   N, N, packedLU);
     print_complex_row_major_matrix("L, elements of packedLU", N, N, L);
@@ -319,8 +319,8 @@ doit_in_col_major (void)
 
   /* Reconstructing A from the results. */
   {
-    col_major_permutation_matrix_from_ipiv (N, N, ipiv, perms, P);
-    complex_col_major_split_LU(N, packedLU, L, U);
+    col_major_PLU_permutation_matrix_from_ipiv (N, N, ipiv, perms, P);
+    complex_col_major_split_LU(N, N, N, packedLU, L, U);
     /* Multiply L and U to verify that  the result is indeed PA; we need
      * CBLAS for this.  In general ZGEMM does:
      *
@@ -383,7 +383,7 @@ doit_in_col_major (void)
     print_complex_col_major_matrix("X, resulting unknowns", NRHS, LDB, X);
     print_complex_col_major_matrix("A, original coefficient matrix", N, N, A);
     print_complex_col_major_matrix("B, original right-hand sides", NRHS, LDB, B);
-    print_partial_pivoting_vector_and_permutation_matrix_LU(N, N, ipiv);
+    print_col_major_PLU_partial_pivoting_vectors_and_matrix (N, N, ipiv, perms, P);
     print_complex_col_major_matrix("packedLU representing L and U packed in single matrix",
 				   N, N, packedLU);
     print_complex_col_major_matrix("L, elements of packedLU", N, N, L);
@@ -469,8 +469,8 @@ doit_with_other_numbers (void)
 
   /* Reconstructing A from the results. */
   {
-    row_major_permutation_matrix_from_ipiv (N, N, ipiv, perms, P);
-    complex_row_major_split_LU(N, packedLU, L, U);
+    row_major_PLU_permutation_matrix_from_ipiv (N, N, ipiv, perms, P);
+    complex_row_major_split_LU(N, N, N, packedLU, L, U);
 
     /* Multiply L and U to verify that  the result is indeed PA; we need
      * CBLAS for this.  In general ZGEMM does:
@@ -534,7 +534,7 @@ doit_with_other_numbers (void)
     print_complex_row_major_matrix("X, resulting unknowns", N, NRHS, X);
     print_complex_row_major_matrix("A, original coefficient matrix", N, N, A);
     print_complex_row_major_matrix("B, original right-hand sides", N, NRHS, B);
-    print_partial_pivoting_vector_and_permutation_matrix_LU(N, N, ipiv);
+    print_row_major_PLU_partial_pivoting_vectors_and_matrix (N, N, ipiv, perms, P);
     print_complex_row_major_matrix("packedLU representing L and U packed in single matrix",
 				   N, N, packedLU);
     print_complex_row_major_matrix("L, elements of packedLU", N, N, L);

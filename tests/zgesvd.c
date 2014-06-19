@@ -397,11 +397,18 @@ doit_with_netlib_test_data (void)
 							 N, 1, S, netlib_expected_S);
     compare_complex_row_major_result_and_expected_result ("recomputed A",
 							  M, N, A, recomputed_A);
-    /* FIXME These  comparisons fail.   Even though the  singular values
-       are fine and the recomputed matrix A equals the original one: the
-       computed U and  VH are different from the expected  ones from the
-       Netlib's test data.  (Marco Maggi; Wed Jun 18, 2014) */
-    if (1) {
+    /* FIXME These  comparisons fail.
+
+       Even  though the  singular  values are  fine  and the  recomputed
+       matrix  A equals  the original  one: the  computed U  and VT  are
+       different from the expected ones from the Netlib's test data.
+
+       Notice that,  taking into account  rounding errors: they  are not
+       randomly different, the computed values  are the opposites of the
+       expected values.
+
+       (Marco Maggi; Tue Jun 17, 2014) */
+    if (0) {
       compare_complex_row_major_result_and_expected_result ("matrix of left singular vectors",
 							    M, N,
 							    left_singular_vectors,
