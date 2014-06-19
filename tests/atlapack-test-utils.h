@@ -218,7 +218,7 @@ compare_complex_col_major_result_and_expected_result (const char * description,
   int		error = 0;
   for (int i=0; i<number_of_rows; ++i) {
     for (int j=0; j<number_of_cols; ++j) {
-      if (fabs(X[j][i] - R[j][i]) > EPSILON) {
+      if (cabs(X[j][i] - R[j][i]) > EPSILON) {
 	if (0 == error) {
 	  printf("Comparison errors for %dx%d matrix: %s\n(Showing 1-based row and column indices).\n",
 		 number_of_rows, number_of_cols, description);
@@ -594,14 +594,29 @@ print_row_major_PLU_partial_pivoting_vectors_and_matrix (const int nrows, const 
   printf("\tLAPACK's partial pivoting vector, sequence of permutations,\n\t1-based indexes:\n");
   {
     int		i = 0;
-    printf("\t| (%d) %d | first swap line %d with line %d\n", 1+i, ipiv[i], 1+i, ipiv[i]);
+    printf("\t| (%d) %d | first swap line %d with line %d", 1+i, ipiv[i], 1+i, ipiv[i]);
+    if ((1+i) == ipiv[i]) {
+      printf(", leave it untouched\n");
+    } else {
+      printf("\n");
+    }
     for (++i; i<ipiv_dim; ++i) {
-      printf("\t| (%d) %d | then  swap line %d with line %d\n", 1+i, ipiv[i], 1+i, ipiv[i]);
+      printf("\t| (%d) %d | then  swap line %d with line %d", 1+i, ipiv[i], 1+i, ipiv[i]);
+      if ((1+i) == ipiv[i]) {
+	printf(", leave it untouched\n");
+      } else {
+	printf("\n");
+      }
     }
   }
   printf("\tdeclarative permutations vector, every index represents the row permutation,\n\t1-based indexes:\n");
   for (int i=0; i<nrows; ++i) {
-    printf("\t| (%d) %d | line %d is swapped with with line %d\n", 1+i, perms[i], 1+i, perms[i]);
+    printf("\t| (%d) %d | line %d is swapped with line %d", 1+i, perms[i], 1+i, perms[i]);
+    if ((1+i) == perms[i]) {
+      printf(", leave it untouched\n");
+    } else {
+      printf("\n");
+    }
   }
   print_int_row_major_matrix("P permutation of A', where: A = P A' = P L U",
 			     nrows, nrows, P);
@@ -616,14 +631,29 @@ print_col_major_PLU_partial_pivoting_vectors_and_matrix (const int nrows, const 
   printf("\tLAPACK's partial pivoting vector, sequence of permutations,\n\t1-based indexes:\n");
   {
     int		i = 0;
-    printf("\t| (%d) %d | first swap line %d with line %d\n", 1+i, ipiv[i], 1+i, ipiv[i]);
+    printf("\t| (%d) %d | first swap line %d with line %d", 1+i, ipiv[i], 1+i, ipiv[i]);
+    if ((1+i) == ipiv[i]) {
+      printf(", leave it untouched\n");
+    } else {
+      printf("\n");
+    }
     for (++i; i<ipiv_dim; ++i) {
-      printf("\t| (%d) %d | then  swap line %d with line %d\n", 1+i, ipiv[i], 1+i, ipiv[i]);
+      printf("\t| (%d) %d | then  swap line %d with line %d", 1+i, ipiv[i], 1+i, ipiv[i]);
+      if ((1+i) == ipiv[i]) {
+	printf(", leave it untouched\n");
+      } else {
+	printf("\n");
+      }
     }
   }
   printf("\tdeclarative permutations vector, every index represents the row permutation,\n\t1-based indexes:\n");
   for (int i=0; i<nrows; ++i) {
-    printf("\t| (%d) %d | line %d is swapped with with line %d\n", 1+i, perms[i], 1+i, perms[i]);
+    printf("\t| (%d) %d | line %d is swapped with with line %d", 1+i, perms[i], 1+i, perms[i]);
+    if ((1+i) == perms[i]) {
+      printf(", leave it untouched\n");
+    } else {
+      printf("\n");
+    }
   }
   print_int_col_major_matrix("P permutation of A', where: A = P A' = P L U",
 			     nrows, nrows, P);
@@ -880,7 +910,7 @@ print_int_col_major_matrix (const char * matrix_name,
 /* Given an array  representing a matrix in col-major  order: display it
    to stdout in row-major order. */
 {
-  printf("\tRow-major matrix %s\n\t(dimension %d x %d) (displayed in row-major order):\n",
+  printf("\tColumn-major matrix %s\n\t(dimension %d x %d) (displayed in row-major order):\n",
 	 matrix_name, number_of_rows, number_of_cols);
   for (int i=0; i<number_of_rows; ++i) {
     int		j = 0;

@@ -256,6 +256,18 @@ doit_with_small_matrix (void)
     memcpy(recomputed_A, R2, sizeof(double) * M * N);
   }
 
+  /* Comparison between computed results and expected results. */
+  if (1) {
+    compare_real_row_major_result_and_expected_result ("S, singular values",
+							 N, 1, S, expected_S);
+    compare_real_row_major_result_and_expected_result ("recomputed A",
+							 M, N, A, recomputed_A);
+    compare_real_row_major_result_and_expected_result ("U, matrix of left singular vectors",
+							 M, M, U, expected_U);
+    compare_real_row_major_result_and_expected_result ("V^T, transposed matrix of right singular vectors",
+							 N, N, VT, expected_VT);
+  }
+
   /* Result logging */
   {
     print_real_row_major_matrix ("A, input matrix", M, N, A);
@@ -270,18 +282,6 @@ doit_with_small_matrix (void)
     print_real_row_major_matrix ("U, the columns are the left singular vectors", M, M, U);
     print_real_row_major_matrix ("V transposed, the rows are the right singular vectors", N, N, VT);
     print_real_row_major_matrix ("superb", IMIN(M,N)-1, 1, superb);
-  }
-
-  /* Comparison between computed results and expected results. */
-  if (1) {
-    compare_real_row_major_result_and_expected_result ("S, singular values",
-							 N, 1, S, expected_S);
-    compare_real_row_major_result_and_expected_result ("recomputed A",
-							 M, N, A, recomputed_A);
-    compare_real_row_major_result_and_expected_result ("U, matrix of left singular vectors",
-							 M, M, U, expected_U);
-    compare_real_row_major_result_and_expected_result ("V^T, transposed matrix of right singular vectors",
-							 N, N, VT, expected_VT);
   }
 }
 
@@ -449,22 +449,6 @@ doit_with_netlib_test_data (void)
     }
   }
 
-  /* Result logging */
-  {
-    print_real_row_major_matrix ("A, input matrix", M, N, A);
-    print_real_row_major_matrix ("recomputed A (must be equal to the original A)",
-				   M, N, recomputed_A);
-    if (0) {
-      print_real_row_major_matrix ("A1, output matrix", M, N, A1);
-    }
-    print_real_row_major_matrix ("S, computed singular values", N, 1, S);
-    print_real_row_major_matrix ("SIGMA, matrix having singular values on the main diagonal",
-				   M, N, SIGMA);
-    print_real_row_major_matrix ("U, the first N columns are the left singular vectors", M, M, U);
-    print_real_row_major_matrix ("V transposed, the rows are the right singular vectors", N, N, VT);
-    print_real_row_major_matrix ("superb", IMIN(M,N)-1, 1, superb);
-  }
-
   /* Comparison between computed results and expected results. */
   if (1) {
     compare_real_row_major_result_and_expected_result ("S, singular values",
@@ -490,6 +474,22 @@ doit_with_netlib_test_data (void)
       compare_real_row_major_result_and_expected_result ("V^T, transposed matrix of right singular vectors",
 							   N, N, VT, netlib_expected_VT);
     }
+  }
+
+  /* Result logging */
+  {
+    print_real_row_major_matrix ("A, input matrix", M, N, A);
+    print_real_row_major_matrix ("recomputed A (must be equal to the original A)",
+				   M, N, recomputed_A);
+    if (0) {
+      print_real_row_major_matrix ("A1, output matrix", M, N, A1);
+    }
+    print_real_row_major_matrix ("S, computed singular values", N, 1, S);
+    print_real_row_major_matrix ("SIGMA, matrix having singular values on the main diagonal",
+				   M, N, SIGMA);
+    print_real_row_major_matrix ("U, the first N columns are the left singular vectors", M, M, U);
+    print_real_row_major_matrix ("V transposed, the rows are the right singular vectors", N, N, VT);
+    print_real_row_major_matrix ("superb", IMIN(M,N)-1, 1, superb);
   }
 }
 

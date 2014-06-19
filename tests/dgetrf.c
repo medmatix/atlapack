@@ -70,7 +70,6 @@
 
 static void doit_in_row_major (void);
 static void doit_in_col_major (void);
-
 static void doit_with_other_values (void);
 
 
@@ -120,8 +119,7 @@ doit_in_row_major (void)
   memcpy(packedLU, A, sizeof(double) * N * N);
 
   /* Do it. */
-  info	= LAPACKE_dgetrf(LAPACK_ROW_MAJOR, N, N,
-			 MREF(packedLU), LDA, &ipiv[0]);
+  info	= LAPACKE_dgetrf(LAPACK_ROW_MAJOR, N, N, MREF(packedLU), LDA, VREF(ipiv));
 
   /* If something went wrong in the function call INFO is non-zero: exit
      with failure. */
@@ -240,7 +238,7 @@ doit_in_col_major (void)
   memcpy(packedLU, A, sizeof(double) * N * N);
 
   /* Do it. */
-  info	= LAPACKE_dgetrf(LAPACK_COL_MAJOR, N, N, MREF(packedLU), LDA, &ipiv[0]);
+  info	= LAPACKE_dgetrf(LAPACK_COL_MAJOR, N, N, MREF(packedLU), LDA, VREF(ipiv));
 
   /* If something went wrong in the function call INFO is non-zero: exit
      with failure. */
@@ -328,11 +326,14 @@ void
 doit_with_other_values (void)
 {
   /* These constants are all of type "lapack_int". */
+#undef M
 #undef N
 #undef LDA
-#define M	6	/* number of rows */
-#define	N	4	/* number of cols */
-#define	LDA	N	/* leading dimension of A */
+#undef IPIV_DIM
+#define M		6		/* number of rows */
+#define	N		4		/* number of cols */
+#define	LDA		N		/* leading dimension of A */
+#define IPIV_DIM	MIN(M,N)	/* dimension of IPIV */
   /* Operand of computation: coefficients matrix, row-major order. */
   double	A[M][N] = {
     { +2.27, -1.54, +1.15, -1.94 },
@@ -346,7 +347,6 @@ doit_with_other_values (void)
   double	packedLU[M][N];
   /* Result of computation: tuple  of partial pivot indexes representing
      the permutation matrix. */
-#define IPIV_DIM	MIN(M,N)
   lapack_int	ipiv[IPIV_DIM];
   /* Result of computation: error code, zero if success. */
   lapack_int	info;
@@ -365,7 +365,7 @@ doit_with_other_values (void)
   memcpy(packedLU, A, sizeof(double) * M * N);
 
   /* Do it. */
-  info	= LAPACKE_dgetrf(LAPACK_ROW_MAJOR, M, N, MREF(packedLU), LDA, &ipiv[0]);
+  info	= LAPACKE_dgetrf(LAPACK_ROW_MAJOR, M, N, MREF(packedLU), LDA, VREF(ipiv));
 
   /* If something went wrong in the function call INFO is non-zero: exit
      with failure. */
@@ -420,7 +420,7 @@ doit_with_other_values (void)
       double	beta  = 0.0;
       cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
 		  M, N, N,
-		  alpha, &L[0][0], LDA, &U[0][0], LDA, beta, &R[0][0], LDA);
+		  alpha, MREF(L), LDA, MREF(U), LDA, beta, MREF(R), LDA);
       real_row_major_apply_permutation_matrix(M, N, P, R, reconstructed_A);
     }
   }
@@ -428,7 +428,7 @@ doit_with_other_values (void)
   printf("Other values row-major dgetrf results:\n");
 
   /* Result verification. */
-  if (0) {
+  if (1) {
     compare_real_row_major_result_and_expected_result("reconstructed A",
 						      M, N, reconstructed_A, A);
   }

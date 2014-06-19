@@ -22,7 +22,7 @@ TESTS		= $(check_PROGRAMS)
 
 ## --------------------------------------------------------------------
 
-atlapack_cblas_libs	= ../lapacke/liblapacke.la $(CBLAS_LIBS)
+atlapack_cblas_libs	= ../lapacke/liblapacke.la $(CBLAS_LIBS) $(MATH_LIBS)
 
 ## --------------------------------------------------------------------
 
