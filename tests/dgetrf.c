@@ -79,22 +79,22 @@ static void doit_in_col_major (const char * description,
 int
 main (int argc, const char *const argv[])
 {
-  {
-    double	row_major_packedLU[3][3];
-    double	col_major_packedLU[3][3];
+  { /* square matrix */
     double	row_major_A[3][3] = {
       { 10.0, 1.0, 2.0 },
       {  3.0, 4.0, 5.0 },
       {  6.0, 7.0, 8.0 }
     };
     double	col_major_A[3][3];
+    double	row_major_packedLU[3][3];
+    double	col_major_packedLU[3][3];
 
-    if (1) { /* Row-major, square matrix. */
+    if (1) {
       doit_in_row_major("square matrix", 3, 3, row_major_A, row_major_packedLU);
     }
 
-    if (1) { /* Column-major, square matrix. */
-      real_matrix_transpose (3, 3, MREF(col_major_A), MREF(row_major_A));
+    if (1) {
+      real_row_major_matrix_transpose (3, 3, col_major_A, row_major_A);
       doit_in_col_major("square matrix", 3, 3, col_major_A, col_major_packedLU);
     }
 
@@ -102,15 +102,14 @@ main (int argc, const char *const argv[])
       printf("Square matrices results:\n");
       print_real_row_major_matrix("row-major packedLU", 3, 3, row_major_packedLU);
       print_real_col_major_matrix("col-major packedLU", 3, 3, col_major_packedLU);
-      real_matrix_transpose (3, 3, MREF(col_major_packedLU), MREF(col_major_packedLU));
-      compare_real_row_major_result_and_expected_result("row-major and col-major packedLU",
+      real_col_major_matrix_transpose (3, 3, col_major_packedLU, col_major_packedLU);
+      compare_real_row_major_result_and_expected_result("row-major and col-major packedLU transposed",
 							3, 3, row_major_packedLU, col_major_packedLU);
     }
   }
 
-  if (1) { /* Row-major, more rows than columns. */
-    double	packedLU[6][4];
-    double	A[6][4] = {
+  if (1) { /* more rows than columns */
+    double	row_major_A[6][4] = {
       { +2.27, -1.54, +1.15, -1.94 },
       { +0.28, -1.67, +0.94, -0.78 },
       { -0.48, -3.09, +0.99, -0.21 },
@@ -118,18 +117,63 @@ main (int argc, const char *const argv[])
       { -2.35, +2.93, -1.45, +2.30 },
       { +0.62, -7.39, +1.03, -2.57 }
     };
-    doit_in_row_major("more rows than columns", 6, 4, A, packedLU);
+    double	col_major_A[4][6];
+    double	row_major_packedLU[6][4];
+    double	col_major_packedLU[4][6];
+    double	col_major_packedLU_transposed[6][4];
+
+    if (1) {
+      doit_in_row_major("more rows than columns", 6, 4, row_major_A, row_major_packedLU);
+    }
+
+    if (1) { /* Column-major, square matrix. */
+      real_row_major_matrix_transpose (6, 4, col_major_A, row_major_A);
+      doit_in_col_major("more rows than columns", 6, 4, col_major_A, col_major_packedLU);
+    }
+
+    if (1) {
+      printf("More rows than columns matrices results:\n");
+      print_real_row_major_matrix("row-major packedLU", 6, 4, row_major_packedLU);
+      print_real_col_major_matrix("col-major packedLU", 6, 4, col_major_packedLU);
+      real_col_major_matrix_transpose (6, 4, col_major_packedLU_transposed, col_major_packedLU);
+      print_real_row_major_matrix("col-major packedLU transposed", 6, 4, col_major_packedLU_transposed);
+      compare_real_row_major_result_and_expected_result("row-major and col-major packedLU transposed",
+							6, 4, row_major_packedLU,
+							col_major_packedLU_transposed);
+    }
   }
 
-  if (1) { /* Row-major, more columns than rows. */
-    double	packedLU[4][6];
-    double	A[4][6] = {
+  if (1) { /* more columns than rows */
+    double	row_major_A[4][6] = {
       { +1.1, +1.2, +1.3, +1.4, +1.5, +1.6 },
       { +2.1, +2.2, +2.3, +2.4, +2.5, +2.6 },
       { +3.1, +3.2, +3.3, +3.4, +3.5, +3.6 },
       { +4.1, +4.2, +4.3, +4.4, +4.5, +4.6 }
     };
-    doit_in_row_major("more columns than rows", 4, 6, A, packedLU);
+    double	col_major_A[6][4];
+    double	row_major_packedLU[4][6];
+    double	col_major_packedLU[6][4];
+    double	col_major_packedLU_transposed[4][6];
+
+    if (1) {
+      doit_in_row_major("more columns than rows", 4, 6, row_major_A, row_major_packedLU);
+    }
+
+    if (1) { /* Column-major, square matrix. */
+      real_row_major_matrix_transpose (4, 6, col_major_A, row_major_A);
+      doit_in_col_major("more columns than rows", 4, 6, col_major_A, col_major_packedLU);
+    }
+
+    if (1) {
+      printf("More columns than rows matrices results:\n");
+      print_real_row_major_matrix("row-major packedLU", 4, 6, row_major_packedLU);
+      print_real_col_major_matrix("col-major packedLU", 4, 6, col_major_packedLU);
+      real_col_major_matrix_transpose (4, 6, col_major_packedLU_transposed, col_major_packedLU);
+      print_real_row_major_matrix("col-major packedLU transposed", 4, 6, col_major_packedLU_transposed);
+      compare_real_row_major_result_and_expected_result("row-major and col-major packedLU transposed",
+							4, 6, row_major_packedLU,
+							col_major_packedLU_transposed);
+    }
   }
 
   exit(exit_code);

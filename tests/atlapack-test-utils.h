@@ -168,9 +168,9 @@ integer_matrix_product (const int M, const int N, const int K,
  ** ----------------------------------------------------------------- */
 
 void
-real_matrix_transpose (int operand_nrows, int operand_ncols,
-		       double * restrict result,
-		       double * restrict operand)
+real_row_major_matrix_transpose (int nrows, int ncols,
+				 double R[ncols][nrows],
+				 double O[nrows][ncols])
 /* To call this function we are meant to do:
  *
  *    #define Onrows	2
@@ -182,16 +182,45 @@ real_matrix_transpose (int operand_nrows, int operand_ncols,
  *    real_matrix_transpose (Onrows, Oncols, &R[0][0], &O[0][0]);
  */
 {
-  if ((result == operand) && (operand_nrows == operand_ncols)) {
-    for (unsigned i=0; i<operand_nrows; ++i) {
-      for (unsigned j=i+1; j<operand_ncols; ++j) {
-	REAL_SWAP(result[j * operand_nrows + i], operand[i * operand_ncols + j]);
+  if ((R == O) && (nrows == ncols)) {
+    for (unsigned i=0; i<nrows; ++i) {
+      for (unsigned j=i+1; j<ncols; ++j) {
+	REAL_SWAP(R[j][i], O[i][j]);
       }
     }
   } else {
-    for (unsigned i=0; i<operand_nrows; ++i) {
-      for (unsigned j=0; j<operand_ncols; ++j) {
-	result[j * operand_nrows + i] = operand[i * operand_ncols + j];
+    for (unsigned i=0; i<nrows; ++i) {
+      for (unsigned j=0; j<ncols; ++j) {
+	R[j][i] = O[i][j];
+      }
+    }
+  }
+}
+void
+real_col_major_matrix_transpose (int nrows, int ncols,
+				 double R[nrows][ncols],
+				 double O[ncols][nrows])
+/* To call this function we are meant to do:
+ *
+ *    #define Onrows	2
+ *    #define Oncols	3
+ *    #define Rnrows	Oncols
+ *    #define Rncols	Onrows
+ *    double	O[Oncols][Onrows];
+ *    double	R[Rncols][Rnrows];
+ *    real_matrix_transpose (Onrows, Oncols, &R[0][0], &O[0][0]);
+ */
+{
+  if ((R == O) && (nrows == ncols)) {
+    for (unsigned i=0; i<nrows; ++i) {
+      for (unsigned j=i+1; j<ncols; ++j) {
+	REAL_SWAP(R[i][j], O[j][i]);
+      }
+    }
+  } else {
+    for (unsigned i=0; i<nrows; ++i) {
+      for (unsigned j=0; j<ncols; ++j) {
+	R[i][j] = O[j][i];
       }
     }
   }
