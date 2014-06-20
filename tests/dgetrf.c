@@ -290,10 +290,10 @@ doit_in_row_major (const char * description,
      *
      *   A1 = 1.0 L U + 0 A1
      *
-     * where R  is a matrix whose  contents at input are  not important,
+     * where A1 is  a matrix whose contents at input  are not important,
      * and whose contents at output are the result of the operation.
      */
-    if (1) {
+    {
       double	alpha = 1.0;
       double	beta  = 0.0;
       cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
