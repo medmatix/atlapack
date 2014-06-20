@@ -1,13 +1,6 @@
 /* This test program is derived from the documentation of LAPACKE. */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <lapacke.h>
-#include <cblas.h>
-#include <math.h>
-#include <complex.h>
-
-#define MAX(X,Y)	(((X)>(Y))? (X) : (Y))
+#include "atlapack-test-utils.h"
 
 int
 main (int argc, const char *const argv[])
@@ -49,7 +42,7 @@ main (int argc, const char *const argv[])
   free(tau);
   free(r);
   free(a);
-  exit(EXIT_SUCCESS);
+  exit(exit_code);
 }
 
 /* end of file */

@@ -100,7 +100,7 @@ main (int argc, const char *const argv[])
   doit_in_row_major();
   doit_in_col_major();
   doit_with_other_values();
-  exit(EXIT_SUCCESS);
+  exit(exit_code);
 }
 
 
@@ -222,7 +222,7 @@ doit_in_row_major (void)
 		  N, N, N,
 		  alpha, &L[0][0], LDA, &U[0][0], LDA, beta, &R[0][0], LDA);
     }
-    real_row_major_apply_permutation_matrix(N, N, P, R, reconstructed_A);
+    real_row_major_apply_permutation_matrix(N, N, reconstructed_A, P, R);
   }
 
   printf("Row-major dgesv results:\n");
@@ -367,7 +367,7 @@ doit_in_col_major (void)
 		  N, N, N,
 		  alpha, &L[0][0], LDA, &U[0][0], LDA, beta, &R[0][0], LDA);
     }
-    real_col_major_apply_permutation_matrix(N, N, P, R, reconstructed_A);
+    real_col_major_apply_permutation_matrix(N, N, reconstructed_A, P, R);
   }
 
   printf("Column-major dgesv results:\n");
@@ -519,7 +519,7 @@ doit_with_other_values (void)
 		  N, N, N,
 		  alpha, &L[0][0], LDA, &U[0][0], LDA, beta, &R[0][0], LDA);
     }
-    real_row_major_apply_permutation_matrix(N, N, P, R, reconstructed_A);
+    real_row_major_apply_permutation_matrix(N, N, reconstructed_A, P, R);
   }
 
   printf("Other values row-major dgesv results:\n");

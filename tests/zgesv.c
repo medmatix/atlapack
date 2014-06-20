@@ -98,7 +98,7 @@ main (int argc, const char *const argv[])
   doit_in_row_major();
   doit_in_col_major();
   doit_with_other_numbers ();
-  exit(EXIT_SUCCESS);
+  exit(exit_code);
 }
 
 
@@ -221,7 +221,7 @@ doit_in_row_major (void)
 		  N, N, N,
 		  &alpha, &L[0][0], LDA, &U[0][0], LDA, &beta, &R[0][0], LDA);
     }
-    complex_row_major_apply_permutation_matrix(N, N, P, R, reconstructed_A);
+    complex_row_major_apply_permutation_matrix(N, N, reconstructed_A, P, R);
   }
 
   printf("Row-major zgesv results:\n");
@@ -365,7 +365,7 @@ doit_in_col_major (void)
 		  N, N, N,
 		  &alpha, &L[0][0], LDA, &U[0][0], LDA, &beta, &R[0][0], LDA);
     }
-    complex_col_major_apply_permutation_matrix(N, N, P, R, reconstructed_A);
+    complex_col_major_apply_permutation_matrix(N, N, reconstructed_A, P, R);
   }
 
   printf("Column-major zgesv results:\n");
@@ -516,7 +516,7 @@ doit_with_other_numbers (void)
 		  N, N, N,
 		  &alpha, &L[0][0], LDA, &U[0][0], LDA, &beta, &R[0][0], LDA);
     }
-    complex_row_major_apply_permutation_matrix(N, N, P, R, reconstructed_A);
+    complex_row_major_apply_permutation_matrix(N, N, reconstructed_A, P, R);
   }
 
   printf("Other numbers, row-major zgesv results:\n");

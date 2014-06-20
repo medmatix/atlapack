@@ -5,16 +5,17 @@
 
 AM_CFLAGS	= -Wall
 
-check_PROGRAMS	= dgels
+check_PROGRAMS	=
 XFAIL_TESTS	=
 
 if WANT_CBLAS
 if FOUND_MATH_LIB
 check_PROGRAMS	+= \
-	cgeqrf			\
 	dgesv zgesv		\
 	dgesvd zgesvd		\
-	dgetrf
+	dgetrf			\
+	cgeqrf			\
+	dgels
 endif
 endif
 
@@ -25,8 +26,6 @@ TESTS		= $(check_PROGRAMS)
 atlapack_cblas_libs	= ../lapacke/liblapacke.la $(CBLAS_LIBS) $(MATH_LIBS)
 
 ## --------------------------------------------------------------------
-
-dgels_LDADD		= ../lapacke/liblapacke.la
 
 dgesv_LDADD		= $(atlapack_cblas_libs)
 dgesv_CPPFLAGS		= $(CBLAS_CFLAGS)
@@ -50,5 +49,9 @@ cgeqrf_CPPFLAGS		= $(CBLAS_CFLAGS)
 dgetrf_LDADD		= $(atlapack_cblas_libs)
 dgetrf_CPPFLAGS		= $(CBLAS_CFLAGS)
 dgetrf_SOURCES		= dgetrf.c atlapack-test-utils.h
+
+dgels_LDADD		= $(atlapack_cblas_libs)
+dgels_CPPFLAGS		= $(CBLAS_CFLAGS)
+dgels_SOURCES		= dgels.c atlapack-test-utils.h
 
 ### end of file
