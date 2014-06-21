@@ -101,13 +101,13 @@ typedef enum {
  ** ----------------------------------------------------------------- */
 
 void print_real_row_major_matrix (const char * matrix_name,
-				    const int number_of_rows,
-				    const int number_of_cols,
-				    double X[number_of_rows][number_of_cols]);
+				  const int number_of_rows,
+				  const int number_of_cols,
+				  double X[number_of_rows][number_of_cols]);
 void print_real_col_major_matrix (const char * matrix_name,
-				    const int number_of_rows,
-				    const int number_of_cols,
-				    double X[number_of_cols][number_of_rows]);
+				  const int number_of_rows,
+				  const int number_of_cols,
+				  double X[number_of_cols][number_of_rows]);
 
 void print_complex_row_major_matrix (const char * matrix_name,
 				     const int number_of_rows,
@@ -126,7 +126,6 @@ void print_int_col_major_matrix (const char * matrix_name,
 				 const int number_of_rows,
 				 const int number_of_cols,
 				 int X[number_of_cols][number_of_rows]);
-
 
 
 /** --------------------------------------------------------------------
@@ -1050,9 +1049,9 @@ print_real_row_major_matrix (const char * matrix_name,
 }
 void
 print_real_col_major_matrix (const char * matrix_name,
-			       const int number_of_rows,
-			       const int number_of_cols,
-			       double X[number_of_cols][number_of_rows])
+			     const int number_of_rows,
+			     const int number_of_cols,
+			     double X[number_of_cols][number_of_rows])
 /* Given an array  representing a matrix in col-major  order: display it
    to stdout in row-major order. */
 {

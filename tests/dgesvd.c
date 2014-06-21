@@ -1,12 +1,7 @@
-/* This  test program  is  built  from examples  from  the Net.   Always
- * remember  that at  Netlib's site  there  are test  data, results  and
- * programs for all the routines in LAPACK:
- *
- *          <http://www.nag.co.uk/lapack-ex/lapack-ex.html>
- *
- * To understand this  test program see the manual page  for the Fortran
- * routine dgesvd(3), the prototype of the C function "LAPACKE_dgesvd()"
- * in the header file "lapacke.h" and (unfortunately) the source code of
+/* This test program is built from examples from the Net.  To understand
+ * this  test  program see  the  manual  page  for the  Fortran  routine
+ * dgesvd(3), the prototype of the  C function "LAPACKE_dgesvd()" in the
+ * header  file  "lapacke.h"  and  (unfortunately) the  source  code  of
  * "LAPACKE_dgesvd()".
  *
  * For an introduction to singular value decomposition see:
@@ -14,7 +9,7 @@
  *     <http://en.wikipedia.org/wiki/Singular_value_decomposition>
  *
  * What do  we want to  do here?  Let's explain  it with a  small matrix
- * example; given the input matrix:
+ * example; given the input matrix, of dimensions 3x2:
  *
  *         -       -     -        -
  *        | a11 a12 |   | 1.1 1.2 |
@@ -36,11 +31,11 @@
  *     -       -     -           -   -       -
  *
  * in these equations: the elements s11  and s22 are the singular values
- * of  the  matrix A;  the  matrix  U is  orthogonal;  the  matrix V  is
- * orthogonal.
+ * of the matrix A; the square matrix U is orthogonal; the square matrix
+ * V is orthogonal.
  *
- * The first  min(3,2) columns of U  are the left singular  vectors; the
- * first min(3,2) columns  of V are the right  singular vectors.  Notice
+ * The first  MIN(3,2) columns of U  are the left singular  vectors; the
+ * first MIN(3,2) columns  of V are the right  singular vectors.  Notice
  * that when looking  at V^T, transposed of V: the  *rows* are the right
  * singular vectors.
  *
@@ -68,12 +63,12 @@
  *
  * In  addition  to such  results,  LAPACKE's  version of  DGESVD  makes
  * available an additional result: the  vector superB.  The size of such
- * vector is MIN(nrows, ncols) and  it contains the superdiagonal of the
- * working   matrix.   See   the   source  code   of   the  C   function
+ * vector is  MIN(3, 2) and  it contains  the first superdiagonal  of an
+ * internal  working matrix.   See the  source  code of  the C  function
  * "LAPACKE_dgesvd()".
  *
- * We  can easily  validate  the results  by  reconstructing the  matrix
- * SIGMA:
+ * We can easily validate the results by reconstructing the matrix SIGMA
+ * from the vector S:
  *
  *             -                   -
  *            | +5.634546 +0.000000 |
@@ -86,9 +81,10 @@
  *
  *    U SIGMA V^T = A
  *
- * notice that while  the left singular vectors are the  first N columns
- * of U, we need  the full U to reconstruct the input  matrix A from the
- * results.
+ * notice that: while  the left singular vectors are  the first MIN(3,2)
+ * columns of U,  and the right singular vectors are  the first MIN(3,2)
+ * columns of V,  we need the *full*  U and the *full*  V to reconstruct
+ * the input matrix A from the results.
  */
 
 
@@ -102,80 +98,189 @@
 #include <math.h>
 #include "atlapack-test-utils.h"
 
-static void doit_with_small_matrix (void);
-static void doit_with_netlib_test_data (void);
+static void doit_in_row_major (const char * description,
+			       const int M, const int N, const int minMN,
+			       double A[M][N],
+			       double expected_S[N][1],
+			       double expected_LSV[M][minMN],
+			       double expected_VT[N][N]);
 
 
 int
 main (int argc, const char *const argv[])
 {
-  if (1) doit_with_small_matrix();
-  if (1) doit_with_netlib_test_data();
+  if (1) {
+    /* The  input matrix  A.   Number  of rows  M=3,  number of  columns
+       N=2. */
+    double	A[3][2] = {
+      { 1.1, 1.2 },
+      { 2.1, 2.2 },
+      { 3.1, 3.2 }
+    };
+    /* NOTE In truth: the following  values are not "expected", they are
+       copied from the log of this  very program; so they are the result
+       of a run of this program on my system.  (Marco Maggi; Tue Jun 17,
+       2014) */
+    /* Vector of expected singular values.  Dimension equal to N. */
+    double	expected_S[2][1] = {
+      { +5.634546 },
+      { +0.043473 }
+    };
+#if 0
+    /* Expected  square  matrix  U.    Dimensions:  Unrows  =  Uncols  =
+       Anrows. */
+    double	expected_U[3][3] = {
+      { -0.288834, +0.865973, +0.408248 },
+      { -0.539772, +0.204890, -0.816497 },
+      { -0.790710, -0.456193, +0.408248 }
+    };
+#endif
+    /* Expected matrix of  left singular vectors.  Number of  rows is M,
+       number of columns is MIN(M,N). */
+    double	expected_LSV[3][2] = {
+      { -0.288834, +0.865973 },
+      { -0.539772, +0.204890 },
+      { -0.790710, -0.456193 }
+    };
+    /* Expected square matrix V transposed.  Dimensions: Vnrows = Vncols
+       = Ancols. */
+    double	expected_VT[2][2] = {
+      { -0.692591, -0.721330 },
+      { -0.721330, +0.692591 }
+    };
+    doit_in_row_major("small matrix", 3, 2, MIN(3,2),
+		      A, expected_S, expected_LSV, expected_VT);
+  }
+
+  if (1) {
+    double	A[6][4] = {
+      { +2.27, -1.54, +1.15, -1.94 },
+      { +0.28, -1.67, +0.94, -0.78 },
+      { -0.48, -3.09, +0.99, -0.21 },
+      { +1.07, +1.22, +0.79, +0.63 },
+      { -2.35, +2.93, -1.45, +2.30 },
+      { +0.62, -7.39, +1.03, -2.57 }
+    };
+    double	expected_S[4][1] = {
+      { 9.9966 },
+      { 3.6831 },
+      { 1.3569 },
+      { 0.5000 }
+    };
+    double	netlib_expected_LSV[6][4] = {
+      {  0.2774,  0.6003,  0.1277, -0.1323 },
+      {  0.2020,  0.0301, -0.2805, -0.7034 },
+      {  0.2918, -0.3348, -0.6453, -0.1906 },
+      { -0.0938,  0.3699, -0.6781,  0.5399 },
+      { -0.4213, -0.5266, -0.0413,  0.0575 },
+      {  0.7816, -0.3353,  0.1645,  0.3957 }
+    };
+    double	netlib_expected_VT[4][4] = {
+      {  0.1921, -0.8794,  0.2140, -0.3795 },
+      {  0.8030,  0.3926,  0.2980, -0.3351 },
+      { -0.0041,  0.0752, -0.7827, -0.6178 },
+      {  0.5642, -0.2587, -0.5027,  0.6017 }
+    };
+    double	expected_LSV[6][4];
+    double	expected_VT[4][4];
+
+    /* NOTE For some reason that  escapes my comprehension: the expected
+       data from the Netlib site is the  opposite of the one I get here.
+       Reconstructing the  input matrix from  the data I get  here works
+       fine,  so I  trust my  results rather  than the  data at  Netlib.
+       (Marco Maggi; Sat Jun 21, 2014) */
+    for (int i=0; i<6; ++i) {
+      for (int j=0; j<4; ++j) {
+	expected_LSV[i][j] = - netlib_expected_LSV[i][j];
+      }
+    }
+    for (int i=0; i<4; ++i) {
+      for (int j=0; j<4; ++j) {
+	expected_VT[i][j] = - netlib_expected_VT[i][j];
+      }
+    }
+
+    doit_in_row_major("Netlib test data", 6, 4, MIN(6,4),
+		      A, expected_S, expected_LSV, expected_VT);
+  }
+
   exit(exit_code);
 }
 
 
 void
-doit_with_small_matrix (void)
+doit_in_row_major (const char * description,
+		   const int M, const int N, const int minMN,
+		   double A[M][N],
+		   double expected_S[N][1],
+		   double expected_LSV[M][minMN],
+		   double expected_VT[N][N])
 {
-#undef matrix_order
-#undef jobU
-#undef jobVT
-#undef M
-#undef N
-#undef ldA
-#undef ldU
-#undef ldVT
-#define matrix_order	LAPACK_ROW_MAJOR
-#define jobU		'A'	/* option: return all the M columns of U in the matrix U */
-#define jobVT		'A'	/* option: return all the N rows of V^T in the matrix VT */
-#define M		3	/* number of rows in the input matrix A */
-#define N		2	/* number of cols in the input matrix A */
-#define ldA		N	/* leading dimension of matrix A */
-#define ldU		M	/* leading dimension of matrix U */
-#define ldVT		N	/* leading dimension of matrix V transposed */
+  /* Option: return all the M columns of U in the matrix U. */
+  const char	jobU	= 'A';
+  /* Option: return all the N rows of V^T in the matrix VT. */
+  const char	jobVT	= 'A';
 
-  double		A[M][N] = {	/* the input matrix A*/
-    { 1.1, 1.2 },
-    { 2.1, 2.2 },
-    { 3.1, 3.2 }
-  };
-  double		A1[M][N];	/* operand: a copy of A used as actual parameter to DGESVD */
-  double		S[N][1];	/* result: the singular values of A = the main diagonal of SIGMA */
-  double		U[M][M];	/* result: the columns of U are the left singular vectors*/
-  double		VT[N][N];	/* result: matrix V transposed, the columns of V are the right singular vectors */
-  double		superb[IMIN(M,N)-1][1];	/* super diagonal of an internal work matrix, see the source of DGESVD */
+  const int	Anrows	= M;
+  const int	Ancols	= N;
+  const int	ldA	= Ancols;
 
-  /* Expected results.
+  /* Operand: a  copy of A  used as actual  parameter to DGESVD.   It is
+     needed because the  parameter is destroyed and we  want to preserve
+     the original matrix in A. */
+  double		A1[Anrows][Ancols];
 
-     NOTE In  truth: these  values are not  "expected", they  are copied
-     from the log of this very function; so they are the result of a run
-     of this program on my system.  (Marco Maggi; Tue Jun 17, 2014) */
-  double		expected_S[N][1] = {
-    { +5.634546 },
-    { +0.043473 }
-  };
-  double		expected_U[M][M] = {
-    { -0.288834, +0.865973, +0.408248 },
-    { -0.539772, +0.204890, -0.816497 },
-    { -0.790710, -0.456193, +0.408248 }
-  };
-  double		expected_VT[N][N] = {
-    { -0.692591, -0.721330 },
-    { -0.721330, +0.692591 }
-  };
-  double		SIGMA[M][N];		/* matrix having singular values on the main diagonal */
-  double		recomputed_A[M][N];	/* matrix A recomputed using the reults */
+  /* Result: the singular values of A.  This vector is equal to the main
+     diagonal of SIGMA. */
+  const int		Snrows = Ancols;
+  const int		Sncols = 1;
+  double		S[Snrows][Sncols];
+
+  /* Result: orthogonal square matrix U.   The MIN(M,N) columns of U are
+     the left singular vectors. */
+  const int		Unrows	= Anrows;
+  const int		Uncols	= Anrows;
+  const int		ldU	= Uncols;
+  double		U[Unrows][Uncols];
+
+  /* Result:  orthogonal  square  matrix  V  transposed.   The  MIN(M,N)
+     columns of V are the right singular vectors. */
+  const int		VTnrows	= Ancols;
+  const int		VTncols	= Ancols;
+  const int		ldVT	= VTncols;
+  double		VT[VTnrows][VTncols];
+
+  /* Result: first  superdiagonal of  an internal  work matrix,  see the
+     source code of "LAPACKE_dgesvd()". */
+  const int		superBnrows = MIN(Anrows,Ancols) - 1;
+  const int		superBncols = 1;
+  double		superB[superBnrows][superBncols];
+
+  /* Reconstructed data: matrix  having the singular values  on the main
+     diagonal. */
+  const int		SIGMAnrows = Anrows;
+  const int		SIGMAncols = Ancols;
+  const int		ldSIGMA    = SIGMAncols;
+  double		SIGMA[SIGMAnrows][SIGMAncols];
+
+  /* Reconstructed  data: left  singular  vector.  The  columns of  this
+     matrix are the MIN(M,N) columns of U. */
+  const int		LSVnrows = Anrows;
+  const int		LSVncols = MIN(Anrows,Ancols);
+  /* const int		ldLSV    = Uncols; */
+  double		LSV[LSVnrows][LSVncols];
+
+  /* Reconstructed data: matrix A recomputed using the results. */
+  double		recomputed_A[Anrows][Ancols];
 
   lapack_int		info;
 
-  printf("\n\n *** DGESVD: SMALL MATRIX EXAMPLE ***\n\n");
+  /* Load the input matrix A into the working array A1. */
+  memcpy(A1, A, sizeof(double) * Anrows * Ancols);
 
-  memcpy(A1, A, sizeof(double) * M * N);
-
-  info = LAPACKE_dgesvd(matrix_order, jobU, jobVT, M, N,
+  info = LAPACKE_dgesvd(LAPACK_ROW_MAJOR, jobU, jobVT, Anrows, Ancols,
 			MREF(A1), ldA, MREF(S), MREF(U), ldU,
-			MREF(VT), ldVT, MREF(superb));
+			MREF(VT), ldVT, MREF(superB));
 
   /* If something went wrong in the function call INFO is non-zero: exit
      with failure. */
@@ -187,16 +292,17 @@ doit_with_small_matrix (void)
   /* Result validation by performing  the inverse operation.  We compute
      "recomputed_A" starting from U, S and VT. */
   {
-    double	R1[M][N];
-    double	R2[M][N];
-    lapack_int	ldSIGMA = N;
-    lapack_int	ldR1 = N;
-    lapack_int	ldR2 = N;
-
     /* Put the singular values on the main diagonal of SIGMA. */
-    for (int i=0; i<M; ++i) {
-      for (int j=0; j<N; ++j) {
+    for (int i=0; i<Anrows; ++i) {
+      for (int j=0; j<Ancols; ++j) {
 	SIGMA[i][j] = (i == j)? S[j][0] : +0.0;
+      }
+    }
+
+    /* Put the left singular vectors from U in LSV. */
+    for (int i=0; i<LSVnrows; ++i) {
+      for (int j=0; j<LSVncols; ++j) {
+	LSV[i][j] = U[i][j];
       }
     }
 
@@ -205,7 +311,7 @@ doit_with_small_matrix (void)
      */
     /* In general DGEMM does:
      *
-     *   E1 = \alpha A B + \beta C
+     *   C = \alpha A B + \beta C
      *
      * where  A, B  and C  are matrices.   We need  to inspect  both the
      * header  file  "cblas.h"  and  the manual  page  "dgemm"  for  the
@@ -225,8 +331,8 @@ doit_with_small_matrix (void)
      * In  our case  all the  matrices are  in row-major  order and  the
      * representations in the  arrays A and B are not  transposed, so: M
      * is the number of rows of A and C; N is the number of columns of B
-     * and of columns of C; K is the  number of columns of A and rows of
-     * B.  In other words:
+     * and C; K is  the number of columns of A and rows  of B.  In other
+     * words:
      *
      *    A has dimensions M x K
      *    B has dimensions K x N
@@ -236,260 +342,57 @@ doit_with_small_matrix (void)
      */
     /* Here we want to do (explicitating the dimensions):
      *
-     *   R1[M][N] = 1.0 U[M][M] SIGMA[M][N] + 0.0 R1[M][N]
-     *   R2[M][N] = 1.0 R1[M][N] VT[N][N]   + 0.0 R2[M][N]
+     *   R[M][N] = 1.0 U[M][M] SIGMA[M][N] + 0.0 R[M][N]
+     *   R[M][N] = 1.0 R1[M][N] VT[N][N]   + 0.0 R[M][N]
      *
-     * where R1  and R2  are matrices  whose contents  at input  are not
-     * important, and  whose contents  at output are  the result  of the
-     * operation.
+     * where R  is a matrix whose  contents at input are  not important,
+     * and whose contents at output are the result of the operation.
      */
     {
+      double	R1[Ancols][Anrows];
+      double	R2[Ancols][Anrows];
       double	alpha = 1.0;
       double	beta  = 0.0;
       cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
-		  M, N, M,
-		  alpha, MREF(U), ldU, MREF(SIGMA), ldSIGMA, beta, MREF(R1), ldR1);
+		  Anrows, Ancols, Uncols,
+		  alpha, MREF(U),  ldU, MREF(SIGMA), ldSIGMA, beta, MREF(R1), ldA);
       cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
-      		  M, N, N,
-      		  alpha, MREF(R1), ldR1, MREF(VT), ldVT, beta, MREF(R2), ldR2);
+      		  Anrows, Ancols, VTnrows,
+      		  alpha, MREF(R1), ldA, MREF(VT),    ldVT,    beta, MREF(R2), ldA);
+      memcpy(recomputed_A, R2, sizeof(double) * Anrows * Ancols);
     }
-    memcpy(recomputed_A, R2, sizeof(double) * M * N);
   }
+
+  printf("Results of DGESVD: %s:\n", description);
 
   /* Comparison between computed results and expected results. */
   if (1) {
     compare_real_row_major_result_and_expected_result ("S, singular values",
-							 N, 1, S, expected_S);
+						       Snrows, Sncols, S, expected_S);
     compare_real_row_major_result_and_expected_result ("recomputed A",
-							 M, N, A, recomputed_A);
-    compare_real_row_major_result_and_expected_result ("U, matrix of left singular vectors",
-							 M, M, U, expected_U);
+						       Anrows, Ancols, A, recomputed_A);
+    compare_real_row_major_result_and_expected_result ("LSV, matrix of left singular vectors",
+						       LSVnrows, LSVncols, LSV, expected_LSV);
     compare_real_row_major_result_and_expected_result ("V^T, transposed matrix of right singular vectors",
-							 N, N, VT, expected_VT);
+						       VTnrows, VTncols, VT, expected_VT);
   }
 
   /* Result logging */
   {
-    print_real_row_major_matrix ("A, input matrix", M, N, A);
+    print_real_row_major_matrix ("A, input matrix", Anrows, Ancols, A);
     print_real_row_major_matrix ("recomputed A (must be equal to the original A)",
-				   M, N, recomputed_A);
+				 Anrows, Ancols, recomputed_A);
     if (0) {
-      print_real_row_major_matrix ("A1, output matrix", M, N, A1);
+      print_real_row_major_matrix ("A1, output matrix", Anrows, Ancols, A1);
     }
-    print_real_row_major_matrix ("S, computed singular values", N, 1, S);
+    print_real_row_major_matrix ("S, computed singular values", Snrows, Sncols, S);
     print_real_row_major_matrix ("SIGMA, matrix having singular values on the main diagonal",
-				   M, N, SIGMA);
-    print_real_row_major_matrix ("U, the columns are the left singular vectors", M, M, U);
-    print_real_row_major_matrix ("V transposed, the rows are the right singular vectors", N, N, VT);
-    print_real_row_major_matrix ("superb", IMIN(M,N)-1, 1, superb);
-  }
-}
-
-
-void
-doit_with_netlib_test_data (void)
-{
-#undef matrix_order
-#undef jobU
-#undef jobVT
-#undef M
-#undef N
-#undef ldA
-#undef ldU
-#undef ldVT
-#define matrix_order	LAPACK_ROW_MAJOR
-  /* The left singular vectors are the first N columns of U, but we need
-     the full U to reconstruct the input matrix A from the results. */
-#define jobU		'A'	/* option: return all the M columns of U in the matrix U */
-#define jobVT		'A'	/* option: return all the N rows of V^T in the matrix VT */
-#define M		6	/* number of rows in the input matrix A */
-#define N		4	/* number of cols in the input matrix A */
-#define ldA		N	/* leading dimension of matrix A */
-#define ldU		M	/* leading dimension of matrix U */
-#define ldVT		N	/* leading dimension of matrix V transposed */
-
-  double		A[M][N] = {	/* the input matrix A*/
-    { +2.27, -1.54, +1.15, -1.94 },
-    { +0.28, -1.67, +0.94, -0.78 },
-    { -0.48, -3.09, +0.99, -0.21 },
-    { +1.07, +1.22, +0.79, +0.63 },
-    { -2.35, +2.93, -1.45, +2.30 },
-    { +0.62, -7.39, +1.03, -2.57 }
-  };
-  double		A1[M][N];	/* operand: a copy of A used as actual parameter to DGESVD */
-  double		S[N][1];	/* result: the singular values of A = the main diagonal of SIGMA */
-  double		U[M][M];	/* result: the columns of U are the left singular vectors*/
-  double		VT[N][N];	/* result: matrix V transposed, the columns of V are the right singular vectors */
-  double		superb[IMIN(M,N)-1][1];	/* super diagonal of an internal work matrix, see the source of DGESVD */
-
-  double		left_singular_vectors[M][N]; /* result: the first N columns of U are the left singular vectors */
-
-  /* These expected values are from the Netlib site.
-
-     NOTE Netlib does  not give us the full expected  U matrix, only the
-     expected left singular  vectors: the first N columns  of U.  (Marco
-     Maggi; Wed Jun 18, 2014) */
-  double		netlib_expected_S[N][1] = {
-    { 9.9966 },
-    { 3.6831 },
-    { 1.3569 },
-    { 0.5000 }
-  };
-  double		netlib_expected_left_singular_vectors[M][N] = {
-    {  0.2774,  0.6003,  0.1277, -0.1323 },
-    {  0.2020,  0.0301, -0.2805, -0.7034 },
-    {  0.2918, -0.3348, -0.6453, -0.1906 },
-    { -0.0938,  0.3699, -0.6781,  0.5399 },
-    { -0.4213, -0.5266, -0.0413,  0.0575 },
-    {  0.7816, -0.3353,  0.1645,  0.3957 }
-  };
-  double		netlib_expected_VT[N][N] = {
-    {  0.1921, -0.8794,  0.2140, -0.3795 },
-    {  0.8030,  0.3926,  0.2980, -0.3351 },
-    { -0.0041,  0.0752, -0.7827, -0.6178 },
-    {  0.5642, -0.2587, -0.5027,  0.6017 }
-  };
-
-  double		SIGMA[M][N];		/* matrix having singular values on the main diagonal */
-  double		recomputed_A[M][N];	/* matrix A recomputed using the reults */
-
-  lapack_int		info;
-
-  printf("\n\n *** DGESVD: NETLIB SITE MATRIX EXAMPLE ***\n\n");
-
-  memcpy(A1, A, sizeof(double) * M * N);
-
-  info = LAPACKE_dgesvd(matrix_order, jobU, jobVT, M, N,
-			MREF(A1), ldA, MREF(S), MREF(U), ldU,
-			MREF(VT), ldVT, MREF(superb));
-
-  /* If something went wrong in the function call INFO is non-zero: exit
-     with failure. */
-  if (0 != info) {
-    printf("Error computing solution with row-major operands: INFO=%d.\n", info);
-    exit(EXIT_FAILURE);
-  }
-
-  /* Result validation by performing  the inverse operation.  We compute
-     "recomputed_A" starting from U, S and VT. */
-  {
-    double	R1[M][N];
-    double	R2[M][N];
-    lapack_int	ldSIGMA = N;
-    lapack_int	ldR1 = N;
-    lapack_int	ldR2 = N;
-
-    /* Put the singular values on the main diagonal of SIGMA. */
-    for (int i=0; i<M; ++i) {
-      for (int j=0; j<N; ++j) {
-	SIGMA[i][j] = (i == j)? S[j][0] : +0.0;
-      }
-    }
-
-    /* Multiply U  and SIGMA, then  right-multiply the result by  V^T to
-     * verify that the result is indeed A; we need CBLAS for this.
-     */
-    /* In general DGEMM does:
-     *
-     *   E1 = \alpha A B + \beta C
-     *
-     * where  A, B  and C  are matrices.   We need  to inspect  both the
-     * header  file  "cblas.h"  and  the manual  page  "dgemm"  for  the
-     * documentation of the parameters; the prototype of "cblas_dgemm()"
-     * is:
-     *
-     *    void cblas_dgemm(const enum CBLAS_ORDER Order,
-     *                     const enum CBLAS_TRANSPOSE TransA,
-     *                     const enum CBLAS_TRANSPOSE TransB,
-     *                     const int M, const int N, const int K,
-     *                     const double alpha,
-     *                     const double *A, const int lda,
-     *                     const double *B, const int ldb,
-     *                     const double beta,
-     *                     double *C, const int ldc);
-     *
-     * In  our case  all the  matrices are  in row-major  order and  the
-     * representations in the  arrays A and B are not  transposed, so: M
-     * is the number of rows of A and C; N is the number of columns of B
-     * and of columns of C; K is the  number of columns of A and rows of
-     * B.  In other words:
-     *
-     *    A has dimensions M x K
-     *    B has dimensions K x N
-     *    C has dimensions M x N
-     *
-     * obviously the product AB has dimensions M x N.
-     */
-    /* Here we want to do (explicitating the dimensions):
-     *
-     *   R1[M][N] = 1.0 U[M][M] SIGMA[M][N] + 0.0 R1[M][N]
-     *   R2[M][N] = 1.0 R1[M][N] VT[N][N]   + 0.0 R2[M][N]
-     *
-     * where R1  and R2  are matrices  whose contents  at input  are not
-     * important, and  whose contents  at output are  the result  of the
-     * operation.
-     */
-    {
-      double	alpha = 1.0;
-      double	beta  = 0.0;
-      cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
-		  M, N, M,
-		  alpha, MREF(U), ldU, MREF(SIGMA), ldSIGMA, beta, MREF(R1), ldR1);
-      cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
-      		  M, N, N,
-      		  alpha, MREF(R1), ldR1, MREF(VT), ldVT, beta, MREF(R2), ldR2);
-    }
-    memcpy(recomputed_A, R2, sizeof(double) * M * N);
-  }
-
-  /* Extract the left singular vectors from the full U matrix. */
-  for (int i=0; i<M; ++i) {
-    for (int j=0; j<N; ++j) {
-      left_singular_vectors[i][j] = U[i][j];
-    }
-  }
-
-  /* Comparison between computed results and expected results. */
-  if (1) {
-    compare_real_row_major_result_and_expected_result ("S, singular values",
-							 N, 1, S, netlib_expected_S);
-    compare_real_row_major_result_and_expected_result ("recomputed A",
-							 M, N, A, recomputed_A);
-    /* FIXME These  comparisons fail.
-
-       Even  though the  singular  values are  fine  and the  recomputed
-       matrix  A equals  the original  one: the  computed U  and VT  are
-       different from the expected ones from the Netlib's test data.
-
-       Notice that,  taking into account  rounding errors: they  are not
-       randomly different, the computed values  are the opposites of the
-       expected values.
-
-       (Marco Maggi; Tue Jun 17, 2014) */
-    if (0) {
-      compare_real_row_major_result_and_expected_result ("matrix of left singular vectors",
-							 M, N,
-							 left_singular_vectors,
-							 netlib_expected_left_singular_vectors);
-      compare_real_row_major_result_and_expected_result ("V^T, transposed matrix of right singular vectors",
-							   N, N, VT, netlib_expected_VT);
-    }
-  }
-
-  /* Result logging */
-  {
-    print_real_row_major_matrix ("A, input matrix", M, N, A);
-    print_real_row_major_matrix ("recomputed A (must be equal to the original A)",
-				   M, N, recomputed_A);
-    if (0) {
-      print_real_row_major_matrix ("A1, output matrix", M, N, A1);
-    }
-    print_real_row_major_matrix ("S, computed singular values", N, 1, S);
-    print_real_row_major_matrix ("SIGMA, matrix having singular values on the main diagonal",
-				   M, N, SIGMA);
-    print_real_row_major_matrix ("U, the first N columns are the left singular vectors", M, M, U);
-    print_real_row_major_matrix ("V transposed, the rows are the right singular vectors", N, N, VT);
-    print_real_row_major_matrix ("superb", IMIN(M,N)-1, 1, superb);
+				 SIGMAnrows, SIGMAncols, SIGMA);
+    print_real_row_major_matrix ("U, the MIN(M,N) columns are the left singular vectors",
+				 Unrows, Uncols, U);
+    print_real_row_major_matrix ("V transposed, the MIN(M,N) rows are the right singular vectors",
+				 VTnrows, VTncols, VT);
+    print_real_row_major_matrix ("superB", superBnrows, superBncols, superB);
   }
 }
 
