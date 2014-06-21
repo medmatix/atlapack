@@ -149,7 +149,6 @@ integer_matrix_product (const int M, const int N, const int K,
  *
  *    R_mn = \sum_{k=1}^K O1_mk O2_kn
  *
- * This function is useful when building permutation matrices.
  */
 {
   for (int m=0; m<M; ++m) {
