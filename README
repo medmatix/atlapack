@@ -377,7 +377,7 @@ but with the latest versions of the C Language Standard we can also, and
 better, do:
 
    void
-   func (int N, int M, double V[N], double A[M][N])
+   func (int M, int N, double V[N], double A[M][N])
    {
      printf("V[0] = %f\n", V[0]);
      printf("A[0][0]\n",   A[0][0]);
@@ -389,7 +389,7 @@ better, do:
      int N = ...;
      double V[N];
      double A[M][N];
-     func(N, M, V, A);
+     func(M, N, V, A);
    }
 
   The latter solution is the one adopted in some of the distributed test
