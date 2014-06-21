@@ -256,8 +256,6 @@ programs for all the routines in LAPACK:
 	    <http://www.nag.co.uk/lapack-ex/lapack-ex.html>
 
 
-
-
 D. How to upgrade to a new LAPACK release
 -----------------------------------------
 
@@ -347,8 +345,8 @@ F. C Language: handling subscripted arrays
 ------------------------------------------
 
 When  using  CBLAS and  LAPACKE  we  always  need  to handle  arrays  of
-"lapack_int", double and "lapack_complex_double"  elements.  We want to:
-define  such  arrays for  vectors  and  bidimensional matrices;  pass  a
+"lapack_int",  "double" and  "lapack_complex_double" elements.   We want
+to: define  such arrays for  vectors and bidimensional matrices;  pass a
 pointer to  such arrays as  argument to function calls;  write functions
 that receive such pointers as arguments.
 
@@ -359,36 +357,38 @@ do:
    func (int N, int M, double * V_, double * A_)
    {
      double (*V)[N]    = (void*)V_;
-     double (*A)[N][M] = (void*)A_;
+     double (*A)[M][N] = (void*)A_;
      printf("V[0] = %f\n", (*V)[0]);
      printf("A[0][0]\n",   (*A)[0][0]);
    }
    void
    main (void)
    {
-     int N = ...;
-     int M = ...;
+   #undef M
+   #undef N
+   #define M		3
+   #define N		2
      double V[N];
-     double A[N][M];
-     func(N, M, &V[0], &A[0][0]);
+     double A[M][N];
+     func(M, N, &V[0], &A[0][0]);
    }
 
 but with the latest versions of the C Language Standard we can also, and
 better, do:
 
    void
-   func (int N, int M, double V[N], double A[N][M])
+   func (int N, int M, double V[N], double A[M][N])
    {
-     printf("V[0] = %f\n", (*V)[0]);
-     printf("A[0][0]\n",   (*A)[0][0]);
+     printf("V[0] = %f\n", V[0]);
+     printf("A[0][0]\n",   A[0][0]);
    }
    void
    main (void)
    {
-     int N = ...;
      int M = ...;
+     int N = ...;
      double V[N];
-     double A[N][M];
+     double A[M][N];
      func(N, M, V, A);
    }
 
