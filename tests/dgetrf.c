@@ -398,7 +398,7 @@ doit_in_col_major (const char * description,
   /* If something went wrong in the function call INFO is non-zero: exit
      with failure. */
   if (0 != info) {
-    printf("Error computing solution with row-major operands: INFO=%d.\n", info);
+    printf("Error computing solution with col-major operands: INFO=%d.\n", info);
     exit(EXIT_FAILURE);
   }
 

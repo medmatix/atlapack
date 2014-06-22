@@ -224,6 +224,67 @@ real_col_major_matrix_transpose (int nrows, int ncols,
   }
 }
 
+/* ------------------------------------------------------------------ */
+
+void
+complex_row_major_matrix_transpose (int nrows, int ncols,
+				    double complex R[ncols][nrows],
+				    double complex O[nrows][ncols])
+/* To call this function we are meant to do:
+ *
+ *    #define Onrows	2
+ *    #define Oncols	3
+ *    #define Rnrows	Oncols
+ *    #define Rncols	Onrows
+ *    double complex	O[Onrows][Oncols];
+ *    double complex	R[Rnrows][Rncols];
+ *    complex_matrix_transpose (Onrows, Oncols, &R[0][0], &O[0][0]);
+ */
+{
+  if ((R == O) && (nrows == ncols)) {
+    for (unsigned i=0; i<nrows; ++i) {
+      for (unsigned j=i+1; j<ncols; ++j) {
+	COMPLEX_SWAP(R[j][i], O[i][j]);
+      }
+    }
+  } else {
+    for (unsigned i=0; i<nrows; ++i) {
+      for (unsigned j=0; j<ncols; ++j) {
+	R[j][i] = O[i][j];
+      }
+    }
+  }
+}
+void
+complex_col_major_matrix_transpose (int nrows, int ncols,
+				    double complex R[nrows][ncols],
+				    double complex O[ncols][nrows])
+/* To call this function we are meant to do:
+ *
+ *    #define Onrows	2
+ *    #define Oncols	3
+ *    #define Rnrows	Oncols
+ *    #define Rncols	Onrows
+ *    double complex	O[Oncols][Onrows];
+ *    double complex	R[Rncols][Rnrows];
+ *    complex_matrix_transpose (Onrows, Oncols, &R[0][0], &O[0][0]);
+ */
+{
+  if ((R == O) && (nrows == ncols)) {
+    for (unsigned i=0; i<nrows; ++i) {
+      for (unsigned j=i+1; j<ncols; ++j) {
+	COMPLEX_SWAP(R[i][j], O[j][i]);
+      }
+    }
+  } else {
+    for (unsigned i=0; i<nrows; ++i) {
+      for (unsigned j=0; j<ncols; ++j) {
+	R[i][j] = O[j][i];
+      }
+    }
+  }
+}
+
 
 /** --------------------------------------------------------------------
  ** Comparing arrays.
@@ -406,7 +467,7 @@ complex_col_major_swap_rows (const int nrows, const int ncols,
 			     complex double A[ncols][nrows])
 {
   for (int j=0; j<ncols; ++j) {
-    REAL_SWAP(A[j][row1], A[j][row2]);
+    COMPLEX_SWAP(A[j][row1], A[j][row2]);
   }
 }
 

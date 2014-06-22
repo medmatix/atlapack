@@ -13,7 +13,7 @@ if FOUND_MATH_LIB
 check_PROGRAMS	+= \
 	dgesv zgesv		\
 	dgesvd zgesvd		\
-	dgetrf			\
+	dgetrf zgetrf		\
 	cgeqrf			\
 	dgels
 endif
@@ -49,6 +49,10 @@ cgeqrf_CPPFLAGS		= $(CBLAS_CFLAGS)
 dgetrf_LDADD		= $(atlapack_cblas_libs)
 dgetrf_CPPFLAGS		= $(CBLAS_CFLAGS)
 dgetrf_SOURCES		= dgetrf.c atlapack-test-utils.h
+
+zgetrf_LDADD		= $(atlapack_cblas_libs)
+zgetrf_CPPFLAGS		= $(CBLAS_CFLAGS)
+zgetrf_SOURCES		= zgetrf.c atlapack-test-utils.h
 
 dgels_LDADD		= $(atlapack_cblas_libs)
 dgels_CPPFLAGS		= $(CBLAS_CFLAGS)
