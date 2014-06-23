@@ -11,11 +11,11 @@ XFAIL_TESTS	=
 if WANT_CBLAS
 if FOUND_MATH_LIB
 check_PROGRAMS	+= \
-	dgesv zgesv		\
+	dgesv  zgesv		\
 	dgesvd zgesvd		\
 	dgetrf zgetrf		\
 	cgeqrf			\
-	dgels
+	dgels  zgels
 endif
 endif
 
@@ -57,5 +57,9 @@ zgetrf_SOURCES		= zgetrf.c atlapack-test-utils.h
 dgels_LDADD		= $(atlapack_cblas_libs)
 dgels_CPPFLAGS		= $(CBLAS_CFLAGS)
 dgels_SOURCES		= dgels.c atlapack-test-utils.h
+
+zgels_LDADD		= $(atlapack_cblas_libs)
+zgels_CPPFLAGS		= $(CBLAS_CFLAGS)
+zgels_SOURCES		= zgels.c atlapack-test-utils.h
 
 ### end of file
