@@ -120,7 +120,7 @@ main (int argc, const char *const argv[])
     };
 
     EPSILON = 0.1;
-    doit_in_row_major ("data from Netlib", 6, 4, 1, A, B, expected_X);
+    doit_in_row_major ("data from Netlib, more rows than columns", 6, 4, 1, A, B, expected_X);
   }
 
   if (0) {
