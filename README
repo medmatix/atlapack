@@ -275,57 +275,82 @@ directory "newlapack" and  ATLAPACK is in the  directory "atlapack".  To
 upgrade ATLAPACK with the new source files we do:
 
 0.   Create  a   new  branch   in  the   git  repository,   for  example
-   "upgrade-to-3.5.0", and check it out.
+   "upgrade-to-3.6.0", and check it out.
 
 1. Copy the LAPACK Fortran source files:
 
+    $ git rm atlapack/lapack/*.f
+    $ git rm atlapack/lapack/VARIANTS/*
+    $ git rm atlapack/lapack/DEPRECATED/*
     $ cp newlapack/SRC/*.f atlapack/lapack/
+    $ cp newlapack/SRC/DEPRECATED atlapack/lapack/ --recursive
+    $ cp newlapack/SRC/VARIANTS atlapack/lapack/ --recursive
 
-   and update the file lists in "atlapack/lapack/Makefile.am".
+   and update the file lists in "atlapack/lapack/Makefile.am" by copying
+   and adapting the contents of "newlapack/SRC/Makefile".
 
 2. Copy the LAPACK machine dependent files:
 
+    $ git rm atlapack/lapack/machine-dependent/*
     $ cp newlapack/INSTALL/*.f atlapack/lapack/machine-dependent/
 
-   and update the file lists in "atlapack/lapack/Makefile.am".
+   and update the file lists in "atlapack/lapack/Makefile.am" by copying
+   and adapting the contents of "newlapack/SRC/Makefile".
 
 3. Copy the LAPACKE include files:
 
-    $ cp newlapack/lapacke/include/*.h atlapack/lapacke/src/
+    $ git rm atlapack/lapacke/src/*.h
+    $ cp newlapack/LAPACKE/include/*.h atlapack/lapacke/src/
     $ mv \
        lapacke/src/lapacke_mangling_with_flags.h \
        lapacke/src/lapacke_mangling.h
 
-   and update the file lists in "atlapack/lapacke/Makefile.am".
+   and  update  the  file  lists  in  "atlapack/lapacke/Makefile.am"  by
+   copying and adapting the contents of "newlapack/LAPACKE/Makefile".
 
 4. Copy the LAPACKE source files:
 
-    $ cp newlapack/lapacke/src/*.c atlapack/lapacke/src/
+    $ git rm atlapack/lapacke/src/*.c
+    $ cp newlapack/LAPACKE/src/*.c atlapack/lapacke/src/
 
-   and update the file lists in "atlapack/lapacke/Makefile.am".
+   and  update  the  file  lists  in  "atlapack/lapacke/Makefile.am"  by
+   copying        and       adapting        the       contents        of
+   "newlapack/LAPACKE/src/Makefile".
 
 5. Copy the LAPACKE utils source files:
 
-    $ cp newlapack/lapacke/utils/*.c atlapack/lapacke/utils/
+    $ git rm atlapack/lapacke/utils/*.h
+    $ cp newlapack/LAPACKE/utils/*.c atlapack/lapacke/utils/
 
-   and update the file lists in "atlapack/lapacke/Makefile.am".
+   and  update  the  file  lists  in  "atlapack/lapacke/Makefile.am"  by
+   copying        and       adapting        the       contents        of
+   "newlapack/LAPACKE/utils/Makefile".
 
 6. Copy the MATGEN utils source files:
 
+    $ git rm atlapack/tmglib/*.f
     $ cp newlapack/TESTING/MATGEN/*.f atlapack/tmglib/
 
-   and update the file lists in "atlapack/tmglib/Makefile.am".
+   and update the file lists in "atlapack/tmglib/Makefile.am" by copying
+   and adapting the contents of "newlapack/TESTING/MATGEN/Makefile".
 
 7. Download the archive of manual pages from LAPACK's site and unpack it
    under "atlapack/doc/":
 
+    $ git rm atlapack/doc/man/man3/*
     $ cd atlapack/doc
     $ tar xvzf /path/to/manpages.tgz
 
-   and update the file lists in "atlapack/doc/Makefile.am".
+   and  update the  file  lists in  "atlapack/doc/Makefile.am".  We  can
+   obtain a list of the manpage files by simply doing:
+
+    $ cd atlapack/doc
+    $ find man -type f
 
   At last, we can examine the list of new files with:
 
+    $ cd atlapack
+    $ git add .
     $ git status
 
 

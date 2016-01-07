@@ -17,6 +17,7 @@ fi
     --disable-static --enable-shared            \
     --prefix="${prefix}"                        \
     --libdir="${libdir}"                        \
+    --enable-deprecated				\
     --enable-matgen				\
     --with-cblas				\
     CFLAGS='-O3'				\

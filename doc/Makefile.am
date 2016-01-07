@@ -1,3838 +1,1283 @@
 ## Process this file with automake to produce Makefile.in
 
-dist_man_MANS = \
-	man/man3/BLAS_SRC_lsame.f.3		\
-	man/man3/BLAS_SRC_xerbla_array.f.3	\
-	man/man3/BLAS_SRC_xerbla.f.3		\
-	man/man3/caxpy.3			\
-	man/man3/caxpy.f.3			\
-	man/man3/cbbcsd.3			\
-	man/man3/cbbcsd.f.3			\
-	man/man3/cbdsqr.3			\
-	man/man3/cbdsqr.f.3			\
-	man/man3/ccopy.3			\
-	man/man3/ccopy.f.3			\
-	man/man3/cdotc.3			\
-	man/man3/cdotc.f.3			\
-	man/man3/cdotu.3			\
-	man/man3/cdotu.f.3			\
-	man/man3/cgbbrd.3			\
-	man/man3/cgbbrd.f.3			\
-	man/man3/cgbcon.3			\
-	man/man3/cgbcon.f.3			\
-	man/man3/cgbequ.3			\
-	man/man3/cgbequb.3			\
-	man/man3/cgbequb.f.3			\
-	man/man3/cgbequ.f.3			\
-	man/man3/cgbmv.3			\
-	man/man3/cgbmv.f.3			\
-	man/man3/cgbrfs.3			\
-	man/man3/cgbrfs.f.3			\
-	man/man3/cgbrfsx.3			\
-	man/man3/cgbrfsx.f.3			\
-	man/man3/cgbsv.3			\
-	man/man3/cgbsv.f.3			\
-	man/man3/cgbsvx.3			\
-	man/man3/cgbsvx.f.3			\
-	man/man3/cgbsvxx.3			\
-	man/man3/cgbsvxx.f.3			\
-	man/man3/cgbtf2.3			\
-	man/man3/cgbtf2.f.3			\
-	man/man3/cgbtrf.3			\
-	man/man3/cgbtrf.f.3			\
-	man/man3/cgbtrs.3			\
-	man/man3/cgbtrs.f.3			\
-	man/man3/cgebak.3			\
-	man/man3/cgebak.f.3			\
-	man/man3/cgebal.3			\
-	man/man3/cgebal.f.3			\
-	man/man3/cgebd2.3			\
-	man/man3/cgebd2.f.3			\
-	man/man3/cgebrd.3			\
-	man/man3/cgebrd.f.3			\
-	man/man3/cgecon.3			\
-	man/man3/cgecon.f.3			\
-	man/man3/cgeequ.3			\
-	man/man3/cgeequb.3			\
-	man/man3/cgeequb.f.3			\
-	man/man3/cgeequ.f.3			\
-	man/man3/cgees.3			\
-	man/man3/cgees.f.3			\
-	man/man3/cgeesx.3			\
-	man/man3/cgeesx.f.3			\
-	man/man3/cgeev.3			\
-	man/man3/cgeev.f.3			\
-	man/man3/cgeevx.3			\
-	man/man3/cgeevx.f.3			\
-	man/man3/cgegs.3			\
-	man/man3/cgegs.f.3			\
-	man/man3/cgegv.3			\
-	man/man3/cgegv.f.3			\
-	man/man3/cgehd2.3			\
-	man/man3/cgehd2.f.3			\
-	man/man3/cgehrd.3			\
-	man/man3/cgehrd.f.3			\
-	man/man3/cgelq2.3			\
-	man/man3/cgelq2.f.3			\
-	man/man3/cgelqf.3			\
-	man/man3/cgelqf.f.3			\
-	man/man3/cgels.3			\
-	man/man3/cgelsd.3			\
-	man/man3/cgelsd.f.3			\
-	man/man3/cgels.f.3			\
-	man/man3/cgelss.3			\
-	man/man3/cgelss.f.3			\
-	man/man3/cgelsx.3			\
-	man/man3/cgelsx.f.3			\
-	man/man3/cgelsy.3			\
-	man/man3/cgelsy.f.3			\
-	man/man3/cgemm.3			\
-	man/man3/cgemm.f.3			\
-	man/man3/cgemqrt.3			\
-	man/man3/cgemqrt.f.3			\
-	man/man3/cgemv.3			\
-	man/man3/cgemv.f.3			\
-	man/man3/cgeql2.3			\
-	man/man3/cgeql2.f.3			\
-	man/man3/cgeqlf.3			\
-	man/man3/cgeqlf.f.3			\
-	man/man3/cgeqp3.3			\
-	man/man3/cgeqp3.f.3			\
-	man/man3/cgeqpf.3			\
-	man/man3/cgeqpf.f.3			\
-	man/man3/cgeqr2.3			\
-	man/man3/cgeqr2.f.3			\
-	man/man3/cgeqr2p.3			\
-	man/man3/cgeqr2p.f.3			\
-	man/man3/cgeqrf.3			\
-	man/man3/cgeqrf.f.3			\
-	man/man3/cgeqrfp.3			\
-	man/man3/cgeqrfp.f.3			\
-	man/man3/cgeqrt2.3			\
-	man/man3/cgeqrt2.f.3			\
-	man/man3/cgeqrt.3			\
-	man/man3/cgeqrt3.3			\
-	man/man3/cgeqrt3.f.3			\
-	man/man3/cgeqrt.f.3			\
-	man/man3/cgerc.3			\
-	man/man3/cgerc.f.3			\
-	man/man3/cgerfs.3			\
-	man/man3/cgerfs.f.3			\
-	man/man3/cgerfsx.3			\
-	man/man3/cgerfsx.f.3			\
-	man/man3/cgerq2.3			\
-	man/man3/cgerq2.f.3			\
-	man/man3/cgerqf.3			\
-	man/man3/cgerqf.f.3			\
-	man/man3/cgeru.3			\
-	man/man3/cgeru.f.3			\
-	man/man3/cgesc2.3			\
-	man/man3/cgesc2.f.3			\
-	man/man3/cgesdd.3			\
-	man/man3/cgesdd.f.3			\
-	man/man3/cgesv.3			\
-	man/man3/cgesvd.3			\
-	man/man3/cgesvd.f.3			\
-	man/man3/cgesv.f.3			\
-	man/man3/cgesvx.3			\
-	man/man3/cgesvx.f.3			\
-	man/man3/cgesvxx.3			\
-	man/man3/cgesvxx.f.3			\
-	man/man3/cgetc2.3			\
-	man/man3/cgetc2.f.3			\
-	man/man3/cgetf2.3			\
-	man/man3/cgetf2.f.3			\
-	man/man3/cgetrf.3			\
-	man/man3/cgetrf.f.3			\
-	man/man3/cgetri.3			\
-	man/man3/cgetri.f.3			\
-	man/man3/cgetrs.3			\
-	man/man3/cgetrs.f.3			\
-	man/man3/cggbak.3			\
-	man/man3/cggbak.f.3			\
-	man/man3/cggbal.3			\
-	man/man3/cggbal.f.3			\
-	man/man3/cgges.3			\
-	man/man3/cgges.f.3			\
-	man/man3/cggesx.3			\
-	man/man3/cggesx.f.3			\
-	man/man3/cggev.3			\
-	man/man3/cggev.f.3			\
-	man/man3/cggevx.3			\
-	man/man3/cggevx.f.3			\
-	man/man3/cggglm.3			\
-	man/man3/cggglm.f.3			\
-	man/man3/cgghrd.3			\
-	man/man3/cgghrd.f.3			\
-	man/man3/cgglse.3			\
-	man/man3/cgglse.f.3			\
-	man/man3/cggqrf.3			\
-	man/man3/cggqrf.f.3			\
-	man/man3/cggrqf.3			\
-	man/man3/cggrqf.f.3			\
-	man/man3/cggsvd.3			\
-	man/man3/cggsvd.f.3			\
-	man/man3/cggsvp.3			\
-	man/man3/cggsvp.f.3			\
-	man/man3/cgtcon.3			\
-	man/man3/cgtcon.f.3			\
-	man/man3/cgtrfs.3			\
-	man/man3/cgtrfs.f.3			\
-	man/man3/cgtsv.3			\
-	man/man3/cgtsv.f.3			\
-	man/man3/cgtsvx.3			\
-	man/man3/cgtsvx.f.3			\
-	man/man3/cgttrf.3			\
-	man/man3/cgttrf.f.3			\
-	man/man3/cgttrs.3			\
-	man/man3/cgttrs.f.3			\
-	man/man3/cgtts2.3			\
-	man/man3/cgtts2.f.3			\
-	man/man3/chbev.3			\
-	man/man3/chbevd.3			\
-	man/man3/chbevd.f.3			\
-	man/man3/chbev.f.3			\
-	man/man3/chbevx.3			\
-	man/man3/chbevx.f.3			\
-	man/man3/chbgst.3			\
-	man/man3/chbgst.f.3			\
-	man/man3/chbgv.3			\
-	man/man3/chbgvd.3			\
-	man/man3/chbgvd.f.3			\
-	man/man3/chbgv.f.3			\
-	man/man3/chbgvx.3			\
-	man/man3/chbgvx.f.3			\
-	man/man3/chbmv.3			\
-	man/man3/chbmv.f.3			\
-	man/man3/chbtrd.3			\
-	man/man3/chbtrd.f.3			\
-	man/man3/checon.3			\
-	man/man3/checon.f.3			\
-	man/man3/checon_rook.3			\
-	man/man3/checon_rook.f.3		\
-	man/man3/cheequb.3			\
-	man/man3/cheequb.f.3			\
-	man/man3/cheev.3			\
-	man/man3/cheevd.3			\
-	man/man3/cheevd.f.3			\
-	man/man3/cheev.f.3			\
-	man/man3/cheevr.3			\
-	man/man3/cheevr.f.3			\
-	man/man3/cheevx.3			\
-	man/man3/cheevx.f.3			\
-	man/man3/chegs2.3			\
-	man/man3/chegs2.f.3			\
-	man/man3/chegst.3			\
-	man/man3/chegst.f.3			\
-	man/man3/chegv.3			\
-	man/man3/chegvd.3			\
-	man/man3/chegvd.f.3			\
-	man/man3/chegv.f.3			\
-	man/man3/chegvx.3			\
-	man/man3/chegvx.f.3			\
-	man/man3/chemm.3			\
-	man/man3/chemm.f.3			\
-	man/man3/chemv.3			\
-	man/man3/chemv.f.3			\
-	man/man3/cher2.3			\
-	man/man3/cher2.f.3			\
-	man/man3/cher2k.3			\
-	man/man3/cher2k.f.3			\
-	man/man3/cher.3				\
-	man/man3/cher.f.3			\
-	man/man3/cherfs.3			\
-	man/man3/cherfs.f.3			\
-	man/man3/cherfsx.3			\
-	man/man3/cherfsx.f.3			\
-	man/man3/cherk.3			\
-	man/man3/cherk.f.3			\
-	man/man3/chesv.3			\
-	man/man3/chesv.f.3			\
-	man/man3/chesv_rook.3			\
-	man/man3/chesv_rook.f.3			\
-	man/man3/chesvx.3			\
-	man/man3/chesvx.f.3			\
-	man/man3/chesvxx.3			\
-	man/man3/chesvxx.f.3			\
-	man/man3/cheswapr.3			\
-	man/man3/cheswapr.f.3			\
-	man/man3/chetd2.3			\
-	man/man3/chetd2.f.3			\
-	man/man3/chetf2.3			\
-	man/man3/chetf2.f.3			\
-	man/man3/chetf2_rook.3			\
-	man/man3/chetf2_rook.f.3		\
-	man/man3/chetrd.3			\
-	man/man3/chetrd.f.3			\
-	man/man3/chetrf.3			\
-	man/man3/chetrf.f.3			\
-	man/man3/chetrf_rook.3			\
-	man/man3/chetrf_rook.f.3		\
-	man/man3/chetri2.3			\
-	man/man3/chetri2.f.3			\
-	man/man3/chetri2x.3			\
-	man/man3/chetri2x.f.3			\
-	man/man3/chetri.3			\
-	man/man3/chetri.f.3			\
-	man/man3/chetri_rook.3			\
-	man/man3/chetri_rook.f.3		\
-	man/man3/chetrs2.3			\
-	man/man3/chetrs2.f.3			\
-	man/man3/chetrs.3			\
-	man/man3/chetrs.f.3			\
-	man/man3/chetrs_rook.3			\
-	man/man3/chetrs_rook.f.3		\
-	man/man3/chfrk.3			\
-	man/man3/chfrk.f.3			\
-	man/man3/chgeqz.3			\
-	man/man3/chgeqz.f.3			\
-	man/man3/chla_transtype.3		\
-	man/man3/chla_transtype.f.3		\
-	man/man3/chpcon.3			\
-	man/man3/chpcon.f.3			\
-	man/man3/chpev.3			\
-	man/man3/chpevd.3			\
-	man/man3/chpevd.f.3			\
-	man/man3/chpev.f.3			\
-	man/man3/chpevx.3			\
-	man/man3/chpevx.f.3			\
-	man/man3/chpgst.3			\
-	man/man3/chpgst.f.3			\
-	man/man3/chpgv.3			\
-	man/man3/chpgvd.3			\
-	man/man3/chpgvd.f.3			\
-	man/man3/chpgv.f.3			\
-	man/man3/chpgvx.3			\
-	man/man3/chpgvx.f.3			\
-	man/man3/chpmv.3			\
-	man/man3/chpmv.f.3			\
-	man/man3/chpr2.3			\
-	man/man3/chpr2.f.3			\
-	man/man3/chpr.3				\
-	man/man3/chpr.f.3			\
-	man/man3/chprfs.3			\
-	man/man3/chprfs.f.3			\
-	man/man3/chpsv.3			\
-	man/man3/chpsv.f.3			\
-	man/man3/chpsvx.3			\
-	man/man3/chpsvx.f.3			\
-	man/man3/chptrd.3			\
-	man/man3/chptrd.f.3			\
-	man/man3/chptrf.3			\
-	man/man3/chptrf.f.3			\
-	man/man3/chptri.3			\
-	man/man3/chptri.f.3			\
-	man/man3/chptrs.3			\
-	man/man3/chptrs.f.3			\
-	man/man3/chsein.3			\
-	man/man3/chsein.f.3			\
-	man/man3/chseqr.3			\
-	man/man3/chseqr.f.3			\
-	man/man3/clabrd.3			\
-	man/man3/clabrd.f.3			\
-	man/man3/clacgv.3			\
-	man/man3/clacgv.f.3			\
-	man/man3/clacn2.3			\
-	man/man3/clacn2.f.3			\
-	man/man3/clacon.3			\
-	man/man3/clacon.f.3			\
-	man/man3/clacp2.3			\
-	man/man3/clacp2.f.3			\
-	man/man3/clacpy.3			\
-	man/man3/clacpy.f.3			\
-	man/man3/clacrm.3			\
-	man/man3/clacrm.f.3			\
-	man/man3/clacrt.3			\
-	man/man3/clacrt.f.3			\
-	man/man3/cladiv.3			\
-	man/man3/cladiv.f.3			\
-	man/man3/claed0.3			\
-	man/man3/claed0.f.3			\
-	man/man3/claed7.3			\
-	man/man3/claed7.f.3			\
-	man/man3/claed8.3			\
-	man/man3/claed8.f.3			\
-	man/man3/claein.3			\
-	man/man3/claein.f.3			\
-	man/man3/claesy.3			\
-	man/man3/claesy.f.3			\
-	man/man3/claev2.3			\
-	man/man3/claev2.f.3			\
-	man/man3/clag2z.3			\
-	man/man3/clag2z.f.3			\
-	man/man3/cla_gbamv.3			\
-	man/man3/cla_gbamv.f.3			\
-	man/man3/cla_gbrcond_c.3		\
-	man/man3/cla_gbrcond_c.f.3		\
-	man/man3/cla_gbrcond_x.3		\
-	man/man3/cla_gbrcond_x.f.3		\
-	man/man3/cla_gbrfsx_extended.3		\
-	man/man3/cla_gbrfsx_extended.f.3	\
-	man/man3/cla_gbrpvgrw.3			\
-	man/man3/cla_gbrpvgrw.f.3		\
-	man/man3/cla_geamv.3			\
-	man/man3/cla_geamv.f.3			\
-	man/man3/cla_gercond_c.3		\
-	man/man3/cla_gercond_c.f.3		\
-	man/man3/cla_gercond_x.3		\
-	man/man3/cla_gercond_x.f.3		\
-	man/man3/cla_gerfsx_extended.3		\
-	man/man3/cla_gerfsx_extended.f.3	\
-	man/man3/cla_gerpvgrw.3			\
-	man/man3/cla_gerpvgrw.f.3		\
-	man/man3/clags2.3			\
-	man/man3/clags2.f.3			\
-	man/man3/clagtm.3			\
-	man/man3/clagtm.f.3			\
-	man/man3/cla_heamv.3			\
-	man/man3/cla_heamv.f.3			\
-	man/man3/clahef.3			\
-	man/man3/clahef.f.3			\
-	man/man3/clahef_rook.3			\
-	man/man3/clahef_rook.f.3		\
-	man/man3/cla_hercond_c.3		\
-	man/man3/cla_hercond_c.f.3		\
-	man/man3/cla_hercond_x.3		\
-	man/man3/cla_hercond_x.f.3		\
-	man/man3/cla_herfsx_extended.3		\
-	man/man3/cla_herfsx_extended.f.3	\
-	man/man3/cla_herpvgrw.3			\
-	man/man3/cla_herpvgrw.f.3		\
-	man/man3/clahqr.3			\
-	man/man3/clahqr.f.3			\
-	man/man3/clahr2.3			\
-	man/man3/clahr2.f.3			\
-	man/man3/clahrd.3			\
-	man/man3/clahrd.f.3			\
-	man/man3/claic1.3			\
-	man/man3/claic1.f.3			\
-	man/man3/cla_lin_berr.3			\
-	man/man3/cla_lin_berr.f.3		\
-	man/man3/clals0.3			\
-	man/man3/clals0.f.3			\
-	man/man3/clalsa.3			\
-	man/man3/clalsa.f.3			\
-	man/man3/clalsd.3			\
-	man/man3/clalsd.f.3			\
-	man/man3/clangb.3			\
-	man/man3/clangb.f.3			\
-	man/man3/clange.3			\
-	man/man3/clange.f.3			\
-	man/man3/clangt.3			\
-	man/man3/clangt.f.3			\
-	man/man3/clanhb.3			\
-	man/man3/clanhb.f.3			\
-	man/man3/clanhe.3			\
-	man/man3/clanhe.f.3			\
-	man/man3/clanhf.3			\
-	man/man3/clanhf.f.3			\
-	man/man3/clanhp.3			\
-	man/man3/clanhp.f.3			\
-	man/man3/clanhs.3			\
-	man/man3/clanhs.f.3			\
-	man/man3/clanht.3			\
-	man/man3/clanht.f.3			\
-	man/man3/clansb.3			\
-	man/man3/clansb.f.3			\
-	man/man3/clansp.3			\
-	man/man3/clansp.f.3			\
-	man/man3/clansy.3			\
-	man/man3/clansy.f.3			\
-	man/man3/clantb.3			\
-	man/man3/clantb.f.3			\
-	man/man3/clantp.3			\
-	man/man3/clantp.f.3			\
-	man/man3/clantr.3			\
-	man/man3/clantr.f.3			\
-	man/man3/clapll.3			\
-	man/man3/clapll.f.3			\
-	man/man3/clapmr.3			\
-	man/man3/clapmr.f.3			\
-	man/man3/clapmt.3			\
-	man/man3/clapmt.f.3			\
-	man/man3/cla_porcond_c.3		\
-	man/man3/cla_porcond_c.f.3		\
-	man/man3/cla_porcond_x.3		\
-	man/man3/cla_porcond_x.f.3		\
-	man/man3/cla_porfsx_extended.3		\
-	man/man3/cla_porfsx_extended.f.3	\
-	man/man3/cla_porpvgrw.3			\
-	man/man3/cla_porpvgrw.f.3		\
-	man/man3/claqgb.3			\
-	man/man3/claqgb.f.3			\
-	man/man3/claqge.3			\
-	man/man3/claqge.f.3			\
-	man/man3/claqhb.3			\
-	man/man3/claqhb.f.3			\
-	man/man3/claqhe.3			\
-	man/man3/claqhe.f.3			\
-	man/man3/claqhp.3			\
-	man/man3/claqhp.f.3			\
-	man/man3/claqp2.3			\
-	man/man3/claqp2.f.3			\
-	man/man3/claqps.3			\
-	man/man3/claqps.f.3			\
-	man/man3/claqr0.3			\
-	man/man3/claqr0.f.3			\
-	man/man3/claqr1.3			\
-	man/man3/claqr1.f.3			\
-	man/man3/claqr2.3			\
-	man/man3/claqr2.f.3			\
-	man/man3/claqr3.3			\
-	man/man3/claqr3.f.3			\
-	man/man3/claqr4.3			\
-	man/man3/claqr4.f.3			\
-	man/man3/claqr5.3			\
-	man/man3/claqr5.f.3			\
-	man/man3/claqsb.3			\
-	man/man3/claqsb.f.3			\
-	man/man3/claqsp.3			\
-	man/man3/claqsp.f.3			\
-	man/man3/claqsy.3			\
-	man/man3/claqsy.f.3			\
-	man/man3/clar1v.3			\
-	man/man3/clar1v.f.3			\
-	man/man3/clar2v.3			\
-	man/man3/clar2v.f.3			\
-	man/man3/clarcm.3			\
-	man/man3/clarcm.f.3			\
-	man/man3/clarf.3			\
-	man/man3/clarfb.3			\
-	man/man3/clarfb.f.3			\
-	man/man3/clarf.f.3			\
-	man/man3/clarfg.3			\
-	man/man3/clarfg.f.3			\
-	man/man3/clarfgp.3			\
-	man/man3/clarfgp.f.3			\
-	man/man3/clarft.3			\
-	man/man3/clarft.f.3			\
-	man/man3/clarfx.3			\
-	man/man3/clarfx.f.3			\
-	man/man3/clargv.3			\
-	man/man3/clargv.f.3			\
-	man/man3/clarnv.3			\
-	man/man3/clarnv.f.3			\
-	man/man3/clarrv.3			\
-	man/man3/clarrv.f.3			\
-	man/man3/clarscl2.3			\
-	man/man3/clarscl2.f.3			\
-	man/man3/clartg.3			\
-	man/man3/clartg.f.3			\
-	man/man3/clartv.3			\
-	man/man3/clartv.f.3			\
-	man/man3/clarz.3			\
-	man/man3/clarzb.3			\
-	man/man3/clarzb.f.3			\
-	man/man3/clarz.f.3			\
-	man/man3/clarzt.3			\
-	man/man3/clarzt.f.3			\
-	man/man3/clascl2.3			\
-	man/man3/clascl2.f.3			\
-	man/man3/clascl.3			\
-	man/man3/clascl.f.3			\
-	man/man3/claset.3			\
-	man/man3/claset.f.3			\
-	man/man3/clasr.3			\
-	man/man3/clasr.f.3			\
-	man/man3/classq.3			\
-	man/man3/classq.f.3			\
-	man/man3/claswp.3			\
-	man/man3/claswp.f.3			\
-	man/man3/cla_syamv.3			\
-	man/man3/cla_syamv.f.3			\
-	man/man3/clasyf.3			\
-	man/man3/clasyf.f.3			\
-	man/man3/clasyf_rook.3			\
-	man/man3/clasyf_rook.f.3		\
-	man/man3/cla_syrcond_c.3		\
-	man/man3/cla_syrcond_c.f.3		\
-	man/man3/cla_syrcond_x.3		\
-	man/man3/cla_syrcond_x.f.3		\
-	man/man3/cla_syrfsx_extended.3		\
-	man/man3/cla_syrfsx_extended.f.3	\
-	man/man3/cla_syrpvgrw.3			\
-	man/man3/cla_syrpvgrw.f.3		\
-	man/man3/clatbs.3			\
-	man/man3/clatbs.f.3			\
-	man/man3/clatdf.3			\
-	man/man3/clatdf.f.3			\
-	man/man3/clatps.3			\
-	man/man3/clatps.f.3			\
-	man/man3/clatrd.3			\
-	man/man3/clatrd.f.3			\
-	man/man3/clatrs.3			\
-	man/man3/clatrs.f.3			\
-	man/man3/clatrz.3			\
-	man/man3/clatrz.f.3			\
-	man/man3/clatzm.3			\
-	man/man3/clatzm.f.3			\
-	man/man3/clauu2.3			\
-	man/man3/clauu2.f.3			\
-	man/man3/clauum.3			\
-	man/man3/clauum.f.3			\
-	man/man3/cla_wwaddw.3			\
-	man/man3/cla_wwaddw.f.3			\
-	man/man3/cpbcon.3			\
-	man/man3/cpbcon.f.3			\
-	man/man3/cpbequ.3			\
-	man/man3/cpbequ.f.3			\
-	man/man3/cpbrfs.3			\
-	man/man3/cpbrfs.f.3			\
-	man/man3/cpbstf.3			\
-	man/man3/cpbstf.f.3			\
-	man/man3/cpbsv.3			\
-	man/man3/cpbsv.f.3			\
-	man/man3/cpbsvx.3			\
-	man/man3/cpbsvx.f.3			\
-	man/man3/cpbtf2.3			\
-	man/man3/cpbtf2.f.3			\
-	man/man3/cpbtrf.3			\
-	man/man3/cpbtrf.f.3			\
-	man/man3/cpbtrs.3			\
-	man/man3/cpbtrs.f.3			\
-	man/man3/cpftrf.3			\
-	man/man3/cpftrf.f.3			\
-	man/man3/cpftri.3			\
-	man/man3/cpftri.f.3			\
-	man/man3/cpftrs.3			\
-	man/man3/cpftrs.f.3			\
-	man/man3/cpocon.3			\
-	man/man3/cpocon.f.3			\
-	man/man3/cpoequ.3			\
-	man/man3/cpoequb.3			\
-	man/man3/cpoequb.f.3			\
-	man/man3/cpoequ.f.3			\
-	man/man3/cporfs.3			\
-	man/man3/cporfs.f.3			\
-	man/man3/cporfsx.3			\
-	man/man3/cporfsx.f.3			\
-	man/man3/cposv.3			\
-	man/man3/cposv.f.3			\
-	man/man3/cposvx.3			\
-	man/man3/cposvx.f.3			\
-	man/man3/cposvxx.3			\
-	man/man3/cposvxx.f.3			\
-	man/man3/cpotf2.3			\
-	man/man3/cpotf2.f.3			\
-	man/man3/cpotrf.3			\
-	man/man3/cpotrf.f.3			\
-	man/man3/cpotri.3			\
-	man/man3/cpotri.f.3			\
-	man/man3/cpotrs.3			\
-	man/man3/cpotrs.f.3			\
-	man/man3/cppcon.3			\
-	man/man3/cppcon.f.3			\
-	man/man3/cppequ.3			\
-	man/man3/cppequ.f.3			\
-	man/man3/cpprfs.3			\
-	man/man3/cpprfs.f.3			\
-	man/man3/cppsv.3			\
-	man/man3/cppsv.f.3			\
-	man/man3/cppsvx.3			\
-	man/man3/cppsvx.f.3			\
-	man/man3/cpptrf.3			\
-	man/man3/cpptrf.f.3			\
-	man/man3/cpptri.3			\
-	man/man3/cpptri.f.3			\
-	man/man3/cpptrs.3			\
-	man/man3/cpptrs.f.3			\
-	man/man3/cpstf2.3			\
-	man/man3/cpstf2.f.3			\
-	man/man3/cpstrf.3			\
-	man/man3/cpstrf.f.3			\
-	man/man3/cptcon.3			\
-	man/man3/cptcon.f.3			\
-	man/man3/cpteqr.3			\
-	man/man3/cpteqr.f.3			\
-	man/man3/cptrfs.3			\
-	man/man3/cptrfs.f.3			\
-	man/man3/cptsv.3			\
-	man/man3/cptsv.f.3			\
-	man/man3/cptsvx.3			\
-	man/man3/cptsvx.f.3			\
-	man/man3/cpttrf.3			\
-	man/man3/cpttrf.f.3			\
-	man/man3/cpttrs.3			\
-	man/man3/cpttrs.f.3			\
-	man/man3/cptts2.3			\
-	man/man3/cptts2.f.3			\
-	man/man3/crot.3				\
-	man/man3/crot.f.3			\
-	man/man3/crotg.3			\
-	man/man3/crotg.f.3			\
-	man/man3/cscal.3			\
-	man/man3/cscal.f.3			\
-	man/man3/cspcon.3			\
-	man/man3/cspcon.f.3			\
-	man/man3/cspmv.3			\
-	man/man3/cspmv.f.3			\
-	man/man3/cspr.3				\
-	man/man3/cspr.f.3			\
-	man/man3/csprfs.3			\
-	man/man3/csprfs.f.3			\
-	man/man3/cspsv.3			\
-	man/man3/cspsv.f.3			\
-	man/man3/cspsvx.3			\
-	man/man3/cspsvx.f.3			\
-	man/man3/csptrf.3			\
-	man/man3/csptrf.f.3			\
-	man/man3/csptri.3			\
-	man/man3/csptri.f.3			\
-	man/man3/csptrs.3			\
-	man/man3/csptrs.f.3			\
-	man/man3/csrot.3			\
-	man/man3/csrot.f.3			\
-	man/man3/csrscl.3			\
-	man/man3/csrscl.f.3			\
-	man/man3/csscal.3			\
-	man/man3/csscal.f.3			\
-	man/man3/cstedc.3			\
-	man/man3/cstedc.f.3			\
-	man/man3/cstegr.3			\
-	man/man3/cstegr.f.3			\
-	man/man3/cstein.3			\
-	man/man3/cstein.f.3			\
-	man/man3/cstemr.3			\
-	man/man3/cstemr.f.3			\
-	man/man3/csteqr.3			\
-	man/man3/csteqr.f.3			\
-	man/man3/cswap.3			\
-	man/man3/cswap.f.3			\
-	man/man3/csycon.3			\
-	man/man3/csycon.f.3			\
-	man/man3/csycon_rook.3			\
-	man/man3/csycon_rook.f.3		\
-	man/man3/csyconv.3			\
-	man/man3/csyconv.f.3			\
-	man/man3/csyequb.3			\
-	man/man3/csyequb.f.3			\
-	man/man3/csymm.3			\
-	man/man3/csymm.f.3			\
-	man/man3/csymv.3			\
-	man/man3/csymv.f.3			\
-	man/man3/csyr2k.3			\
-	man/man3/csyr2k.f.3			\
-	man/man3/csyr.3				\
-	man/man3/csyr.f.3			\
-	man/man3/csyrfs.3			\
-	man/man3/csyrfs.f.3			\
-	man/man3/csyrfsx.3			\
-	man/man3/csyrfsx.f.3			\
-	man/man3/csyrk.3			\
-	man/man3/csyrk.f.3			\
-	man/man3/csysv.3			\
-	man/man3/csysv.f.3			\
-	man/man3/csysv_rook.3			\
-	man/man3/csysv_rook.f.3			\
-	man/man3/csysvx.3			\
-	man/man3/csysvx.f.3			\
-	man/man3/csysvxx.3			\
-	man/man3/csysvxx.f.3			\
-	man/man3/csyswapr.3			\
-	man/man3/csyswapr.f.3			\
-	man/man3/csytf2.3			\
-	man/man3/csytf2.f.3			\
-	man/man3/csytf2_rook.3			\
-	man/man3/csytf2_rook.f.3		\
-	man/man3/csytrf.3			\
-	man/man3/csytrf.f.3			\
-	man/man3/csytrf_rook.3			\
-	man/man3/csytrf_rook.f.3		\
-	man/man3/csytri2.3			\
-	man/man3/csytri2.f.3			\
-	man/man3/csytri2x.3			\
-	man/man3/csytri2x.f.3			\
-	man/man3/csytri.3			\
-	man/man3/csytri.f.3			\
-	man/man3/csytri_rook.3			\
-	man/man3/csytri_rook.f.3		\
-	man/man3/csytrs2.3			\
-	man/man3/csytrs2.f.3			\
-	man/man3/csytrs.3			\
-	man/man3/csytrs.f.3			\
-	man/man3/csytrs_rook.3			\
-	man/man3/csytrs_rook.f.3		\
-	man/man3/ctbcon.3			\
-	man/man3/ctbcon.f.3			\
-	man/man3/ctbmv.3			\
-	man/man3/ctbmv.f.3			\
-	man/man3/ctbrfs.3			\
-	man/man3/ctbrfs.f.3			\
-	man/man3/ctbsv.3			\
-	man/man3/ctbsv.f.3			\
-	man/man3/ctbtrs.3			\
-	man/man3/ctbtrs.f.3			\
-	man/man3/ctfsm.3			\
-	man/man3/ctfsm.f.3			\
-	man/man3/ctftri.3			\
-	man/man3/ctftri.f.3			\
-	man/man3/ctfttp.3			\
-	man/man3/ctfttp.f.3			\
-	man/man3/ctfttr.3			\
-	man/man3/ctfttr.f.3			\
-	man/man3/ctgevc.3			\
-	man/man3/ctgevc.f.3			\
-	man/man3/ctgex2.3			\
-	man/man3/ctgex2.f.3			\
-	man/man3/ctgexc.3			\
-	man/man3/ctgexc.f.3			\
-	man/man3/ctgsen.3			\
-	man/man3/ctgsen.f.3			\
-	man/man3/ctgsja.3			\
-	man/man3/ctgsja.f.3			\
-	man/man3/ctgsna.3			\
-	man/man3/ctgsna.f.3			\
-	man/man3/ctgsy2.3			\
-	man/man3/ctgsy2.f.3			\
-	man/man3/ctgsyl.3			\
-	man/man3/ctgsyl.f.3			\
-	man/man3/ctpcon.3			\
-	man/man3/ctpcon.f.3			\
-	man/man3/ctpmqrt.3			\
-	man/man3/ctpmqrt.f.3			\
-	man/man3/ctpmv.3			\
-	man/man3/ctpmv.f.3			\
-	man/man3/ctpqrt2.3			\
-	man/man3/ctpqrt2.f.3			\
-	man/man3/ctpqrt.3			\
-	man/man3/ctpqrt.f.3			\
-	man/man3/ctprfb.3			\
-	man/man3/ctprfb.f.3			\
-	man/man3/ctprfs.3			\
-	man/man3/ctprfs.f.3			\
-	man/man3/ctpsv.3			\
-	man/man3/ctpsv.f.3			\
-	man/man3/ctptri.3			\
-	man/man3/ctptri.f.3			\
-	man/man3/ctptrs.3			\
-	man/man3/ctptrs.f.3			\
-	man/man3/ctpttf.3			\
-	man/man3/ctpttf.f.3			\
-	man/man3/ctpttr.3			\
-	man/man3/ctpttr.f.3			\
-	man/man3/ctrcon.3			\
-	man/man3/ctrcon.f.3			\
-	man/man3/ctrevc.3			\
-	man/man3/ctrevc.f.3			\
-	man/man3/ctrexc.3			\
-	man/man3/ctrexc.f.3			\
-	man/man3/ctrmm.3			\
-	man/man3/ctrmm.f.3			\
-	man/man3/ctrmv.3			\
-	man/man3/ctrmv.f.3			\
-	man/man3/ctrrfs.3			\
-	man/man3/ctrrfs.f.3			\
-	man/man3/ctrsen.3			\
-	man/man3/ctrsen.f.3			\
-	man/man3/ctrsm.3			\
-	man/man3/ctrsm.f.3			\
-	man/man3/ctrsna.3			\
-	man/man3/ctrsna.f.3			\
-	man/man3/ctrsv.3			\
-	man/man3/ctrsv.f.3			\
-	man/man3/ctrsyl.3			\
-	man/man3/ctrsyl.f.3			\
-	man/man3/ctrti2.3			\
-	man/man3/ctrti2.f.3			\
-	man/man3/ctrtri.3			\
-	man/man3/ctrtri.f.3			\
-	man/man3/ctrtrs.3			\
-	man/man3/ctrtrs.f.3			\
-	man/man3/ctrttf.3			\
-	man/man3/ctrttf.f.3			\
-	man/man3/ctrttp.3			\
-	man/man3/ctrttp.f.3			\
-	man/man3/ctzrqf.3			\
-	man/man3/ctzrqf.f.3			\
-	man/man3/ctzrzf.3			\
-	man/man3/ctzrzf.f.3			\
-	man/man3/cunbdb1.3			\
-	man/man3/cunbdb1.f.3			\
-	man/man3/cunbdb2.3			\
-	man/man3/cunbdb2.f.3			\
-	man/man3/cunbdb.3			\
-	man/man3/cunbdb3.3			\
-	man/man3/cunbdb3.f.3			\
-	man/man3/cunbdb4.3			\
-	man/man3/cunbdb4.f.3			\
-	man/man3/cunbdb5.3			\
-	man/man3/cunbdb5.f.3			\
-	man/man3/cunbdb6.3			\
-	man/man3/cunbdb6.f.3			\
-	man/man3/cunbdb.f.3			\
-	man/man3/cuncsd2by1.3			\
-	man/man3/cuncsd2by1.f.3			\
-	man/man3/cuncsd.3			\
-	man/man3/cuncsd.f.3			\
-	man/man3/cung2l.3			\
-	man/man3/cung2l.f.3			\
-	man/man3/cung2r.3			\
-	man/man3/cung2r.f.3			\
-	man/man3/cungbr.3			\
-	man/man3/cungbr.f.3			\
-	man/man3/cunghr.3			\
-	man/man3/cunghr.f.3			\
-	man/man3/cungl2.3			\
-	man/man3/cungl2.f.3			\
-	man/man3/cunglq.3			\
-	man/man3/cunglq.f.3			\
-	man/man3/cungql.3			\
-	man/man3/cungql.f.3			\
-	man/man3/cungqr.3			\
-	man/man3/cungqr.f.3			\
-	man/man3/cungr2.3			\
-	man/man3/cungr2.f.3			\
-	man/man3/cungrq.3			\
-	man/man3/cungrq.f.3			\
-	man/man3/cungtr.3			\
-	man/man3/cungtr.f.3			\
-	man/man3/cunm2l.3			\
-	man/man3/cunm2l.f.3			\
-	man/man3/cunm2r.3			\
-	man/man3/cunm2r.f.3			\
-	man/man3/cunmbr.3			\
-	man/man3/cunmbr.f.3			\
-	man/man3/cunmhr.3			\
-	man/man3/cunmhr.f.3			\
-	man/man3/cunml2.3			\
-	man/man3/cunml2.f.3			\
-	man/man3/cunmlq.3			\
-	man/man3/cunmlq.f.3			\
-	man/man3/cunmql.3			\
-	man/man3/cunmql.f.3			\
-	man/man3/cunmqr.3			\
-	man/man3/cunmqr.f.3			\
-	man/man3/cunmr2.3			\
-	man/man3/cunmr2.f.3			\
-	man/man3/cunmr3.3			\
-	man/man3/cunmr3.f.3			\
-	man/man3/cunmrq.3			\
-	man/man3/cunmrq.f.3			\
-	man/man3/cunmrz.3			\
-	man/man3/cunmrz.f.3			\
-	man/man3/cunmtr.3			\
-	man/man3/cunmtr.f.3			\
-	man/man3/cupgtr.3			\
-	man/man3/cupgtr.f.3			\
-	man/man3/cupmtr.3			\
-	man/man3/cupmtr.f.3			\
-	man/man3/dasum.3			\
-	man/man3/dasum.f.3			\
-	man/man3/daxpy.3			\
-	man/man3/daxpy.f.3			\
-	man/man3/dbbcsd.3			\
-	man/man3/dbbcsd.f.3			\
-	man/man3/dbdsdc.3			\
-	man/man3/dbdsdc.f.3			\
-	man/man3/dbdsqr.3			\
-	man/man3/dbdsqr.f.3			\
-	man/man3/dcabs1.3			\
-	man/man3/dcabs1.f.3			\
-	man/man3/dcopy.3			\
-	man/man3/dcopy.f.3			\
-	man/man3/ddisna.3			\
-	man/man3/ddisna.f.3			\
-	man/man3/ddot.3				\
-	man/man3/ddot.f.3			\
-	man/man3/dgbbrd.3			\
-	man/man3/dgbbrd.f.3			\
-	man/man3/dgbcon.3			\
-	man/man3/dgbcon.f.3			\
-	man/man3/dgbequ.3			\
-	man/man3/dgbequb.3			\
-	man/man3/dgbequb.f.3		\
-	man/man3/dgbequ.f.3			\
-	man/man3/dgbmv.3			\
-	man/man3/dgbmv.f.3			\
-	man/man3/dgbrfs.3			\
-	man/man3/dgbrfs.f.3			\
-	man/man3/dgbrfsx.3			\
-	man/man3/dgbrfsx.f.3		\
-	man/man3/dgbsv.3			\
-	man/man3/dgbsv.f.3			\
-	man/man3/dgbsvx.3			\
-	man/man3/dgbsvx.f.3			\
-	man/man3/dgbsvxx.3			\
-	man/man3/dgbsvxx.f.3		\
-	man/man3/dgbtf2.3			\
-	man/man3/dgbtf2.f.3			\
-	man/man3/dgbtrf.3			\
-	man/man3/dgbtrf.f.3			\
-	man/man3/dgbtrs.3			\
-	man/man3/dgbtrs.f.3			\
-	man/man3/dgebak.3			\
-	man/man3/dgebak.f.3			\
-	man/man3/dgebal.3			\
-	man/man3/dgebal.f.3			\
-	man/man3/dgebd2.3			\
-	man/man3/dgebd2.f.3			\
-	man/man3/dgebrd.3			\
-	man/man3/dgebrd.f.3			\
-	man/man3/dgecon.3			\
-	man/man3/dgecon.f.3			\
-	man/man3/dgeequ.3			\
-	man/man3/dgeequb.3			\
-	man/man3/dgeequb.f.3		\
-	man/man3/dgeequ.f.3			\
-	man/man3/dgees.3			\
-	man/man3/dgees.f.3			\
-	man/man3/dgeesx.3			\
-	man/man3/dgeesx.f.3			\
-	man/man3/dgeev.3			\
-	man/man3/dgeev.f.3			\
-	man/man3/dgeevx.3			\
-	man/man3/dgeevx.f.3			\
-	man/man3/dgegs.3			\
-	man/man3/dgegs.f.3			\
-	man/man3/dgegv.3			\
-	man/man3/dgegv.f.3			\
-	man/man3/dgehd2.3			\
-	man/man3/dgehd2.f.3			\
-	man/man3/dgehrd.3			\
-	man/man3/dgehrd.f.3			\
-	man/man3/dgejsv.3			\
-	man/man3/dgejsv.f.3			\
-	man/man3/dgelq2.3			\
-	man/man3/dgelq2.f.3			\
-	man/man3/dgelqf.3			\
-	man/man3/dgelqf.f.3			\
-	man/man3/dgels.3			\
-	man/man3/dgelsd.3			\
-	man/man3/dgelsd.f.3			\
-	man/man3/dgels.f.3			\
-	man/man3/dgelss.3			\
-	man/man3/dgelss.f.3			\
-	man/man3/dgelsx.3			\
-	man/man3/dgelsx.f.3			\
-	man/man3/dgelsy.3			\
-	man/man3/dgelsy.f.3			\
-	man/man3/dgemm.3			\
-	man/man3/dgemm.f.3			\
-	man/man3/dgemqrt.3			\
-	man/man3/dgemqrt.f.3		\
-	man/man3/dgemv.3			\
-	man/man3/dgemv.f.3			\
-	man/man3/dgeql2.3			\
-	man/man3/dgeql2.f.3			\
-	man/man3/dgeqlf.3			\
-	man/man3/dgeqlf.f.3			\
-	man/man3/dgeqp3.3			\
-	man/man3/dgeqp3.f.3			\
-	man/man3/dgeqpf.3			\
-	man/man3/dgeqpf.f.3			\
-	man/man3/dgeqr2.3			\
-	man/man3/dgeqr2.f.3			\
-	man/man3/dgeqr2p.3			\
-	man/man3/dgeqr2p.f.3		\
-	man/man3/dgeqrf.3			\
-	man/man3/dgeqrf.f.3			\
-	man/man3/dgeqrfp.3			\
-	man/man3/dgeqrfp.f.3		\
-	man/man3/dgeqrt2.3			\
-	man/man3/dgeqrt2.f.3		\
-	man/man3/dgeqrt.3			\
-	man/man3/dgeqrt3.3			\
-	man/man3/dgeqrt3.f.3		\
-	man/man3/dgeqrt.f.3			\
-	man/man3/dger.3			\
-	man/man3/dger.f.3			\
-	man/man3/dgerfs.3			\
-	man/man3/dgerfs.f.3			\
-	man/man3/dgerfsx.3			\
-	man/man3/dgerfsx.f.3		\
-	man/man3/dgerq2.3			\
-	man/man3/dgerq2.f.3			\
-	man/man3/dgerqf.3			\
-	man/man3/dgerqf.f.3			\
-	man/man3/dgesc2.3			\
-	man/man3/dgesc2.f.3			\
-	man/man3/dgesdd.3			\
-	man/man3/dgesdd.f.3			\
-	man/man3/dgesv.3			\
-	man/man3/dgesvd.3			\
-	man/man3/dgesvd.f.3			\
-	man/man3/dgesv.f.3			\
-	man/man3/dgesvj.3			\
-	man/man3/dgesvj.f.3			\
-	man/man3/dgesvx.3			\
-	man/man3/dgesvx.f.3			\
-	man/man3/dgesvxx.3			\
-	man/man3/dgesvxx.f.3		\
-	man/man3/dgetc2.3			\
-	man/man3/dgetc2.f.3			\
-	man/man3/dgetf2.3			\
-	man/man3/dgetf2.f.3			\
-	man/man3/dgetrf.3			\
-	man/man3/dgetrf.f.3			\
-	man/man3/dgetri.3			\
-	man/man3/dgetri.f.3			\
-	man/man3/dgetrs.3			\
-	man/man3/dgetrs.f.3			\
-	man/man3/dggbak.3			\
-	man/man3/dggbak.f.3			\
-	man/man3/dggbal.3			\
-	man/man3/dggbal.f.3			\
-	man/man3/dgges.3			\
-	man/man3/dgges.f.3			\
-	man/man3/dggesx.3			\
-	man/man3/dggesx.f.3			\
-	man/man3/dggev.3			\
-	man/man3/dggev.f.3			\
-	man/man3/dggevx.3			\
-	man/man3/dggevx.f.3			\
-	man/man3/dggglm.3			\
-	man/man3/dggglm.f.3			\
-	man/man3/dgghrd.3			\
-	man/man3/dgghrd.f.3			\
-	man/man3/dgglse.3			\
-	man/man3/dgglse.f.3			\
-	man/man3/dggqrf.3			\
-	man/man3/dggqrf.f.3			\
-	man/man3/dggrqf.3			\
-	man/man3/dggrqf.f.3			\
-	man/man3/dggsvd.3			\
-	man/man3/dggsvd.f.3			\
-	man/man3/dggsvp.3			\
-	man/man3/dggsvp.f.3			\
-	man/man3/dgsvj0.3			\
-	man/man3/dgsvj0.f.3			\
-	man/man3/dgsvj1.3			\
-	man/man3/dgsvj1.f.3			\
-	man/man3/dgtcon.3			\
-	man/man3/dgtcon.f.3			\
-	man/man3/dgtrfs.3			\
-	man/man3/dgtrfs.f.3			\
-	man/man3/dgtsv.3			\
-	man/man3/dgtsv.f.3			\
-	man/man3/dgtsvx.3			\
-	man/man3/dgtsvx.f.3			\
-	man/man3/dgttrf.3			\
-	man/man3/dgttrf.f.3			\
-	man/man3/dgttrs.3			\
-	man/man3/dgttrs.f.3			\
-	man/man3/dgtts2.3			\
-	man/man3/dgtts2.f.3			\
-	man/man3/dhgeqz.3			\
-	man/man3/dhgeqz.f.3			\
-	man/man3/dhsein.3			\
-	man/man3/dhsein.f.3			\
-	man/man3/dhseqr.3			\
-	man/man3/dhseqr.f.3			\
-	man/man3/disnan.3			\
-	man/man3/disnan.f.3			\
-	man/man3/dlabad.3			\
-	man/man3/dlabad.f.3			\
-	man/man3/dlabrd.3			\
-	man/man3/dlabrd.f.3			\
-	man/man3/dlacn2.3			\
-	man/man3/dlacn2.f.3			\
-	man/man3/dlacon.3			\
-	man/man3/dlacon.f.3			\
-	man/man3/dlacpy.3			\
-	man/man3/dlacpy.f.3			\
-	man/man3/dladiv1.3			\
-	man/man3/dladiv2.3			\
-	man/man3/dladiv.3			\
-	man/man3/dladiv.f.3			\
-	man/man3/dlae2.3			\
-	man/man3/dlae2.f.3			\
-	man/man3/dlaebz.3			\
-	man/man3/dlaebz.f.3			\
-	man/man3/dlaed0.3			\
-	man/man3/dlaed0.f.3			\
-	man/man3/dlaed1.3			\
-	man/man3/dlaed1.f.3			\
-	man/man3/dlaed2.3			\
-	man/man3/dlaed2.f.3			\
-	man/man3/dlaed3.3			\
-	man/man3/dlaed3.f.3			\
-	man/man3/dlaed4.3			\
-	man/man3/dlaed4.f.3			\
-	man/man3/dlaed5.3			\
-	man/man3/dlaed5.f.3			\
-	man/man3/dlaed6.3			\
-	man/man3/dlaed6.f.3			\
-	man/man3/dlaed7.3			\
-	man/man3/dlaed7.f.3			\
-	man/man3/dlaed8.3			\
-	man/man3/dlaed8.f.3			\
-	man/man3/dlaed9.3			\
-	man/man3/dlaed9.f.3			\
-	man/man3/dlaeda.3			\
-	man/man3/dlaeda.f.3			\
-	man/man3/dlaein.3			\
-	man/man3/dlaein.f.3			\
-	man/man3/dlaev2.3			\
-	man/man3/dlaev2.f.3			\
-	man/man3/dlaexc.3			\
-	man/man3/dlaexc.f.3			\
-	man/man3/dlag2.3			\
-	man/man3/dlag2.f.3			\
-	man/man3/dlag2s.3			\
-	man/man3/dlag2s.f.3			\
-	man/man3/dla_gbamv.3		\
-	man/man3/dla_gbamv.f.3		\
-	man/man3/dla_gbrcond.3		\
-	man/man3/dla_gbrcond.f.3		\
-	man/man3/dla_gbrfsx_extended.3	\
-	man/man3/dla_gbrfsx_extended.f.3	\
-	man/man3/dla_gbrpvgrw.3		\
-	man/man3/dla_gbrpvgrw.f.3		\
-	man/man3/dla_geamv.3		\
-	man/man3/dla_geamv.f.3		\
-	man/man3/dla_gercond.3		\
-	man/man3/dla_gercond.f.3		\
-	man/man3/dla_gerfsx_extended.3	\
-	man/man3/dla_gerfsx_extended.f.3	\
-	man/man3/dla_gerpvgrw.3		\
-	man/man3/dla_gerpvgrw.f.3		\
-	man/man3/dlags2.3			\
-	man/man3/dlags2.f.3			\
-	man/man3/dlagtf.3			\
-	man/man3/dlagtf.f.3			\
-	man/man3/dlagtm.3			\
-	man/man3/dlagtm.f.3			\
-	man/man3/dlagts.3			\
-	man/man3/dlagts.f.3			\
-	man/man3/dlagv2.3			\
-	man/man3/dlagv2.f.3			\
-	man/man3/dlahqr.3			\
-	man/man3/dlahqr.f.3			\
-	man/man3/dlahr2.3			\
-	man/man3/dlahr2.f.3			\
-	man/man3/dlahrd.3			\
-	man/man3/dlahrd.f.3			\
-	man/man3/dlaic1.3			\
-	man/man3/dlaic1.f.3			\
-	man/man3/dlaisnan.3			\
-	man/man3/dlaisnan.f.3		\
-	man/man3/dla_lin_berr.3		\
-	man/man3/dla_lin_berr.f.3		\
-	man/man3/dlaln2.3			\
-	man/man3/dlaln2.f.3			\
-	man/man3/dlals0.3			\
-	man/man3/dlals0.f.3			\
-	man/man3/dlalsa.3			\
-	man/man3/dlalsa.f.3			\
-	man/man3/dlalsd.3			\
-	man/man3/dlalsd.f.3			\
-	man/man3/dlamc1.3			\
-	man/man3/dlamc2.3			\
-	man/man3/dlamc3.3			\
-	man/man3/dlamc4.3			\
-	man/man3/dlamc5.3			\
-	man/man3/dlamch.3			\
-	man/man3/dlamch.f.3			\
-	man/man3/dlamchf77.f.3		\
-	man/man3/__dlamchtst.f__.3		\
-	man/man3/dlamchtst.f.3		\
-	man/man3/dlamrg.3			\
-	man/man3/dlamrg.f.3			\
-	man/man3/dlaneg.3			\
-	man/man3/dlaneg.f.3			\
-	man/man3/dlangb.3			\
-	man/man3/dlangb.f.3			\
-	man/man3/dlange.3			\
-	man/man3/dlange.f.3			\
-	man/man3/dlangt.3			\
-	man/man3/dlangt.f.3			\
-	man/man3/dlanhs.3			\
-	man/man3/dlanhs.f.3			\
-	man/man3/dlansb.3			\
-	man/man3/dlansb.f.3			\
-	man/man3/dlansf.3			\
-	man/man3/dlansf.f.3			\
-	man/man3/dlansp.3			\
-	man/man3/dlansp.f.3			\
-	man/man3/dlanst.3			\
-	man/man3/dlanst.f.3			\
-	man/man3/dlansy.3			\
-	man/man3/dlansy.f.3			\
-	man/man3/dlantb.3			\
-	man/man3/dlantb.f.3			\
-	man/man3/dlantp.3			\
-	man/man3/dlantp.f.3			\
-	man/man3/dlantr.3			\
-	man/man3/dlantr.f.3			\
-	man/man3/dlanv2.3			\
-	man/man3/dlanv2.f.3			\
-	man/man3/dlapll.3			\
-	man/man3/dlapll.f.3			\
-	man/man3/dlapmr.3			\
-	man/man3/dlapmr.f.3			\
-	man/man3/dlapmt.3			\
-	man/man3/dlapmt.f.3			\
-	man/man3/dla_porcond.3		\
-	man/man3/dla_porcond.f.3		\
-	man/man3/dla_porfsx_extended.3	\
-	man/man3/dla_porfsx_extended.f.3	\
-	man/man3/dla_porpvgrw.3		\
-	man/man3/dla_porpvgrw.f.3		\
-	man/man3/dlapy2.3			\
-	man/man3/dlapy2.f.3			\
-	man/man3/dlapy3.3			\
-	man/man3/dlapy3.f.3			\
-	man/man3/dlaqgb.3			\
-	man/man3/dlaqgb.f.3			\
-	man/man3/dlaqge.3			\
-	man/man3/dlaqge.f.3			\
-	man/man3/dlaqp2.3			\
-	man/man3/dlaqp2.f.3			\
-	man/man3/dlaqps.3			\
-	man/man3/dlaqps.f.3			\
-	man/man3/dlaqr0.3			\
-	man/man3/dlaqr0.f.3			\
-	man/man3/dlaqr1.3			\
-	man/man3/dlaqr1.f.3			\
-	man/man3/dlaqr2.3			\
-	man/man3/dlaqr2.f.3			\
-	man/man3/dlaqr3.3			\
-	man/man3/dlaqr3.f.3			\
-	man/man3/dlaqr4.3			\
-	man/man3/dlaqr4.f.3			\
-	man/man3/dlaqr5.3			\
-	man/man3/dlaqr5.f.3			\
-	man/man3/dlaqsb.3			\
-	man/man3/dlaqsb.f.3			\
-	man/man3/dlaqsp.3			\
-	man/man3/dlaqsp.f.3			\
-	man/man3/dlaqsy.3			\
-	man/man3/dlaqsy.f.3			\
-	man/man3/dlaqtr.3			\
-	man/man3/dlaqtr.f.3			\
-	man/man3/dlar1v.3			\
-	man/man3/dlar1v.f.3			\
-	man/man3/dlar2v.3			\
-	man/man3/dlar2v.f.3			\
-	man/man3/dlarf.3			\
-	man/man3/dlarfb.3			\
-	man/man3/dlarfb.f.3			\
-	man/man3/dlarf.f.3			\
-	man/man3/dlarfg.3			\
-	man/man3/dlarfg.f.3			\
-	man/man3/dlarfgp.3			\
-	man/man3/dlarfgp.f.3		\
-	man/man3/dlarft.3			\
-	man/man3/dlarft.f.3			\
-	man/man3/dlarfx.3			\
-	man/man3/dlarfx.f.3			\
-	man/man3/dlargv.3			\
-	man/man3/dlargv.f.3			\
-	man/man3/dlarnv.3			\
-	man/man3/dlarnv.f.3			\
-	man/man3/dlarra.3			\
-	man/man3/dlarra.f.3			\
-	man/man3/dlarrb.3			\
-	man/man3/dlarrb.f.3			\
-	man/man3/dlarrc.3			\
-	man/man3/dlarrc.f.3			\
-	man/man3/dlarrd.3			\
-	man/man3/dlarrd.f.3			\
-	man/man3/dlarre.3			\
-	man/man3/dlarre.f.3			\
-	man/man3/dlarrf.3			\
-	man/man3/dlarrf.f.3			\
-	man/man3/dlarrj.3			\
-	man/man3/dlarrj.f.3			\
-	man/man3/dlarrk.3			\
-	man/man3/dlarrk.f.3			\
-	man/man3/dlarrr.3			\
-	man/man3/dlarrr.f.3			\
-	man/man3/dlarrv.3			\
-	man/man3/dlarrv.f.3			\
-	man/man3/dlarscl2.3			\
-	man/man3/dlarscl2.f.3		\
-	man/man3/dlartg.3			\
-	man/man3/dlartg.f.3			\
-	man/man3/dlartgp.3			\
-	man/man3/dlartgp.f.3		\
-	man/man3/dlartgs.3			\
-	man/man3/dlartgs.f.3		\
-	man/man3/dlartv.3			\
-	man/man3/dlartv.f.3			\
-	man/man3/dlaruv.3			\
-	man/man3/dlaruv.f.3			\
-	man/man3/dlarz.3			\
-	man/man3/dlarzb.3			\
-	man/man3/dlarzb.f.3			\
-	man/man3/dlarz.f.3			\
-	man/man3/dlarzt.3			\
-	man/man3/dlarzt.f.3			\
-	man/man3/dlas2.3			\
-	man/man3/dlas2.f.3			\
-	man/man3/dlascl2.3			\
-	man/man3/dlascl2.f.3		\
-	man/man3/dlascl.3			\
-	man/man3/dlascl.f.3			\
-	man/man3/dlasd0.3			\
-	man/man3/dlasd0.f.3			\
-	man/man3/dlasd1.3			\
-	man/man3/dlasd1.f.3			\
-	man/man3/dlasd2.3			\
-	man/man3/dlasd2.f.3			\
-	man/man3/dlasd3.3			\
-	man/man3/dlasd3.f.3			\
-	man/man3/dlasd4.3			\
-	man/man3/dlasd4.f.3			\
-	man/man3/dlasd5.3			\
-	man/man3/dlasd5.f.3			\
-	man/man3/dlasd6.3			\
-	man/man3/dlasd6.f.3			\
-	man/man3/dlasd7.3			\
-	man/man3/dlasd7.f.3			\
-	man/man3/dlasd8.3			\
-	man/man3/dlasd8.f.3			\
-	man/man3/dlasda.3			\
-	man/man3/dlasda.f.3			\
-	man/man3/dlasdq.3			\
-	man/man3/dlasdq.f.3			\
-	man/man3/dlasdt.3			\
-	man/man3/dlasdt.f.3			\
-	man/man3/dlaset.3			\
-	man/man3/dlaset.f.3			\
-	man/man3/dlasq1.3			\
-	man/man3/dlasq1.f.3			\
-	man/man3/dlasq2.3			\
-	man/man3/dlasq2.f.3			\
-	man/man3/dlasq3.3			\
-	man/man3/dlasq3.f.3			\
-	man/man3/dlasq4.3			\
-	man/man3/dlasq4.f.3			\
-	man/man3/dlasq5.3			\
-	man/man3/dlasq5.f.3			\
-	man/man3/dlasq6.3			\
-	man/man3/dlasq6.f.3			\
-	man/man3/dlasr.3			\
-	man/man3/dlasr.f.3			\
-	man/man3/dlasrt.3			\
-	man/man3/dlasrt.f.3			\
-	man/man3/dlassq.3			\
-	man/man3/dlassq.f.3			\
-	man/man3/dlasv2.3			\
-	man/man3/dlasv2.f.3			\
-	man/man3/dlaswp.3			\
-	man/man3/dlaswp.f.3			\
-	man/man3/dlasy2.3			\
-	man/man3/dlasy2.f.3			\
-	man/man3/dla_syamv.3		\
-	man/man3/dla_syamv.f.3		\
-	man/man3/dlasyf.3			\
-	man/man3/dlasyf.f.3			\
-	man/man3/dlasyf_rook.3		\
-	man/man3/dlasyf_rook.f.3		\
-	man/man3/dla_syrcond.3		\
-	man/man3/dla_syrcond.f.3		\
-	man/man3/dla_syrfsx_extended.3	\
-	man/man3/dla_syrfsx_extended.f.3	\
-	man/man3/dla_syrpvgrw.3		\
-	man/man3/dla_syrpvgrw.f.3		\
-	man/man3/dlat2s.3			\
-	man/man3/dlat2s.f.3			\
-	man/man3/dlatbs.3			\
-	man/man3/dlatbs.f.3			\
-	man/man3/dlatdf.3			\
-	man/man3/dlatdf.f.3			\
-	man/man3/dlatps.3			\
-	man/man3/dlatps.f.3			\
-	man/man3/dlatrd.3			\
-	man/man3/dlatrd.f.3			\
-	man/man3/dlatrs.3			\
-	man/man3/dlatrs.f.3			\
-	man/man3/dlatrz.3			\
-	man/man3/dlatrz.f.3			\
-	man/man3/dlatzm.3			\
-	man/man3/dlatzm.f.3			\
-	man/man3/dlauu2.3			\
-	man/man3/dlauu2.f.3			\
-	man/man3/dlauum.3			\
-	man/man3/dlauum.f.3			\
-	man/man3/dla_wwaddw.3		\
-	man/man3/dla_wwaddw.f.3		\
-	man/man3/dnrm2.3			\
-	man/man3/dnrm2.f.3			\
-	man/man3/dopgtr.3			\
-	man/man3/dopgtr.f.3			\
-	man/man3/dopmtr.3			\
-	man/man3/dopmtr.f.3			\
-	man/man3/dorbdb1.3			\
-	man/man3/dorbdb1.f.3		\
-	man/man3/dorbdb2.3			\
-	man/man3/dorbdb2.f.3		\
-	man/man3/dorbdb.3			\
-	man/man3/dorbdb3.3			\
-	man/man3/dorbdb3.f.3		\
-	man/man3/dorbdb4.3			\
-	man/man3/dorbdb4.f.3		\
-	man/man3/dorbdb5.3			\
-	man/man3/dorbdb5.f.3		\
-	man/man3/dorbdb6.3			\
-	man/man3/dorbdb6.f.3		\
-	man/man3/dorbdb.f.3			\
-	man/man3/dorcsd2by1.3		\
-	man/man3/dorcsd2by1.f.3		\
-	man/man3/dorcsd.3			\
-	man/man3/dorcsd.f.3			\
-	man/man3/dorg2l.3			\
-	man/man3/dorg2l.f.3			\
-	man/man3/dorg2r.3			\
-	man/man3/dorg2r.f.3			\
-	man/man3/dorgbr.3			\
-	man/man3/dorgbr.f.3			\
-	man/man3/dorghr.3			\
-	man/man3/dorghr.f.3			\
-	man/man3/dorgl2.3			\
-	man/man3/dorgl2.f.3			\
-	man/man3/dorglq.3			\
-	man/man3/dorglq.f.3			\
-	man/man3/dorgql.3			\
-	man/man3/dorgql.f.3			\
-	man/man3/dorgqr.3			\
-	man/man3/dorgqr.f.3			\
-	man/man3/dorgr2.3			\
-	man/man3/dorgr2.f.3			\
-	man/man3/dorgrq.3			\
-	man/man3/dorgrq.f.3			\
-	man/man3/dorgtr.3			\
-	man/man3/dorgtr.f.3			\
-	man/man3/dorm2l.3			\
-	man/man3/dorm2l.f.3			\
-	man/man3/dorm2r.3			\
-	man/man3/dorm2r.f.3			\
-	man/man3/dormbr.3			\
-	man/man3/dormbr.f.3			\
-	man/man3/dormhr.3			\
-	man/man3/dormhr.f.3			\
-	man/man3/dorml2.3			\
-	man/man3/dorml2.f.3			\
-	man/man3/dormlq.3			\
-	man/man3/dormlq.f.3			\
-	man/man3/dormql.3			\
-	man/man3/dormql.f.3			\
-	man/man3/dormqr.3			\
-	man/man3/dormqr.f.3			\
-	man/man3/dormr2.3			\
-	man/man3/dormr2.f.3			\
-	man/man3/dormr3.3			\
-	man/man3/dormr3.f.3			\
-	man/man3/dormrq.3			\
-	man/man3/dormrq.f.3			\
-	man/man3/dormrz.3			\
-	man/man3/dormrz.f.3			\
-	man/man3/dormtr.3			\
-	man/man3/dormtr.f.3			\
-	man/man3/dpbcon.3			\
-	man/man3/dpbcon.f.3			\
-	man/man3/dpbequ.3			\
-	man/man3/dpbequ.f.3			\
-	man/man3/dpbrfs.3			\
-	man/man3/dpbrfs.f.3			\
-	man/man3/dpbstf.3			\
-	man/man3/dpbstf.f.3			\
-	man/man3/dpbsv.3			\
-	man/man3/dpbsv.f.3			\
-	man/man3/dpbsvx.3			\
-	man/man3/dpbsvx.f.3			\
-	man/man3/dpbtf2.3			\
-	man/man3/dpbtf2.f.3			\
-	man/man3/dpbtrf.3			\
-	man/man3/dpbtrf.f.3			\
-	man/man3/dpbtrs.3			\
-	man/man3/dpbtrs.f.3			\
-	man/man3/dpftrf.3			\
-	man/man3/dpftrf.f.3			\
-	man/man3/dpftri.3			\
-	man/man3/dpftri.f.3			\
-	man/man3/dpftrs.3			\
-	man/man3/dpftrs.f.3			\
-	man/man3/dpocon.3			\
-	man/man3/dpocon.f.3			\
-	man/man3/dpoequ.3			\
-	man/man3/dpoequb.3			\
-	man/man3/dpoequb.f.3		\
-	man/man3/dpoequ.f.3			\
-	man/man3/dporfs.3			\
-	man/man3/dporfs.f.3			\
-	man/man3/dporfsx.3			\
-	man/man3/dporfsx.f.3		\
-	man/man3/dposv.3			\
-	man/man3/dposv.f.3			\
-	man/man3/dposvx.3			\
-	man/man3/dposvx.f.3			\
-	man/man3/dposvxx.3			\
-	man/man3/dposvxx.f.3		\
-	man/man3/dpotf2.3			\
-	man/man3/dpotf2.f.3			\
-	man/man3/dpotrf.3			\
-	man/man3/dpotrf.f.3			\
-	man/man3/dpotri.3			\
-	man/man3/dpotri.f.3			\
-	man/man3/dpotrs.3			\
-	man/man3/dpotrs.f.3			\
-	man/man3/dppcon.3			\
-	man/man3/dppcon.f.3			\
-	man/man3/dppequ.3			\
-	man/man3/dppequ.f.3			\
-	man/man3/dpprfs.3			\
-	man/man3/dpprfs.f.3			\
-	man/man3/dppsv.3			\
-	man/man3/dppsv.f.3			\
-	man/man3/dppsvx.3			\
-	man/man3/dppsvx.f.3			\
-	man/man3/dpptrf.3			\
-	man/man3/dpptrf.f.3			\
-	man/man3/dpptri.3			\
-	man/man3/dpptri.f.3			\
-	man/man3/dpptrs.3			\
-	man/man3/dpptrs.f.3			\
-	man/man3/dpstf2.3			\
-	man/man3/dpstf2.f.3			\
-	man/man3/dpstrf.3			\
-	man/man3/dpstrf.f.3			\
-	man/man3/dptcon.3			\
-	man/man3/dptcon.f.3			\
-	man/man3/dpteqr.3			\
-	man/man3/dpteqr.f.3			\
-	man/man3/dptrfs.3			\
-	man/man3/dptrfs.f.3			\
-	man/man3/dptsv.3			\
-	man/man3/dptsv.f.3			\
-	man/man3/dptsvx.3			\
-	man/man3/dptsvx.f.3			\
-	man/man3/dpttrf.3			\
-	man/man3/dpttrf.f.3			\
-	man/man3/dpttrs.3			\
-	man/man3/dpttrs.f.3			\
-	man/man3/dptts2.3			\
-	man/man3/dptts2.f.3			\
-	man/man3/drot.3			\
-	man/man3/drot.f.3			\
-	man/man3/drotg.3			\
-	man/man3/drotg.f.3			\
-	man/man3/drotm.3			\
-	man/man3/drotm.f.3			\
-	man/man3/drotmg.3			\
-	man/man3/drotmg.f.3			\
-	man/man3/drscl.3			\
-	man/man3/drscl.f.3			\
-	man/man3/dsbev.3			\
-	man/man3/dsbevd.3			\
-	man/man3/dsbevd.f.3			\
-	man/man3/dsbev.f.3			\
-	man/man3/dsbevx.3			\
-	man/man3/dsbevx.f.3			\
-	man/man3/dsbgst.3			\
-	man/man3/dsbgst.f.3			\
-	man/man3/dsbgv.3			\
-	man/man3/dsbgvd.3			\
-	man/man3/dsbgvd.f.3			\
-	man/man3/dsbgv.f.3			\
-	man/man3/dsbgvx.3			\
-	man/man3/dsbgvx.f.3			\
-	man/man3/dsbmv.3			\
-	man/man3/dsbmv.f.3			\
-	man/man3/dsbtrd.3			\
-	man/man3/dsbtrd.f.3			\
-	man/man3/dscal.3			\
-	man/man3/dscal.f.3			\
-	man/man3/dsdot.3			\
-	man/man3/dsdot.f.3			\
-	man/man3/dsecnd.3			\
-	man/man3/dsecnd_EXT_ETIME_.f.3	\
-	man/man3/dsecnd_EXT_ETIME.f.3	\
-	man/man3/dsecnd_INT_CPU_TIME.f.3	\
-	man/man3/dsecnd_INT_ETIME.f.3	\
-	man/man3/dsecnd_NONE.f.3		\
-	man/man3/__dsecndtst.f__.3		\
-	man/man3/dsecndtst.f.3		\
-	man/man3/dsfrk.3			\
-	man/man3/dsfrk.f.3			\
-	man/man3/dsgesv.3			\
-	man/man3/dsgesv.f.3			\
-	man/man3/dspcon.3			\
-	man/man3/dspcon.f.3			\
-	man/man3/dspev.3			\
-	man/man3/dspevd.3			\
-	man/man3/dspevd.f.3			\
-	man/man3/dspev.f.3			\
-	man/man3/dspevx.3			\
-	man/man3/dspevx.f.3			\
-	man/man3/dspgst.3			\
-	man/man3/dspgst.f.3			\
-	man/man3/dspgv.3			\
-	man/man3/dspgvd.3			\
-	man/man3/dspgvd.f.3			\
-	man/man3/dspgv.f.3			\
-	man/man3/dspgvx.3			\
-	man/man3/dspgvx.f.3			\
-	man/man3/dspmv.3			\
-	man/man3/dspmv.f.3			\
-	man/man3/dsposv.3			\
-	man/man3/dsposv.f.3			\
-	man/man3/dspr2.3			\
-	man/man3/dspr2.f.3			\
-	man/man3/dspr.3			\
-	man/man3/dspr.f.3			\
-	man/man3/dsprfs.3			\
-	man/man3/dsprfs.f.3			\
-	man/man3/dspsv.3			\
-	man/man3/dspsv.f.3			\
-	man/man3/dspsvx.3			\
-	man/man3/dspsvx.f.3			\
-	man/man3/dsptrd.3			\
-	man/man3/dsptrd.f.3			\
-	man/man3/dsptrf.3			\
-	man/man3/dsptrf.f.3			\
-	man/man3/dsptri.3			\
-	man/man3/dsptri.f.3			\
-	man/man3/dsptrs.3			\
-	man/man3/dsptrs.f.3			\
-	man/man3/dstebz.3			\
-	man/man3/dstebz.f.3			\
-	man/man3/dstedc.3			\
-	man/man3/dstedc.f.3			\
-	man/man3/dstegr.3			\
-	man/man3/dstegr.f.3			\
-	man/man3/dstein.3			\
-	man/man3/dstein.f.3			\
-	man/man3/dstemr.3			\
-	man/man3/dstemr.f.3			\
-	man/man3/dsteqr.3			\
-	man/man3/dsteqr.f.3			\
-	man/man3/dsterf.3			\
-	man/man3/dsterf.f.3			\
-	man/man3/dstev.3			\
-	man/man3/dstevd.3			\
-	man/man3/dstevd.f.3			\
-	man/man3/dstev.f.3			\
-	man/man3/dstevr.3			\
-	man/man3/dstevr.f.3			\
-	man/man3/dstevx.3			\
-	man/man3/dstevx.f.3			\
-	man/man3/dswap.3			\
-	man/man3/dswap.f.3			\
-	man/man3/dsycon.3			\
-	man/man3/dsycon.f.3			\
-	man/man3/dsycon_rook.3		\
-	man/man3/dsycon_rook.f.3		\
-	man/man3/dsyconv.3			\
-	man/man3/dsyconv.f.3		\
-	man/man3/dsyequb.3			\
-	man/man3/dsyequb.f.3		\
-	man/man3/dsyev.3			\
-	man/man3/dsyevd.3			\
-	man/man3/dsyevd.f.3			\
-	man/man3/dsyev.f.3			\
-	man/man3/dsyevr.3			\
-	man/man3/dsyevr.f.3			\
-	man/man3/dsyevx.3			\
-	man/man3/dsyevx.f.3			\
-	man/man3/dsygs2.3			\
-	man/man3/dsygs2.f.3			\
-	man/man3/dsygst.3			\
-	man/man3/dsygst.f.3			\
-	man/man3/dsygv.3			\
-	man/man3/dsygvd.3			\
-	man/man3/dsygvd.f.3			\
-	man/man3/dsygv.f.3			\
-	man/man3/dsygvx.3			\
-	man/man3/dsygvx.f.3			\
-	man/man3/dsymm.3			\
-	man/man3/dsymm.f.3			\
-	man/man3/dsymv.3			\
-	man/man3/dsymv.f.3			\
-	man/man3/dsyr2.3			\
-	man/man3/dsyr2.f.3			\
-	man/man3/dsyr2k.3			\
-	man/man3/dsyr2k.f.3			\
-	man/man3/dsyr.3			\
-	man/man3/dsyr.f.3			\
-	man/man3/dsyrfs.3			\
-	man/man3/dsyrfs.f.3			\
-	man/man3/dsyrfsx.3			\
-	man/man3/dsyrfsx.f.3		\
-	man/man3/dsyrk.3			\
-	man/man3/dsyrk.f.3			\
-	man/man3/dsysv.3			\
-	man/man3/dsysv.f.3			\
-	man/man3/dsysv_rook.3		\
-	man/man3/dsysv_rook.f.3		\
-	man/man3/dsysvx.3			\
-	man/man3/dsysvx.f.3			\
-	man/man3/dsysvxx.3			\
-	man/man3/dsysvxx.f.3		\
-	man/man3/dsyswapr.3			\
-	man/man3/dsyswapr.f.3		\
-	man/man3/dsytd2.3			\
-	man/man3/dsytd2.f.3			\
-	man/man3/dsytf2.3			\
-	man/man3/dsytf2.f.3			\
-	man/man3/dsytf2_rook.3		\
-	man/man3/dsytf2_rook.f.3		\
-	man/man3/dsytrd.3			\
-	man/man3/dsytrd.f.3			\
-	man/man3/dsytrf.3			\
-	man/man3/dsytrf.f.3			\
-	man/man3/dsytrf_rook.3		\
-	man/man3/dsytrf_rook.f.3		\
-	man/man3/dsytri2.3			\
-	man/man3/dsytri2.f.3		\
-	man/man3/dsytri2x.3			\
-	man/man3/dsytri2x.f.3		\
-	man/man3/dsytri.3			\
-	man/man3/dsytri.f.3			\
-	man/man3/dsytri_rook.3		\
-	man/man3/dsytri_rook.f.3		\
-	man/man3/dsytrs2.3			\
-	man/man3/dsytrs2.f.3		\
-	man/man3/dsytrs.3			\
-	man/man3/dsytrs.f.3			\
-	man/man3/dsytrs_rook.3		\
-	man/man3/dsytrs_rook.f.3		\
-	man/man3/dtbcon.3			\
-	man/man3/dtbcon.f.3			\
-	man/man3/dtbmv.3			\
-	man/man3/dtbmv.f.3			\
-	man/man3/dtbrfs.3			\
-	man/man3/dtbrfs.f.3			\
-	man/man3/dtbsv.3			\
-	man/man3/dtbsv.f.3			\
-	man/man3/dtbtrs.3			\
-	man/man3/dtbtrs.f.3			\
-	man/man3/dtfsm.3			\
-	man/man3/dtfsm.f.3			\
-	man/man3/dtftri.3			\
-	man/man3/dtftri.f.3			\
-	man/man3/dtfttp.3			\
-	man/man3/dtfttp.f.3			\
-	man/man3/dtfttr.3			\
-	man/man3/dtfttr.f.3			\
-	man/man3/dtgevc.3			\
-	man/man3/dtgevc.f.3			\
-	man/man3/dtgex2.3			\
-	man/man3/dtgex2.f.3			\
-	man/man3/dtgexc.3			\
-	man/man3/dtgexc.f.3			\
-	man/man3/dtgsen.3			\
-	man/man3/dtgsen.f.3			\
-	man/man3/dtgsja.3			\
-	man/man3/dtgsja.f.3			\
-	man/man3/dtgsna.3			\
-	man/man3/dtgsna.f.3			\
-	man/man3/dtgsy2.3			\
-	man/man3/dtgsy2.f.3			\
-	man/man3/dtgsyl.3			\
-	man/man3/dtgsyl.f.3			\
-	man/man3/dtpcon.3			\
-	man/man3/dtpcon.f.3			\
-	man/man3/dtpmqrt.3			\
-	man/man3/dtpmqrt.f.3		\
-	man/man3/dtpmv.3			\
-	man/man3/dtpmv.f.3			\
-	man/man3/dtpqrt2.3			\
-	man/man3/dtpqrt2.f.3		\
-	man/man3/dtpqrt.3			\
-	man/man3/dtpqrt.f.3			\
-	man/man3/dtprfb.3			\
-	man/man3/dtprfb.f.3			\
-	man/man3/dtprfs.3			\
-	man/man3/dtprfs.f.3			\
-	man/man3/dtpsv.3			\
-	man/man3/dtpsv.f.3			\
-	man/man3/dtptri.3			\
-	man/man3/dtptri.f.3			\
-	man/man3/dtptrs.3			\
-	man/man3/dtptrs.f.3			\
-	man/man3/dtpttf.3			\
-	man/man3/dtpttf.f.3			\
-	man/man3/dtpttr.3			\
-	man/man3/dtpttr.f.3			\
-	man/man3/dtrcon.3			\
-	man/man3/dtrcon.f.3			\
-	man/man3/dtrevc.3			\
-	man/man3/dtrevc.f.3			\
-	man/man3/dtrexc.3			\
-	man/man3/dtrexc.f.3			\
-	man/man3/dtrmm.3			\
-	man/man3/dtrmm.f.3			\
-	man/man3/dtrmv.3			\
-	man/man3/dtrmv.f.3			\
-	man/man3/dtrrfs.3			\
-	man/man3/dtrrfs.f.3			\
-	man/man3/dtrsen.3			\
-	man/man3/dtrsen.f.3			\
-	man/man3/dtrsm.3			\
-	man/man3/dtrsm.f.3			\
-	man/man3/dtrsna.3			\
-	man/man3/dtrsna.f.3			\
-	man/man3/dtrsv.3			\
-	man/man3/dtrsv.f.3			\
-	man/man3/dtrsyl.3			\
-	man/man3/dtrsyl.f.3			\
-	man/man3/dtrti2.3			\
-	man/man3/dtrti2.f.3			\
-	man/man3/dtrtri.3			\
-	man/man3/dtrtri.f.3			\
-	man/man3/dtrtrs.3			\
-	man/man3/dtrtrs.f.3			\
-	man/man3/dtrttf.3			\
-	man/man3/dtrttf.f.3			\
-	man/man3/dtrttp.3			\
-	man/man3/dtrttp.f.3			\
-	man/man3/dtzrqf.3			\
-	man/man3/dtzrqf.f.3			\
-	man/man3/dtzrzf.3			\
-	man/man3/dtzrzf.f.3			\
-	man/man3/dzasum.3			\
-	man/man3/dzasum.f.3			\
-	man/man3/dznrm2.3			\
-	man/man3/dznrm2.f.3			\
-	man/man3/dzsum1.3			\
-	man/man3/dzsum1.f.3			\
-	man/man3/icamax.3			\
-	man/man3/icamax.f.3			\
-	man/man3/icmax1.3			\
-	man/man3/icmax1.f.3			\
-	man/man3/idamax.3			\
-	man/man3/idamax.f.3			\
-	man/man3/ieeeck.3			\
-	man/man3/ieeeck.f.3			\
-	man/man3/ilaclc.3			\
-	man/man3/ilaclc.f.3			\
-	man/man3/ilaclr.3			\
-	man/man3/ilaclr.f.3			\
-	man/man3/iladiag.3			\
-	man/man3/iladiag.f.3		\
-	man/man3/iladlc.3			\
-	man/man3/iladlc.f.3			\
-	man/man3/iladlr.3			\
-	man/man3/iladlr.f.3			\
-	man/man3/ilaenv.3			\
-	man/man3/ilaenv.f.3			\
-	man/man3/ilaprec.3			\
-	man/man3/ilaprec.f.3		\
-	man/man3/ilaslc.3			\
-	man/man3/ilaslc.f.3			\
-	man/man3/ilaslr.3			\
-	man/man3/ilaslr.f.3			\
-	man/man3/ilatrans.3			\
-	man/man3/ilatrans.f.3		\
-	man/man3/ilauplo.3			\
-	man/man3/ilauplo.f.3		\
-	man/man3/ilaver.3			\
-	man/man3/ilazlc.3			\
-	man/man3/ilazlc.f.3			\
-	man/man3/ilazlr.3			\
-	man/man3/ilazlr.f.3			\
-	man/man3/INSTALL_ilaver.f.3		\
-	man/man3/INSTALL_lsame.f.3		\
-	man/man3/iparmq.3			\
-	man/man3/iparmq.f.3			\
-	man/man3/isamax.3			\
-	man/man3/isamax.f.3			\
-	man/man3/izamax.3			\
-	man/man3/izamax.f.3			\
-	man/man3/izmax1.3			\
-	man/man3/izmax1.f.3			\
-	man/man3/__lapack_version.f__.3	\
-	man/man3/LAPACK_version.f.3		\
-	man/man3/lsame.3			\
-	man/man3/lsamen.3			\
-	man/man3/lsamen.f.3			\
-	man/man3/__lsametst.f__.3		\
-	man/man3/lsametst.f.3		\
-	man/man3/mysub.3			\
-	man/man3/sasum.3			\
-	man/man3/sasum.f.3			\
-	man/man3/saxpy.3			\
-	man/man3/saxpy.f.3			\
-	man/man3/sbbcsd.3			\
-	man/man3/sbbcsd.f.3			\
-	man/man3/sbdsdc.3			\
-	man/man3/sbdsdc.f.3			\
-	man/man3/sbdsqr.3			\
-	man/man3/sbdsqr.f.3			\
-	man/man3/scabs1.3			\
-	man/man3/scabs1.f.3			\
-	man/man3/scasum.3			\
-	man/man3/scasum.f.3			\
-	man/man3/scnrm2.3			\
-	man/man3/scnrm2.f.3			\
-	man/man3/scopy.3			\
-	man/man3/scopy.f.3			\
-	man/man3/scsum1.3			\
-	man/man3/scsum1.f.3			\
-	man/man3/sdisna.3			\
-	man/man3/sdisna.f.3			\
-	man/man3/sdot.3			\
-	man/man3/sdot.f.3			\
-	man/man3/sdsdot.3			\
-	man/man3/sdsdot.f.3			\
-	man/man3/second.3			\
-	man/man3/second_EXT_ETIME_.f.3	\
-	man/man3/second_EXT_ETIME.f.3	\
-	man/man3/second_INT_CPU_TIME.f.3	\
-	man/man3/second_INT_ETIME.f.3	\
-	man/man3/second_NONE.f.3		\
-	man/man3/__secondtst.f__.3		\
-	man/man3/secondtst.f.3		\
-	man/man3/sgbbrd.3			\
-	man/man3/sgbbrd.f.3			\
-	man/man3/sgbcon.3			\
-	man/man3/sgbcon.f.3			\
-	man/man3/sgbequ.3			\
-	man/man3/sgbequb.3			\
-	man/man3/sgbequb.f.3		\
-	man/man3/sgbequ.f.3			\
-	man/man3/sgbmv.3			\
-	man/man3/sgbmv.f.3			\
-	man/man3/sgbrfs.3			\
-	man/man3/sgbrfs.f.3			\
-	man/man3/sgbrfsx.3			\
-	man/man3/sgbrfsx.f.3		\
-	man/man3/sgbsv.3			\
-	man/man3/sgbsv.f.3			\
-	man/man3/sgbsvx.3			\
-	man/man3/sgbsvx.f.3			\
-	man/man3/sgbsvxx.3			\
-	man/man3/sgbsvxx.f.3		\
-	man/man3/sgbtf2.3			\
-	man/man3/sgbtf2.f.3			\
-	man/man3/sgbtrf.3			\
-	man/man3/sgbtrf.f.3			\
-	man/man3/sgbtrs.3			\
-	man/man3/sgbtrs.f.3			\
-	man/man3/sgebak.3			\
-	man/man3/sgebak.f.3			\
-	man/man3/sgebal.3			\
-	man/man3/sgebal.f.3			\
-	man/man3/sgebd2.3			\
-	man/man3/sgebd2.f.3			\
-	man/man3/sgebrd.3			\
-	man/man3/sgebrd.f.3			\
-	man/man3/sgecon.3			\
-	man/man3/sgecon.f.3			\
-	man/man3/sgeequ.3			\
-	man/man3/sgeequb.3			\
-	man/man3/sgeequb.f.3		\
-	man/man3/sgeequ.f.3			\
-	man/man3/sgees.3			\
-	man/man3/sgees.f.3			\
-	man/man3/sgeesx.3			\
-	man/man3/sgeesx.f.3			\
-	man/man3/sgeev.3			\
-	man/man3/sgeev.f.3			\
-	man/man3/sgeevx.3			\
-	man/man3/sgeevx.f.3			\
-	man/man3/sgegs.3			\
-	man/man3/sgegs.f.3			\
-	man/man3/sgegv.3			\
-	man/man3/sgegv.f.3			\
-	man/man3/sgehd2.3			\
-	man/man3/sgehd2.f.3			\
-	man/man3/sgehrd.3			\
-	man/man3/sgehrd.f.3			\
-	man/man3/sgejsv.3			\
-	man/man3/sgejsv.f.3			\
-	man/man3/sgelq2.3			\
-	man/man3/sgelq2.f.3			\
-	man/man3/sgelqf.3			\
-	man/man3/sgelqf.f.3			\
-	man/man3/sgels.3			\
-	man/man3/sgelsd.3			\
-	man/man3/sgelsd.f.3			\
-	man/man3/sgels.f.3			\
-	man/man3/sgelss.3			\
-	man/man3/sgelss.f.3			\
-	man/man3/sgelsx.3			\
-	man/man3/sgelsx.f.3			\
-	man/man3/sgelsy.3			\
-	man/man3/sgelsy.f.3			\
-	man/man3/sgemm.3			\
-	man/man3/sgemm.f.3			\
-	man/man3/sgemqrt.3			\
-	man/man3/sgemqrt.f.3		\
-	man/man3/sgemv.3			\
-	man/man3/sgemv.f.3			\
-	man/man3/sgeql2.3			\
-	man/man3/sgeql2.f.3			\
-	man/man3/sgeqlf.3			\
-	man/man3/sgeqlf.f.3			\
-	man/man3/sgeqp3.3			\
-	man/man3/sgeqp3.f.3			\
-	man/man3/sgeqpf.3			\
-	man/man3/sgeqpf.f.3			\
-	man/man3/sgeqr2.3			\
-	man/man3/sgeqr2.f.3			\
-	man/man3/sgeqr2p.3			\
-	man/man3/sgeqr2p.f.3		\
-	man/man3/sgeqrf.3			\
-	man/man3/sgeqrf.f.3			\
-	man/man3/sgeqrfp.3			\
-	man/man3/sgeqrfp.f.3		\
-	man/man3/sgeqrt2.3			\
-	man/man3/sgeqrt2.f.3		\
-	man/man3/sgeqrt.3			\
-	man/man3/sgeqrt3.3			\
-	man/man3/sgeqrt3.f.3		\
-	man/man3/sgeqrt.f.3			\
-	man/man3/sger.3			\
-	man/man3/sger.f.3			\
-	man/man3/sgerfs.3			\
-	man/man3/sgerfs.f.3			\
-	man/man3/sgerfsx.3			\
-	man/man3/sgerfsx.f.3		\
-	man/man3/sgerq2.3			\
-	man/man3/sgerq2.f.3			\
-	man/man3/sgerqf.3			\
-	man/man3/sgerqf.f.3			\
-	man/man3/sgesc2.3			\
-	man/man3/sgesc2.f.3			\
-	man/man3/sgesdd.3			\
-	man/man3/sgesdd.f.3			\
-	man/man3/sgesv.3			\
-	man/man3/sgesvd.3			\
-	man/man3/sgesvd.f.3			\
-	man/man3/sgesv.f.3			\
-	man/man3/sgesvj.3			\
-	man/man3/sgesvj.f.3			\
-	man/man3/sgesvx.3			\
-	man/man3/sgesvx.f.3			\
-	man/man3/sgesvxx.3			\
-	man/man3/sgesvxx.f.3		\
-	man/man3/sgetc2.3			\
-	man/man3/sgetc2.f.3			\
-	man/man3/sgetf2.3			\
-	man/man3/sgetf2.f.3			\
-	man/man3/sgetrf.3			\
-	man/man3/sgetrf.f.3			\
-	man/man3/sgetri.3			\
-	man/man3/sgetri.f.3			\
-	man/man3/sgetrs.3			\
-	man/man3/sgetrs.f.3			\
-	man/man3/sggbak.3			\
-	man/man3/sggbak.f.3			\
-	man/man3/sggbal.3			\
-	man/man3/sggbal.f.3			\
-	man/man3/sgges.3			\
-	man/man3/sgges.f.3			\
-	man/man3/sggesx.3			\
-	man/man3/sggesx.f.3			\
-	man/man3/sggev.3			\
-	man/man3/sggev.f.3			\
-	man/man3/sggevx.3			\
-	man/man3/sggevx.f.3			\
-	man/man3/sggglm.3			\
-	man/man3/sggglm.f.3			\
-	man/man3/sgghrd.3			\
-	man/man3/sgghrd.f.3			\
-	man/man3/sgglse.3			\
-	man/man3/sgglse.f.3			\
-	man/man3/sggqrf.3			\
-	man/man3/sggqrf.f.3			\
-	man/man3/sggrqf.3			\
-	man/man3/sggrqf.f.3			\
-	man/man3/sggsvd.3			\
-	man/man3/sggsvd.f.3			\
-	man/man3/sggsvp.3			\
-	man/man3/sggsvp.f.3			\
-	man/man3/sgsvj0.3			\
-	man/man3/sgsvj0.f.3			\
-	man/man3/sgsvj1.3			\
-	man/man3/sgsvj1.f.3			\
-	man/man3/sgtcon.3			\
-	man/man3/sgtcon.f.3			\
-	man/man3/sgtrfs.3			\
-	man/man3/sgtrfs.f.3			\
-	man/man3/sgtsv.3			\
-	man/man3/sgtsv.f.3			\
-	man/man3/sgtsvx.3			\
-	man/man3/sgtsvx.f.3			\
-	man/man3/sgttrf.3			\
-	man/man3/sgttrf.f.3			\
-	man/man3/sgttrs.3			\
-	man/man3/sgttrs.f.3			\
-	man/man3/sgtts2.3			\
-	man/man3/sgtts2.f.3			\
-	man/man3/shgeqz.3			\
-	man/man3/shgeqz.f.3			\
-	man/man3/shsein.3			\
-	man/man3/shsein.f.3			\
-	man/man3/shseqr.3			\
-	man/man3/shseqr.f.3			\
-	man/man3/sisnan.3			\
-	man/man3/sisnan.f.3			\
-	man/man3/slabad.3			\
-	man/man3/slabad.f.3			\
-	man/man3/slabrd.3			\
-	man/man3/slabrd.f.3			\
-	man/man3/slacn2.3			\
-	man/man3/slacn2.f.3			\
-	man/man3/slacon.3			\
-	man/man3/slacon.f.3			\
-	man/man3/slacpy.3			\
-	man/man3/slacpy.f.3			\
-	man/man3/sladiv1.3			\
-	man/man3/sladiv2.3			\
-	man/man3/sladiv.3			\
-	man/man3/sladiv.f.3			\
-	man/man3/slae2.3			\
-	man/man3/slae2.f.3			\
-	man/man3/slaebz.3			\
-	man/man3/slaebz.f.3			\
-	man/man3/slaed0.3			\
-	man/man3/slaed0.f.3			\
-	man/man3/slaed1.3			\
-	man/man3/slaed1.f.3			\
-	man/man3/slaed2.3			\
-	man/man3/slaed2.f.3			\
-	man/man3/slaed3.3			\
-	man/man3/slaed3.f.3			\
-	man/man3/slaed4.3			\
-	man/man3/slaed4.f.3			\
-	man/man3/slaed5.3			\
-	man/man3/slaed5.f.3			\
-	man/man3/slaed6.3			\
-	man/man3/slaed6.f.3			\
-	man/man3/slaed7.3			\
-	man/man3/slaed7.f.3			\
-	man/man3/slaed8.3			\
-	man/man3/slaed8.f.3			\
-	man/man3/slaed9.3			\
-	man/man3/slaed9.f.3			\
-	man/man3/slaeda.3			\
-	man/man3/slaeda.f.3			\
-	man/man3/slaein.3			\
-	man/man3/slaein.f.3			\
-	man/man3/slaev2.3			\
-	man/man3/slaev2.f.3			\
-	man/man3/slaexc.3			\
-	man/man3/slaexc.f.3			\
-	man/man3/slag2.3			\
-	man/man3/slag2d.3			\
-	man/man3/slag2d.f.3			\
-	man/man3/slag2.f.3			\
-	man/man3/sla_gbamv.3		\
-	man/man3/sla_gbamv.f.3		\
-	man/man3/sla_gbrcond.3		\
-	man/man3/sla_gbrcond.f.3		\
-	man/man3/sla_gbrfsx_extended.3	\
-	man/man3/sla_gbrfsx_extended.f.3	\
-	man/man3/sla_gbrpvgrw.3		\
-	man/man3/sla_gbrpvgrw.f.3		\
-	man/man3/sla_geamv.3		\
-	man/man3/sla_geamv.f.3		\
-	man/man3/sla_gercond.3		\
-	man/man3/sla_gercond.f.3		\
-	man/man3/sla_gerfsx_extended.3	\
-	man/man3/sla_gerfsx_extended.f.3	\
-	man/man3/sla_gerpvgrw.3		\
-	man/man3/sla_gerpvgrw.f.3		\
-	man/man3/slags2.3			\
-	man/man3/slags2.f.3			\
-	man/man3/slagtf.3			\
-	man/man3/slagtf.f.3			\
-	man/man3/slagtm.3			\
-	man/man3/slagtm.f.3			\
-	man/man3/slagts.3			\
-	man/man3/slagts.f.3			\
-	man/man3/slagv2.3			\
-	man/man3/slagv2.f.3			\
-	man/man3/slahqr.3			\
-	man/man3/slahqr.f.3			\
-	man/man3/slahr2.3			\
-	man/man3/slahr2.f.3			\
-	man/man3/slahrd.3			\
-	man/man3/slahrd.f.3			\
-	man/man3/slaic1.3			\
-	man/man3/slaic1.f.3			\
-	man/man3/slaisnan.3			\
-	man/man3/slaisnan.f.3		\
-	man/man3/sla_lin_berr.3		\
-	man/man3/sla_lin_berr.f.3		\
-	man/man3/slaln2.3			\
-	man/man3/slaln2.f.3			\
-	man/man3/slals0.3			\
-	man/man3/slals0.f.3			\
-	man/man3/slalsa.3			\
-	man/man3/slalsa.f.3			\
-	man/man3/slalsd.3			\
-	man/man3/slalsd.f.3			\
-	man/man3/slamc1.3			\
-	man/man3/slamc2.3			\
-	man/man3/slamc3.3			\
-	man/man3/slamc4.3			\
-	man/man3/slamc5.3			\
-	man/man3/slamch.3			\
-	man/man3/slamch.f.3			\
-	man/man3/slamchf77.f.3		\
-	man/man3/__slamchtst.f__.3		\
-	man/man3/slamchtst.f.3		\
-	man/man3/slamrg.3			\
-	man/man3/slamrg.f.3			\
-	man/man3/slaneg.3			\
-	man/man3/slaneg.f.3			\
-	man/man3/slangb.3			\
-	man/man3/slangb.f.3			\
-	man/man3/slange.3			\
-	man/man3/slange.f.3			\
-	man/man3/slangt.3			\
-	man/man3/slangt.f.3			\
-	man/man3/slanhs.3			\
-	man/man3/slanhs.f.3			\
-	man/man3/slansb.3			\
-	man/man3/slansb.f.3			\
-	man/man3/slansf.3			\
-	man/man3/slansf.f.3			\
-	man/man3/slansp.3			\
-	man/man3/slansp.f.3			\
-	man/man3/slanst.3			\
-	man/man3/slanst.f.3			\
-	man/man3/slansy.3			\
-	man/man3/slansy.f.3			\
-	man/man3/slantb.3			\
-	man/man3/slantb.f.3			\
-	man/man3/slantp.3			\
-	man/man3/slantp.f.3			\
-	man/man3/slantr.3			\
-	man/man3/slantr.f.3			\
-	man/man3/slanv2.3			\
-	man/man3/slanv2.f.3			\
-	man/man3/slapll.3			\
-	man/man3/slapll.f.3			\
-	man/man3/slapmr.3			\
-	man/man3/slapmr.f.3			\
-	man/man3/slapmt.3			\
-	man/man3/slapmt.f.3			\
-	man/man3/sla_porcond.3		\
-	man/man3/sla_porcond.f.3		\
-	man/man3/sla_porfsx_extended.3	\
-	man/man3/sla_porfsx_extended.f.3	\
-	man/man3/sla_porpvgrw.3		\
-	man/man3/sla_porpvgrw.f.3		\
-	man/man3/slapy2.3			\
-	man/man3/slapy2.f.3			\
-	man/man3/slapy3.3			\
-	man/man3/slapy3.f.3			\
-	man/man3/slaqgb.3			\
-	man/man3/slaqgb.f.3			\
-	man/man3/slaqge.3			\
-	man/man3/slaqge.f.3			\
-	man/man3/slaqp2.3			\
-	man/man3/slaqp2.f.3			\
-	man/man3/slaqps.3			\
-	man/man3/slaqps.f.3			\
-	man/man3/slaqr0.3			\
-	man/man3/slaqr0.f.3			\
-	man/man3/slaqr1.3			\
-	man/man3/slaqr1.f.3			\
-	man/man3/slaqr2.3			\
-	man/man3/slaqr2.f.3			\
-	man/man3/slaqr3.3			\
-	man/man3/slaqr3.f.3			\
-	man/man3/slaqr4.3			\
-	man/man3/slaqr4.f.3			\
-	man/man3/slaqr5.3			\
-	man/man3/slaqr5.f.3			\
-	man/man3/slaqsb.3			\
-	man/man3/slaqsb.f.3			\
-	man/man3/slaqsp.3			\
-	man/man3/slaqsp.f.3			\
-	man/man3/slaqsy.3			\
-	man/man3/slaqsy.f.3			\
-	man/man3/slaqtr.3			\
-	man/man3/slaqtr.f.3			\
-	man/man3/slar1v.3			\
-	man/man3/slar1v.f.3			\
-	man/man3/slar2v.3			\
-	man/man3/slar2v.f.3			\
-	man/man3/slarf.3			\
-	man/man3/slarfb.3			\
-	man/man3/slarfb.f.3			\
-	man/man3/slarf.f.3			\
-	man/man3/slarfg.3			\
-	man/man3/slarfg.f.3			\
-	man/man3/slarfgp.3			\
-	man/man3/slarfgp.f.3		\
-	man/man3/slarft.3			\
-	man/man3/slarft.f.3			\
-	man/man3/slarfx.3			\
-	man/man3/slarfx.f.3			\
-	man/man3/slargv.3			\
-	man/man3/slargv.f.3			\
-	man/man3/slarnv.3			\
-	man/man3/slarnv.f.3			\
-	man/man3/slarra.3			\
-	man/man3/slarra.f.3			\
-	man/man3/slarrb.3			\
-	man/man3/slarrb.f.3			\
-	man/man3/slarrc.3			\
-	man/man3/slarrc.f.3			\
-	man/man3/slarrd.3			\
-	man/man3/slarrd.f.3			\
-	man/man3/slarre.3			\
-	man/man3/slarre.f.3			\
-	man/man3/slarrf.3			\
-	man/man3/slarrf.f.3			\
-	man/man3/slarrj.3			\
-	man/man3/slarrj.f.3			\
-	man/man3/slarrk.3			\
-	man/man3/slarrk.f.3			\
-	man/man3/slarrr.3			\
-	man/man3/slarrr.f.3			\
-	man/man3/slarrv.3			\
-	man/man3/slarrv.f.3			\
-	man/man3/slarscl2.3			\
-	man/man3/slarscl2.f.3		\
-	man/man3/slartg.3			\
-	man/man3/slartg.f.3			\
-	man/man3/slartgp.3			\
-	man/man3/slartgp.f.3		\
-	man/man3/slartgs.3			\
-	man/man3/slartgs.f.3		\
-	man/man3/slartv.3			\
-	man/man3/slartv.f.3			\
-	man/man3/slaruv.3			\
-	man/man3/slaruv.f.3			\
-	man/man3/slarz.3			\
-	man/man3/slarzb.3			\
-	man/man3/slarzb.f.3			\
-	man/man3/slarz.f.3			\
-	man/man3/slarzt.3			\
-	man/man3/slarzt.f.3			\
-	man/man3/slas2.3			\
-	man/man3/slas2.f.3			\
-	man/man3/slascl2.3			\
-	man/man3/slascl2.f.3		\
-	man/man3/slascl.3			\
-	man/man3/slascl.f.3			\
-	man/man3/slasd0.3			\
-	man/man3/slasd0.f.3			\
-	man/man3/slasd1.3			\
-	man/man3/slasd1.f.3			\
-	man/man3/slasd2.3			\
-	man/man3/slasd2.f.3			\
-	man/man3/slasd3.3			\
-	man/man3/slasd3.f.3			\
-	man/man3/slasd4.3			\
-	man/man3/slasd4.f.3			\
-	man/man3/slasd5.3			\
-	man/man3/slasd5.f.3			\
-	man/man3/slasd6.3			\
-	man/man3/slasd6.f.3			\
-	man/man3/slasd7.3			\
-	man/man3/slasd7.f.3			\
-	man/man3/slasd8.3			\
-	man/man3/slasd8.f.3			\
-	man/man3/slasda.3			\
-	man/man3/slasda.f.3			\
-	man/man3/slasdq.3			\
-	man/man3/slasdq.f.3			\
-	man/man3/slasdt.3			\
-	man/man3/slasdt.f.3			\
-	man/man3/slaset.3			\
-	man/man3/slaset.f.3			\
-	man/man3/slasq1.3			\
-	man/man3/slasq1.f.3			\
-	man/man3/slasq2.3			\
-	man/man3/slasq2.f.3			\
-	man/man3/slasq3.3			\
-	man/man3/slasq3.f.3			\
-	man/man3/slasq4.3			\
-	man/man3/slasq4.f.3			\
-	man/man3/slasq5.3			\
-	man/man3/slasq5.f.3			\
-	man/man3/slasq6.3			\
-	man/man3/slasq6.f.3			\
-	man/man3/slasr.3			\
-	man/man3/slasr.f.3			\
-	man/man3/slasrt.3			\
-	man/man3/slasrt.f.3			\
-	man/man3/slassq.3			\
-	man/man3/slassq.f.3			\
-	man/man3/slasv2.3			\
-	man/man3/slasv2.f.3			\
-	man/man3/slaswp.3			\
-	man/man3/slaswp.f.3			\
-	man/man3/slasy2.3			\
-	man/man3/slasy2.f.3			\
-	man/man3/sla_syamv.3		\
-	man/man3/sla_syamv.f.3		\
-	man/man3/slasyf.3			\
-	man/man3/slasyf.f.3			\
-	man/man3/slasyf_rook.3		\
-	man/man3/slasyf_rook.f.3		\
-	man/man3/sla_syrcond.3		\
-	man/man3/sla_syrcond.f.3		\
-	man/man3/sla_syrfsx_extended.3	\
-	man/man3/sla_syrfsx_extended.f.3	\
-	man/man3/sla_syrpvgrw.3		\
-	man/man3/sla_syrpvgrw.f.3		\
-	man/man3/slatbs.3			\
-	man/man3/slatbs.f.3			\
-	man/man3/slatdf.3			\
-	man/man3/slatdf.f.3			\
-	man/man3/slatps.3			\
-	man/man3/slatps.f.3			\
-	man/man3/slatrd.3			\
-	man/man3/slatrd.f.3			\
-	man/man3/slatrs.3			\
-	man/man3/slatrs.f.3			\
-	man/man3/slatrz.3			\
-	man/man3/slatrz.f.3			\
-	man/man3/slatzm.3			\
-	man/man3/slatzm.f.3			\
-	man/man3/slauu2.3			\
-	man/man3/slauu2.f.3			\
-	man/man3/slauum.3			\
-	man/man3/slauum.f.3			\
-	man/man3/sla_wwaddw.3		\
-	man/man3/sla_wwaddw.f.3		\
-	man/man3/snrm2.3			\
-	man/man3/snrm2.f.3			\
-	man/man3/sopgtr.3			\
-	man/man3/sopgtr.f.3			\
-	man/man3/sopmtr.3			\
-	man/man3/sopmtr.f.3			\
-	man/man3/sorbdb1.3			\
-	man/man3/sorbdb1.f.3		\
-	man/man3/sorbdb2.3			\
-	man/man3/sorbdb2.f.3		\
-	man/man3/sorbdb.3			\
-	man/man3/sorbdb3.3			\
-	man/man3/sorbdb3.f.3		\
-	man/man3/sorbdb4.3			\
-	man/man3/sorbdb4.f.3		\
-	man/man3/sorbdb5.3			\
-	man/man3/sorbdb5.f.3		\
-	man/man3/sorbdb6.3			\
-	man/man3/sorbdb6.f.3		\
-	man/man3/sorbdb.f.3			\
-	man/man3/sorcsd2by1.3		\
-	man/man3/sorcsd2by1.f.3		\
-	man/man3/sorcsd.3			\
-	man/man3/sorcsd.f.3			\
-	man/man3/sorg2l.3			\
-	man/man3/sorg2l.f.3			\
-	man/man3/sorg2r.3			\
-	man/man3/sorg2r.f.3			\
-	man/man3/sorgbr.3			\
-	man/man3/sorgbr.f.3			\
-	man/man3/sorghr.3			\
-	man/man3/sorghr.f.3			\
-	man/man3/sorgl2.3			\
-	man/man3/sorgl2.f.3			\
-	man/man3/sorglq.3			\
-	man/man3/sorglq.f.3			\
-	man/man3/sorgql.3			\
-	man/man3/sorgql.f.3			\
-	man/man3/sorgqr.3			\
-	man/man3/sorgqr.f.3			\
-	man/man3/sorgr2.3			\
-	man/man3/sorgr2.f.3			\
-	man/man3/sorgrq.3			\
-	man/man3/sorgrq.f.3			\
-	man/man3/sorgtr.3			\
-	man/man3/sorgtr.f.3			\
-	man/man3/sorm2l.3			\
-	man/man3/sorm2l.f.3			\
-	man/man3/sorm2r.3			\
-	man/man3/sorm2r.f.3			\
-	man/man3/sormbr.3			\
-	man/man3/sormbr.f.3			\
-	man/man3/sormhr.3			\
-	man/man3/sormhr.f.3			\
-	man/man3/sorml2.3			\
-	man/man3/sorml2.f.3			\
-	man/man3/sormlq.3			\
-	man/man3/sormlq.f.3			\
-	man/man3/sormql.3			\
-	man/man3/sormql.f.3			\
-	man/man3/sormqr.3			\
-	man/man3/sormqr.f.3			\
-	man/man3/sormr2.3			\
-	man/man3/sormr2.f.3			\
-	man/man3/sormr3.3			\
-	man/man3/sormr3.f.3			\
-	man/man3/sormrq.3			\
-	man/man3/sormrq.f.3			\
-	man/man3/sormrz.3			\
-	man/man3/sormrz.f.3			\
-	man/man3/sormtr.3			\
-	man/man3/sormtr.f.3			\
-	man/man3/spbcon.3			\
-	man/man3/spbcon.f.3			\
-	man/man3/spbequ.3			\
-	man/man3/spbequ.f.3			\
-	man/man3/spbrfs.3			\
-	man/man3/spbrfs.f.3			\
-	man/man3/spbstf.3			\
-	man/man3/spbstf.f.3			\
-	man/man3/spbsv.3			\
-	man/man3/spbsv.f.3			\
-	man/man3/spbsvx.3			\
-	man/man3/spbsvx.f.3			\
-	man/man3/spbtf2.3			\
-	man/man3/spbtf2.f.3			\
-	man/man3/spbtrf.3			\
-	man/man3/spbtrf.f.3			\
-	man/man3/spbtrs.3			\
-	man/man3/spbtrs.f.3			\
-	man/man3/spftrf.3			\
-	man/man3/spftrf.f.3			\
-	man/man3/spftri.3			\
-	man/man3/spftri.f.3			\
-	man/man3/spftrs.3			\
-	man/man3/spftrs.f.3			\
-	man/man3/spocon.3			\
-	man/man3/spocon.f.3			\
-	man/man3/spoequ.3			\
-	man/man3/spoequb.3			\
-	man/man3/spoequb.f.3		\
-	man/man3/spoequ.f.3			\
-	man/man3/sporfs.3			\
-	man/man3/sporfs.f.3			\
-	man/man3/sporfsx.3			\
-	man/man3/sporfsx.f.3		\
-	man/man3/sposv.3			\
-	man/man3/sposv.f.3			\
-	man/man3/sposvx.3			\
-	man/man3/sposvx.f.3			\
-	man/man3/sposvxx.3			\
-	man/man3/sposvxx.f.3		\
-	man/man3/spotf2.3			\
-	man/man3/spotf2.f.3			\
-	man/man3/spotrf.3			\
-	man/man3/spotrf.f.3			\
-	man/man3/spotri.3			\
-	man/man3/spotri.f.3			\
-	man/man3/spotrs.3			\
-	man/man3/spotrs.f.3			\
-	man/man3/sppcon.3			\
-	man/man3/sppcon.f.3			\
-	man/man3/sppequ.3			\
-	man/man3/sppequ.f.3			\
-	man/man3/spprfs.3			\
-	man/man3/spprfs.f.3			\
-	man/man3/sppsv.3			\
-	man/man3/sppsv.f.3			\
-	man/man3/sppsvx.3			\
-	man/man3/sppsvx.f.3			\
-	man/man3/spptrf.3			\
-	man/man3/spptrf.f.3			\
-	man/man3/spptri.3			\
-	man/man3/spptri.f.3			\
-	man/man3/spptrs.3			\
-	man/man3/spptrs.f.3			\
-	man/man3/spstf2.3			\
-	man/man3/spstf2.f.3			\
-	man/man3/spstrf.3			\
-	man/man3/spstrf.f.3			\
-	man/man3/sptcon.3			\
-	man/man3/sptcon.f.3			\
-	man/man3/spteqr.3			\
-	man/man3/spteqr.f.3			\
-	man/man3/sptrfs.3			\
-	man/man3/sptrfs.f.3			\
-	man/man3/sptsv.3			\
-	man/man3/sptsv.f.3			\
-	man/man3/sptsvx.3			\
-	man/man3/sptsvx.f.3			\
-	man/man3/spttrf.3			\
-	man/man3/spttrf.f.3			\
-	man/man3/spttrs.3			\
-	man/man3/spttrs.f.3			\
-	man/man3/sptts2.3			\
-	man/man3/sptts2.f.3			\
-	man/man3/SRC_ilaver.f.3		\
-	man/man3/SRC_xerbla_array.f.3	\
-	man/man3/SRC_xerbla.f.3		\
-	man/man3/srot.3			\
-	man/man3/srot.f.3			\
-	man/man3/srotg.3			\
-	man/man3/srotg.f.3			\
-	man/man3/srotm.3			\
-	man/man3/srotm.f.3			\
-	man/man3/srotmg.3			\
-	man/man3/srotmg.f.3			\
-	man/man3/srscl.3			\
-	man/man3/srscl.f.3			\
-	man/man3/ssbev.3			\
-	man/man3/ssbevd.3			\
-	man/man3/ssbevd.f.3			\
-	man/man3/ssbev.f.3			\
-	man/man3/ssbevx.3			\
-	man/man3/ssbevx.f.3			\
-	man/man3/ssbgst.3			\
-	man/man3/ssbgst.f.3			\
-	man/man3/ssbgv.3			\
-	man/man3/ssbgvd.3			\
-	man/man3/ssbgvd.f.3			\
-	man/man3/ssbgv.f.3			\
-	man/man3/ssbgvx.3			\
-	man/man3/ssbgvx.f.3			\
-	man/man3/ssbmv.3			\
-	man/man3/ssbmv.f.3			\
-	man/man3/ssbtrd.3			\
-	man/man3/ssbtrd.f.3			\
-	man/man3/sscal.3			\
-	man/man3/sscal.f.3			\
-	man/man3/ssfrk.3			\
-	man/man3/ssfrk.f.3			\
-	man/man3/sspcon.3			\
-	man/man3/sspcon.f.3			\
-	man/man3/sspev.3			\
-	man/man3/sspevd.3			\
-	man/man3/sspevd.f.3			\
-	man/man3/sspev.f.3			\
-	man/man3/sspevx.3			\
-	man/man3/sspevx.f.3			\
-	man/man3/sspgst.3			\
-	man/man3/sspgst.f.3			\
-	man/man3/sspgv.3			\
-	man/man3/sspgvd.3			\
-	man/man3/sspgvd.f.3			\
-	man/man3/sspgv.f.3			\
-	man/man3/sspgvx.3			\
-	man/man3/sspgvx.f.3			\
-	man/man3/sspmv.3			\
-	man/man3/sspmv.f.3			\
-	man/man3/sspr2.3			\
-	man/man3/sspr2.f.3			\
-	man/man3/sspr.3			\
-	man/man3/sspr.f.3			\
-	man/man3/ssprfs.3			\
-	man/man3/ssprfs.f.3			\
-	man/man3/sspsv.3			\
-	man/man3/sspsv.f.3			\
-	man/man3/sspsvx.3			\
-	man/man3/sspsvx.f.3			\
-	man/man3/ssptrd.3			\
-	man/man3/ssptrd.f.3			\
-	man/man3/ssptrf.3			\
-	man/man3/ssptrf.f.3			\
-	man/man3/ssptri.3			\
-	man/man3/ssptri.f.3			\
-	man/man3/ssptrs.3			\
-	man/man3/ssptrs.f.3			\
-	man/man3/sstebz.3			\
-	man/man3/sstebz.f.3			\
-	man/man3/sstedc.3			\
-	man/man3/sstedc.f.3			\
-	man/man3/sstegr.3			\
-	man/man3/sstegr.f.3			\
-	man/man3/sstein.3			\
-	man/man3/sstein.f.3			\
-	man/man3/sstemr.3			\
-	man/man3/sstemr.f.3			\
-	man/man3/ssteqr.3			\
-	man/man3/ssteqr.f.3			\
-	man/man3/ssterf.3			\
-	man/man3/ssterf.f.3			\
-	man/man3/sstev.3			\
-	man/man3/sstevd.3			\
-	man/man3/sstevd.f.3			\
-	man/man3/sstev.f.3			\
-	man/man3/sstevr.3			\
-	man/man3/sstevr.f.3			\
-	man/man3/sstevx.3			\
-	man/man3/sstevx.f.3			\
-	man/man3/sswap.3			\
-	man/man3/sswap.f.3			\
-	man/man3/ssycon.3			\
-	man/man3/ssycon.f.3			\
-	man/man3/ssycon_rook.3		\
-	man/man3/ssycon_rook.f.3		\
-	man/man3/ssyconv.3			\
-	man/man3/ssyconv.f.3		\
-	man/man3/ssyequb.3			\
-	man/man3/ssyequb.f.3		\
-	man/man3/ssyev.3			\
-	man/man3/ssyevd.3			\
-	man/man3/ssyevd.f.3			\
-	man/man3/ssyev.f.3			\
-	man/man3/ssyevr.3			\
-	man/man3/ssyevr.f.3			\
-	man/man3/ssyevx.3			\
-	man/man3/ssyevx.f.3			\
-	man/man3/ssygs2.3			\
-	man/man3/ssygs2.f.3			\
-	man/man3/ssygst.3			\
-	man/man3/ssygst.f.3			\
-	man/man3/ssygv.3			\
-	man/man3/ssygvd.3			\
-	man/man3/ssygvd.f.3			\
-	man/man3/ssygv.f.3			\
-	man/man3/ssygvx.3			\
-	man/man3/ssygvx.f.3			\
-	man/man3/ssymm.3			\
-	man/man3/ssymm.f.3			\
-	man/man3/ssymv.3			\
-	man/man3/ssymv.f.3			\
-	man/man3/ssyr2.3			\
-	man/man3/ssyr2.f.3			\
-	man/man3/ssyr2k.3			\
-	man/man3/ssyr2k.f.3			\
-	man/man3/ssyr.3			\
-	man/man3/ssyr.f.3			\
-	man/man3/ssyrfs.3			\
-	man/man3/ssyrfs.f.3			\
-	man/man3/ssyrfsx.3			\
-	man/man3/ssyrfsx.f.3		\
-	man/man3/ssyrk.3			\
-	man/man3/ssyrk.f.3			\
-	man/man3/ssysv.3			\
-	man/man3/ssysv.f.3			\
-	man/man3/ssysv_rook.3		\
-	man/man3/ssysv_rook.f.3		\
-	man/man3/ssysvx.3			\
-	man/man3/ssysvx.f.3			\
-	man/man3/ssysvxx.3			\
-	man/man3/ssysvxx.f.3		\
-	man/man3/ssyswapr.3			\
-	man/man3/ssyswapr.f.3		\
-	man/man3/ssytd2.3			\
-	man/man3/ssytd2.f.3			\
-	man/man3/ssytf2.3			\
-	man/man3/ssytf2.f.3			\
-	man/man3/ssytf2_rook.3		\
-	man/man3/ssytf2_rook.f.3		\
-	man/man3/ssytrd.3			\
-	man/man3/ssytrd.f.3			\
-	man/man3/ssytrf.3			\
-	man/man3/ssytrf.f.3			\
-	man/man3/ssytrf_rook.3		\
-	man/man3/ssytrf_rook.f.3		\
-	man/man3/ssytri2.3			\
-	man/man3/ssytri2.f.3		\
-	man/man3/ssytri2x.3			\
-	man/man3/ssytri2x.f.3		\
-	man/man3/ssytri.3			\
-	man/man3/ssytri.f.3			\
-	man/man3/ssytri_rook.3		\
-	man/man3/ssytri_rook.f.3		\
-	man/man3/ssytrs2.3			\
-	man/man3/ssytrs2.f.3		\
-	man/man3/ssytrs.3			\
-	man/man3/ssytrs.f.3			\
-	man/man3/ssytrs_rook.3		\
-	man/man3/ssytrs_rook.f.3		\
-	man/man3/stbcon.3			\
-	man/man3/stbcon.f.3			\
-	man/man3/stbmv.3			\
-	man/man3/stbmv.f.3			\
-	man/man3/stbrfs.3			\
-	man/man3/stbrfs.f.3			\
-	man/man3/stbsv.3			\
-	man/man3/stbsv.f.3			\
-	man/man3/stbtrs.3			\
-	man/man3/stbtrs.f.3			\
-	man/man3/stfsm.3			\
-	man/man3/stfsm.f.3			\
-	man/man3/stftri.3			\
-	man/man3/stftri.f.3			\
-	man/man3/stfttp.3			\
-	man/man3/stfttp.f.3			\
-	man/man3/stfttr.3			\
-	man/man3/stfttr.f.3			\
-	man/man3/stgevc.3			\
-	man/man3/stgevc.f.3			\
-	man/man3/stgex2.3			\
-	man/man3/stgex2.f.3			\
-	man/man3/stgexc.3			\
-	man/man3/stgexc.f.3			\
-	man/man3/stgsen.3			\
-	man/man3/stgsen.f.3			\
-	man/man3/stgsja.3			\
-	man/man3/stgsja.f.3			\
-	man/man3/stgsna.3			\
-	man/man3/stgsna.f.3			\
-	man/man3/stgsy2.3			\
-	man/man3/stgsy2.f.3			\
-	man/man3/stgsyl.3			\
-	man/man3/stgsyl.f.3			\
-	man/man3/stpcon.3			\
-	man/man3/stpcon.f.3			\
-	man/man3/stpmqrt.3			\
-	man/man3/stpmqrt.f.3		\
-	man/man3/stpmv.3			\
-	man/man3/stpmv.f.3			\
-	man/man3/stpqrt2.3			\
-	man/man3/stpqrt2.f.3		\
-	man/man3/stpqrt.3			\
-	man/man3/stpqrt.f.3			\
-	man/man3/stprfb.3			\
-	man/man3/stprfb.f.3			\
-	man/man3/stprfs.3			\
-	man/man3/stprfs.f.3			\
-	man/man3/stpsv.3			\
-	man/man3/stpsv.f.3			\
-	man/man3/stptri.3			\
-	man/man3/stptri.f.3			\
-	man/man3/stptrs.3			\
-	man/man3/stptrs.f.3			\
-	man/man3/stpttf.3			\
-	man/man3/stpttf.f.3			\
-	man/man3/stpttr.3			\
-	man/man3/stpttr.f.3			\
-	man/man3/strcon.3			\
-	man/man3/strcon.f.3			\
-	man/man3/strevc.3			\
-	man/man3/strevc.f.3			\
-	man/man3/strexc.3			\
-	man/man3/strexc.f.3			\
-	man/man3/strmm.3			\
-	man/man3/strmm.f.3			\
-	man/man3/strmv.3			\
-	man/man3/strmv.f.3			\
-	man/man3/strrfs.3			\
-	man/man3/strrfs.f.3			\
-	man/man3/strsen.3			\
-	man/man3/strsen.f.3			\
-	man/man3/strsm.3			\
-	man/man3/strsm.f.3			\
-	man/man3/strsna.3			\
-	man/man3/strsna.f.3			\
-	man/man3/strsv.3			\
-	man/man3/strsv.f.3			\
-	man/man3/strsyl.3			\
-	man/man3/strsyl.f.3			\
-	man/man3/strti2.3			\
-	man/man3/strti2.f.3			\
-	man/man3/strtri.3			\
-	man/man3/strtri.f.3			\
-	man/man3/strtrs.3			\
-	man/man3/strtrs.f.3			\
-	man/man3/strttf.3			\
-	man/man3/strttf.f.3			\
-	man/man3/strttp.3			\
-	man/man3/strttp.f.3			\
-	man/man3/stzrqf.3			\
-	man/man3/stzrqf.f.3			\
-	man/man3/stzrzf.3			\
-	man/man3/stzrzf.f.3			\
-	man/man3/tstiee.3			\
-	man/man3/tstiee.f.3			\
-	man/man3/_Users_julie_Documents_Boulot_lapack-dev_lapack_trunk_BLAS_.3		      \
-	man/man3/_Users_julie_Documents_Boulot_lapack-dev_lapack_trunk_BLAS_SRC_.3		      \
-	man/man3/_Users_julie_Documents_Boulot_lapack-dev_lapack_trunk_INSTALL_.3		      \
-	man/man3/_Users_julie_Documents_Boulot_lapack-dev_lapack_trunk_SRC_.3		      \
-	man/man3/xerbla.3			\
-	man/man3/xerbla_array.3		\
-	man/man3/zaxpy.3			\
-	man/man3/zaxpy.f.3			\
-	man/man3/zbbcsd.3			\
-	man/man3/zbbcsd.f.3			\
-	man/man3/zbdsqr.3			\
-	man/man3/zbdsqr.f.3			\
-	man/man3/zcgesv.3			\
-	man/man3/zcgesv.f.3			\
-	man/man3/zcopy.3			\
-	man/man3/zcopy.f.3			\
-	man/man3/zcposv.3			\
-	man/man3/zcposv.f.3			\
-	man/man3/zdotc.3			\
-	man/man3/zdotc.f.3			\
-	man/man3/zdotu.3			\
-	man/man3/zdotu.f.3			\
-	man/man3/zdrot.3			\
-	man/man3/zdrot.f.3			\
-	man/man3/zdrscl.3			\
-	man/man3/zdrscl.f.3			\
-	man/man3/zdscal.3			\
-	man/man3/zdscal.f.3			\
-	man/man3/zgbbrd.3			\
-	man/man3/zgbbrd.f.3			\
-	man/man3/zgbcon.3			\
-	man/man3/zgbcon.f.3			\
-	man/man3/zgbequ.3			\
-	man/man3/zgbequb.3			\
-	man/man3/zgbequb.f.3		\
-	man/man3/zgbequ.f.3			\
-	man/man3/zgbmv.3			\
-	man/man3/zgbmv.f.3			\
-	man/man3/zgbrfs.3			\
-	man/man3/zgbrfs.f.3			\
-	man/man3/zgbrfsx.3			\
-	man/man3/zgbrfsx.f.3		\
-	man/man3/zgbsv.3			\
-	man/man3/zgbsv.f.3			\
-	man/man3/zgbsvx.3			\
-	man/man3/zgbsvx.f.3			\
-	man/man3/zgbsvxx.3			\
-	man/man3/zgbsvxx.f.3		\
-	man/man3/zgbtf2.3			\
-	man/man3/zgbtf2.f.3			\
-	man/man3/zgbtrf.3			\
-	man/man3/zgbtrf.f.3			\
-	man/man3/zgbtrs.3			\
-	man/man3/zgbtrs.f.3			\
-	man/man3/zgebak.3			\
-	man/man3/zgebak.f.3			\
-	man/man3/zgebal.3			\
-	man/man3/zgebal.f.3			\
-	man/man3/zgebd2.3			\
-	man/man3/zgebd2.f.3			\
-	man/man3/zgebrd.3			\
-	man/man3/zgebrd.f.3			\
-	man/man3/zgecon.3			\
-	man/man3/zgecon.f.3			\
-	man/man3/zgeequ.3			\
-	man/man3/zgeequb.3			\
-	man/man3/zgeequb.f.3		\
-	man/man3/zgeequ.f.3			\
-	man/man3/zgees.3			\
-	man/man3/zgees.f.3			\
-	man/man3/zgeesx.3			\
-	man/man3/zgeesx.f.3			\
-	man/man3/zgeev.3			\
-	man/man3/zgeev.f.3			\
-	man/man3/zgeevx.3			\
-	man/man3/zgeevx.f.3			\
-	man/man3/zgegs.3			\
-	man/man3/zgegs.f.3			\
-	man/man3/zgegv.3			\
-	man/man3/zgegv.f.3			\
-	man/man3/zgehd2.3			\
-	man/man3/zgehd2.f.3			\
-	man/man3/zgehrd.3			\
-	man/man3/zgehrd.f.3			\
-	man/man3/zgelq2.3			\
-	man/man3/zgelq2.f.3			\
-	man/man3/zgelqf.3			\
-	man/man3/zgelqf.f.3			\
-	man/man3/zgels.3			\
-	man/man3/zgelsd.3			\
-	man/man3/zgelsd.f.3			\
-	man/man3/zgels.f.3			\
-	man/man3/zgelss.3			\
-	man/man3/zgelss.f.3			\
-	man/man3/zgelsx.3			\
-	man/man3/zgelsx.f.3			\
-	man/man3/zgelsy.3			\
-	man/man3/zgelsy.f.3			\
-	man/man3/zgemm.3			\
-	man/man3/zgemm.f.3			\
-	man/man3/zgemqrt.3			\
-	man/man3/zgemqrt.f.3		\
-	man/man3/zgemv.3			\
-	man/man3/zgemv.f.3			\
-	man/man3/zgeql2.3			\
-	man/man3/zgeql2.f.3			\
-	man/man3/zgeqlf.3			\
-	man/man3/zgeqlf.f.3			\
-	man/man3/zgeqp3.3			\
-	man/man3/zgeqp3.f.3			\
-	man/man3/zgeqpf.3			\
-	man/man3/zgeqpf.f.3			\
-	man/man3/zgeqr2.3			\
-	man/man3/zgeqr2.f.3			\
-	man/man3/zgeqr2p.3			\
-	man/man3/zgeqr2p.f.3		\
-	man/man3/zgeqrf.3			\
-	man/man3/zgeqrf.f.3			\
-	man/man3/zgeqrfp.3			\
-	man/man3/zgeqrfp.f.3		\
-	man/man3/zgeqrt2.3			\
-	man/man3/zgeqrt2.f.3		\
-	man/man3/zgeqrt.3			\
-	man/man3/zgeqrt3.3			\
-	man/man3/zgeqrt3.f.3		\
-	man/man3/zgeqrt.f.3			\
-	man/man3/zgerc.3			\
-	man/man3/zgerc.f.3			\
-	man/man3/zgerfs.3			\
-	man/man3/zgerfs.f.3			\
-	man/man3/zgerfsx.3			\
-	man/man3/zgerfsx.f.3		\
-	man/man3/zgerq2.3			\
-	man/man3/zgerq2.f.3			\
-	man/man3/zgerqf.3			\
-	man/man3/zgerqf.f.3			\
-	man/man3/zgeru.3			\
-	man/man3/zgeru.f.3			\
-	man/man3/zgesc2.3			\
-	man/man3/zgesc2.f.3			\
-	man/man3/zgesdd.3			\
-	man/man3/zgesdd.f.3			\
-	man/man3/zgesv.3			\
-	man/man3/zgesvd.3			\
-	man/man3/zgesvd.f.3			\
-	man/man3/zgesv.f.3			\
-	man/man3/zgesvx.3			\
-	man/man3/zgesvx.f.3			\
-	man/man3/zgesvxx.3			\
-	man/man3/zgesvxx.f.3		\
-	man/man3/zgetc2.3			\
-	man/man3/zgetc2.f.3			\
-	man/man3/zgetf2.3			\
-	man/man3/zgetf2.f.3			\
-	man/man3/zgetrf.3			\
-	man/man3/zgetrf.f.3			\
-	man/man3/zgetri.3			\
-	man/man3/zgetri.f.3			\
-	man/man3/zgetrs.3			\
-	man/man3/zgetrs.f.3			\
-	man/man3/zggbak.3			\
-	man/man3/zggbak.f.3			\
-	man/man3/zggbal.3			\
-	man/man3/zggbal.f.3			\
-	man/man3/zgges.3			\
-	man/man3/zgges.f.3			\
-	man/man3/zggesx.3			\
-	man/man3/zggesx.f.3			\
-	man/man3/zggev.3			\
-	man/man3/zggev.f.3			\
-	man/man3/zggevx.3			\
-	man/man3/zggevx.f.3			\
-	man/man3/zggglm.3			\
-	man/man3/zggglm.f.3			\
-	man/man3/zgghrd.3			\
-	man/man3/zgghrd.f.3			\
-	man/man3/zgglse.3			\
-	man/man3/zgglse.f.3			\
-	man/man3/zggqrf.3			\
-	man/man3/zggqrf.f.3			\
-	man/man3/zggrqf.3			\
-	man/man3/zggrqf.f.3			\
-	man/man3/zggsvd.3			\
-	man/man3/zggsvd.f.3			\
-	man/man3/zggsvp.3			\
-	man/man3/zggsvp.f.3			\
-	man/man3/zgtcon.3			\
-	man/man3/zgtcon.f.3			\
-	man/man3/zgtrfs.3			\
-	man/man3/zgtrfs.f.3			\
-	man/man3/zgtsv.3			\
-	man/man3/zgtsv.f.3			\
-	man/man3/zgtsvx.3			\
-	man/man3/zgtsvx.f.3			\
-	man/man3/zgttrf.3			\
-	man/man3/zgttrf.f.3			\
-	man/man3/zgttrs.3			\
-	man/man3/zgttrs.f.3			\
-	man/man3/zgtts2.3			\
-	man/man3/zgtts2.f.3			\
-	man/man3/zhbev.3			\
-	man/man3/zhbevd.3			\
-	man/man3/zhbevd.f.3			\
-	man/man3/zhbev.f.3			\
-	man/man3/zhbevx.3			\
-	man/man3/zhbevx.f.3			\
-	man/man3/zhbgst.3			\
-	man/man3/zhbgst.f.3			\
-	man/man3/zhbgv.3			\
-	man/man3/zhbgvd.3			\
-	man/man3/zhbgvd.f.3			\
-	man/man3/zhbgv.f.3			\
-	man/man3/zhbgvx.3			\
-	man/man3/zhbgvx.f.3			\
-	man/man3/zhbmv.3			\
-	man/man3/zhbmv.f.3			\
-	man/man3/zhbtrd.3			\
-	man/man3/zhbtrd.f.3			\
-	man/man3/zhecon.3			\
-	man/man3/zhecon.f.3			\
-	man/man3/zhecon_rook.3		\
-	man/man3/zhecon_rook.f.3		\
-	man/man3/zheequb.3			\
-	man/man3/zheequb.f.3		\
-	man/man3/zheev.3			\
-	man/man3/zheevd.3			\
-	man/man3/zheevd.f.3			\
-	man/man3/zheev.f.3			\
-	man/man3/zheevr.3			\
-	man/man3/zheevr.f.3			\
-	man/man3/zheevx.3			\
-	man/man3/zheevx.f.3			\
-	man/man3/zhegs2.3			\
-	man/man3/zhegs2.f.3			\
-	man/man3/zhegst.3			\
-	man/man3/zhegst.f.3			\
-	man/man3/zhegv.3			\
-	man/man3/zhegvd.3			\
-	man/man3/zhegvd.f.3			\
-	man/man3/zhegv.f.3			\
-	man/man3/zhegvx.3			\
-	man/man3/zhegvx.f.3			\
-	man/man3/zhemm.3			\
-	man/man3/zhemm.f.3			\
-	man/man3/zhemv.3			\
-	man/man3/zhemv.f.3			\
-	man/man3/zher2.3			\
-	man/man3/zher2.f.3			\
-	man/man3/zher2k.3			\
-	man/man3/zher2k.f.3			\
-	man/man3/zher.3			\
-	man/man3/zher.f.3			\
-	man/man3/zherfs.3			\
-	man/man3/zherfs.f.3			\
-	man/man3/zherfsx.3			\
-	man/man3/zherfsx.f.3		\
-	man/man3/zherk.3			\
-	man/man3/zherk.f.3			\
-	man/man3/zhesv.3			\
-	man/man3/zhesv.f.3			\
-	man/man3/zhesv_rook.3		\
-	man/man3/zhesv_rook.f.3		\
-	man/man3/zhesvx.3			\
-	man/man3/zhesvx.f.3			\
-	man/man3/zhesvxx.3			\
-	man/man3/zhesvxx.f.3		\
-	man/man3/zheswapr.3			\
-	man/man3/zheswapr.f.3		\
-	man/man3/zhetd2.3			\
-	man/man3/zhetd2.f.3			\
-	man/man3/zhetf2.3			\
-	man/man3/zhetf2.f.3			\
-	man/man3/zhetf2_rook.3		\
-	man/man3/zhetf2_rook.f.3		\
-	man/man3/zhetrd.3			\
-	man/man3/zhetrd.f.3			\
-	man/man3/zhetrf.3			\
-	man/man3/zhetrf.f.3			\
-	man/man3/zhetrf_rook.3		\
-	man/man3/zhetrf_rook.f.3		\
-	man/man3/zhetri2.3			\
-	man/man3/zhetri2.f.3		\
-	man/man3/zhetri2x.3			\
-	man/man3/zhetri2x.f.3		\
-	man/man3/zhetri.3			\
-	man/man3/zhetri.f.3			\
-	man/man3/zhetri_rook.3		\
-	man/man3/zhetri_rook.f.3		\
-	man/man3/zhetrs2.3			\
-	man/man3/zhetrs2.f.3		\
-	man/man3/zhetrs.3			\
-	man/man3/zhetrs.f.3			\
-	man/man3/zhetrs_rook.3		\
-	man/man3/zhetrs_rook.f.3		\
-	man/man3/zhfrk.3			\
-	man/man3/zhfrk.f.3			\
-	man/man3/zhgeqz.3			\
-	man/man3/zhgeqz.f.3			\
-	man/man3/zhpcon.3			\
-	man/man3/zhpcon.f.3			\
-	man/man3/zhpev.3			\
-	man/man3/zhpevd.3			\
-	man/man3/zhpevd.f.3			\
-	man/man3/zhpev.f.3			\
-	man/man3/zhpevx.3			\
-	man/man3/zhpevx.f.3			\
-	man/man3/zhpgst.3			\
-	man/man3/zhpgst.f.3			\
-	man/man3/zhpgv.3			\
-	man/man3/zhpgvd.3			\
-	man/man3/zhpgvd.f.3			\
-	man/man3/zhpgv.f.3			\
-	man/man3/zhpgvx.3			\
-	man/man3/zhpgvx.f.3			\
-	man/man3/zhpmv.3			\
-	man/man3/zhpmv.f.3			\
-	man/man3/zhpr2.3			\
-	man/man3/zhpr2.f.3			\
-	man/man3/zhpr.3			\
-	man/man3/zhpr.f.3			\
-	man/man3/zhprfs.3			\
-	man/man3/zhprfs.f.3			\
-	man/man3/zhpsv.3			\
-	man/man3/zhpsv.f.3			\
-	man/man3/zhpsvx.3			\
-	man/man3/zhpsvx.f.3			\
-	man/man3/zhptrd.3			\
-	man/man3/zhptrd.f.3			\
-	man/man3/zhptrf.3			\
-	man/man3/zhptrf.f.3			\
-	man/man3/zhptri.3			\
-	man/man3/zhptri.f.3			\
-	man/man3/zhptrs.3			\
-	man/man3/zhptrs.f.3			\
-	man/man3/zhsein.3			\
-	man/man3/zhsein.f.3			\
-	man/man3/zhseqr.3			\
-	man/man3/zhseqr.f.3			\
-	man/man3/zlabrd.3			\
-	man/man3/zlabrd.f.3			\
-	man/man3/zlacgv.3			\
-	man/man3/zlacgv.f.3			\
-	man/man3/zlacn2.3			\
-	man/man3/zlacn2.f.3			\
-	man/man3/zlacon.3			\
-	man/man3/zlacon.f.3			\
-	man/man3/zlacp2.3			\
-	man/man3/zlacp2.f.3			\
-	man/man3/zlacpy.3			\
-	man/man3/zlacpy.f.3			\
-	man/man3/zlacrm.3			\
-	man/man3/zlacrm.f.3			\
-	man/man3/zlacrt.3			\
-	man/man3/zlacrt.f.3			\
-	man/man3/zladiv.3			\
-	man/man3/zladiv.f.3			\
-	man/man3/zlaed0.3			\
-	man/man3/zlaed0.f.3			\
-	man/man3/zlaed7.3			\
-	man/man3/zlaed7.f.3			\
-	man/man3/zlaed8.3			\
-	man/man3/zlaed8.f.3			\
-	man/man3/zlaein.3			\
-	man/man3/zlaein.f.3			\
-	man/man3/zlaesy.3			\
-	man/man3/zlaesy.f.3			\
-	man/man3/zlaev2.3			\
-	man/man3/zlaev2.f.3			\
-	man/man3/zlag2c.3			\
-	man/man3/zlag2c.f.3			\
-	man/man3/zla_gbamv.3		\
-	man/man3/zla_gbamv.f.3		\
-	man/man3/zla_gbrcond_c.3		\
-	man/man3/zla_gbrcond_c.f.3		\
-	man/man3/zla_gbrcond_x.3		\
-	man/man3/zla_gbrcond_x.f.3		\
-	man/man3/zla_gbrfsx_extended.3	\
-	man/man3/zla_gbrfsx_extended.f.3	\
-	man/man3/zla_gbrpvgrw.3		\
-	man/man3/zla_gbrpvgrw.f.3		\
-	man/man3/zla_geamv.3		\
-	man/man3/zla_geamv.f.3		\
-	man/man3/zla_gercond_c.3		\
-	man/man3/zla_gercond_c.f.3		\
-	man/man3/zla_gercond_x.3		\
-	man/man3/zla_gercond_x.f.3		\
-	man/man3/zla_gerfsx_extended.3	\
-	man/man3/zla_gerfsx_extended.f.3	\
-	man/man3/zla_gerpvgrw.3		\
-	man/man3/zla_gerpvgrw.f.3		\
-	man/man3/zlags2.3			\
-	man/man3/zlags2.f.3			\
-	man/man3/zlagtm.3			\
-	man/man3/zlagtm.f.3			\
-	man/man3/zla_heamv.3		\
-	man/man3/zla_heamv.f.3		\
-	man/man3/zlahef.3			\
-	man/man3/zlahef.f.3			\
-	man/man3/zlahef_rook.3		\
-	man/man3/zlahef_rook.f.3		\
-	man/man3/zla_hercond_c.3		\
-	man/man3/zla_hercond_c.f.3		\
-	man/man3/zla_hercond_x.3		\
-	man/man3/zla_hercond_x.f.3		\
-	man/man3/zla_herfsx_extended.3	\
-	man/man3/zla_herfsx_extended.f.3	\
-	man/man3/zla_herpvgrw.3		\
-	man/man3/zla_herpvgrw.f.3		\
-	man/man3/zlahqr.3			\
-	man/man3/zlahqr.f.3			\
-	man/man3/zlahr2.3			\
-	man/man3/zlahr2.f.3			\
-	man/man3/zlahrd.3			\
-	man/man3/zlahrd.f.3			\
-	man/man3/zlaic1.3			\
-	man/man3/zlaic1.f.3			\
-	man/man3/zla_lin_berr.3		\
-	man/man3/zla_lin_berr.f.3		\
-	man/man3/zlals0.3			\
-	man/man3/zlals0.f.3			\
-	man/man3/zlalsa.3			\
-	man/man3/zlalsa.f.3			\
-	man/man3/zlalsd.3			\
-	man/man3/zlalsd.f.3			\
-	man/man3/zlangb.3			\
-	man/man3/zlangb.f.3			\
-	man/man3/zlange.3			\
-	man/man3/zlange.f.3			\
-	man/man3/zlangt.3			\
-	man/man3/zlangt.f.3			\
-	man/man3/zlanhb.3			\
-	man/man3/zlanhb.f.3			\
-	man/man3/zlanhe.3			\
-	man/man3/zlanhe.f.3			\
-	man/man3/zlanhf.3			\
-	man/man3/zlanhf.f.3			\
-	man/man3/zlanhp.3			\
-	man/man3/zlanhp.f.3			\
-	man/man3/zlanhs.3			\
-	man/man3/zlanhs.f.3			\
-	man/man3/zlanht.3			\
-	man/man3/zlanht.f.3			\
-	man/man3/zlansb.3			\
-	man/man3/zlansb.f.3			\
-	man/man3/zlansp.3			\
-	man/man3/zlansp.f.3			\
-	man/man3/zlansy.3			\
-	man/man3/zlansy.f.3			\
-	man/man3/zlantb.3			\
-	man/man3/zlantb.f.3			\
-	man/man3/zlantp.3			\
-	man/man3/zlantp.f.3			\
-	man/man3/zlantr.3			\
-	man/man3/zlantr.f.3			\
-	man/man3/zlapll.3			\
-	man/man3/zlapll.f.3			\
-	man/man3/zlapmr.3			\
-	man/man3/zlapmr.f.3			\
-	man/man3/zlapmt.3			\
-	man/man3/zlapmt.f.3			\
-	man/man3/zla_porcond_c.3		\
-	man/man3/zla_porcond_c.f.3		\
-	man/man3/zla_porcond_x.3		\
-	man/man3/zla_porcond_x.f.3		\
-	man/man3/zla_porfsx_extended.3	\
-	man/man3/zla_porfsx_extended.f.3	\
-	man/man3/zla_porpvgrw.3		\
-	man/man3/zla_porpvgrw.f.3		\
-	man/man3/zlaqgb.3			\
-	man/man3/zlaqgb.f.3			\
-	man/man3/zlaqge.3			\
-	man/man3/zlaqge.f.3			\
-	man/man3/zlaqhb.3			\
-	man/man3/zlaqhb.f.3			\
-	man/man3/zlaqhe.3			\
-	man/man3/zlaqhe.f.3			\
-	man/man3/zlaqhp.3			\
-	man/man3/zlaqhp.f.3			\
-	man/man3/zlaqp2.3			\
-	man/man3/zlaqp2.f.3			\
-	man/man3/zlaqps.3			\
-	man/man3/zlaqps.f.3			\
-	man/man3/zlaqr0.3			\
-	man/man3/zlaqr0.f.3			\
-	man/man3/zlaqr1.3			\
-	man/man3/zlaqr1.f.3			\
-	man/man3/zlaqr2.3			\
-	man/man3/zlaqr2.f.3			\
-	man/man3/zlaqr3.3			\
-	man/man3/zlaqr3.f.3			\
-	man/man3/zlaqr4.3			\
-	man/man3/zlaqr4.f.3			\
-	man/man3/zlaqr5.3			\
-	man/man3/zlaqr5.f.3			\
-	man/man3/zlaqsb.3			\
-	man/man3/zlaqsb.f.3			\
-	man/man3/zlaqsp.3			\
-	man/man3/zlaqsp.f.3			\
-	man/man3/zlaqsy.3			\
-	man/man3/zlaqsy.f.3			\
-	man/man3/zlar1v.3			\
-	man/man3/zlar1v.f.3			\
-	man/man3/zlar2v.3			\
-	man/man3/zlar2v.f.3			\
-	man/man3/zlarcm.3			\
-	man/man3/zlarcm.f.3			\
-	man/man3/zlarf.3			\
-	man/man3/zlarfb.3			\
-	man/man3/zlarfb.f.3			\
-	man/man3/zlarf.f.3			\
-	man/man3/zlarfg.3			\
-	man/man3/zlarfg.f.3			\
-	man/man3/zlarfgp.3			\
-	man/man3/zlarfgp.f.3		\
-	man/man3/zlarft.3			\
-	man/man3/zlarft.f.3			\
-	man/man3/zlarfx.3			\
-	man/man3/zlarfx.f.3			\
-	man/man3/zlargv.3			\
-	man/man3/zlargv.f.3			\
-	man/man3/zlarnv.3			\
-	man/man3/zlarnv.f.3			\
-	man/man3/zlarrv.3			\
-	man/man3/zlarrv.f.3			\
-	man/man3/zlarscl2.3			\
-	man/man3/zlarscl2.f.3		\
-	man/man3/zlartg.3			\
-	man/man3/zlartg.f.3			\
-	man/man3/zlartv.3			\
-	man/man3/zlartv.f.3			\
-	man/man3/zlarz.3			\
-	man/man3/zlarzb.3			\
-	man/man3/zlarzb.f.3			\
-	man/man3/zlarz.f.3			\
-	man/man3/zlarzt.3			\
-	man/man3/zlarzt.f.3			\
-	man/man3/zlascl2.3			\
-	man/man3/zlascl2.f.3		\
-	man/man3/zlascl.3			\
-	man/man3/zlascl.f.3			\
-	man/man3/zlaset.3			\
-	man/man3/zlaset.f.3			\
-	man/man3/zlasr.3			\
-	man/man3/zlasr.f.3			\
-	man/man3/zlassq.3			\
-	man/man3/zlassq.f.3			\
-	man/man3/zlaswp.3			\
-	man/man3/zlaswp.f.3			\
-	man/man3/zla_syamv.3		\
-	man/man3/zla_syamv.f.3		\
-	man/man3/zlasyf.3			\
-	man/man3/zlasyf.f.3			\
-	man/man3/zlasyf_rook.3		\
-	man/man3/zlasyf_rook.f.3		\
-	man/man3/zla_syrcond_c.3		\
-	man/man3/zla_syrcond_c.f.3		\
-	man/man3/zla_syrcond_x.3		\
-	man/man3/zla_syrcond_x.f.3		\
-	man/man3/zla_syrfsx_extended.3	\
-	man/man3/zla_syrfsx_extended.f.3	\
-	man/man3/zla_syrpvgrw.3		\
-	man/man3/zla_syrpvgrw.f.3		\
-	man/man3/zlat2c.3			\
-	man/man3/zlat2c.f.3			\
-	man/man3/zlatbs.3			\
-	man/man3/zlatbs.f.3			\
-	man/man3/zlatdf.3			\
-	man/man3/zlatdf.f.3			\
-	man/man3/zlatps.3			\
-	man/man3/zlatps.f.3			\
-	man/man3/zlatrd.3			\
-	man/man3/zlatrd.f.3			\
-	man/man3/zlatrs.3			\
-	man/man3/zlatrs.f.3			\
-	man/man3/zlatrz.3			\
-	man/man3/zlatrz.f.3			\
-	man/man3/zlatzm.3			\
-	man/man3/zlatzm.f.3			\
-	man/man3/zlauu2.3			\
-	man/man3/zlauu2.f.3			\
-	man/man3/zlauum.3			\
-	man/man3/zlauum.f.3			\
-	man/man3/zla_wwaddw.3		\
-	man/man3/zla_wwaddw.f.3		\
-	man/man3/zpbcon.3			\
-	man/man3/zpbcon.f.3			\
-	man/man3/zpbequ.3			\
-	man/man3/zpbequ.f.3			\
-	man/man3/zpbrfs.3			\
-	man/man3/zpbrfs.f.3			\
-	man/man3/zpbstf.3			\
-	man/man3/zpbstf.f.3			\
-	man/man3/zpbsv.3			\
-	man/man3/zpbsv.f.3			\
-	man/man3/zpbsvx.3			\
-	man/man3/zpbsvx.f.3			\
-	man/man3/zpbtf2.3			\
-	man/man3/zpbtf2.f.3			\
-	man/man3/zpbtrf.3			\
-	man/man3/zpbtrf.f.3			\
-	man/man3/zpbtrs.3			\
-	man/man3/zpbtrs.f.3			\
-	man/man3/zpftrf.3			\
-	man/man3/zpftrf.f.3			\
-	man/man3/zpftri.3			\
-	man/man3/zpftri.f.3			\
-	man/man3/zpftrs.3			\
-	man/man3/zpftrs.f.3			\
-	man/man3/zpocon.3			\
-	man/man3/zpocon.f.3			\
-	man/man3/zpoequ.3			\
-	man/man3/zpoequb.3			\
-	man/man3/zpoequb.f.3		\
-	man/man3/zpoequ.f.3			\
-	man/man3/zporfs.3			\
-	man/man3/zporfs.f.3			\
-	man/man3/zporfsx.3			\
-	man/man3/zporfsx.f.3		\
-	man/man3/zposv.3			\
-	man/man3/zposv.f.3			\
-	man/man3/zposvx.3			\
-	man/man3/zposvx.f.3			\
-	man/man3/zposvxx.3			\
-	man/man3/zposvxx.f.3		\
-	man/man3/zpotf2.3			\
-	man/man3/zpotf2.f.3			\
-	man/man3/zpotrf.3			\
-	man/man3/zpotrf.f.3			\
-	man/man3/zpotri.3			\
-	man/man3/zpotri.f.3			\
-	man/man3/zpotrs.3			\
-	man/man3/zpotrs.f.3			\
-	man/man3/zppcon.3			\
-	man/man3/zppcon.f.3			\
-	man/man3/zppequ.3			\
-	man/man3/zppequ.f.3			\
-	man/man3/zpprfs.3			\
-	man/man3/zpprfs.f.3			\
-	man/man3/zppsv.3			\
-	man/man3/zppsv.f.3			\
-	man/man3/zppsvx.3			\
-	man/man3/zppsvx.f.3			\
-	man/man3/zpptrf.3			\
-	man/man3/zpptrf.f.3			\
-	man/man3/zpptri.3			\
-	man/man3/zpptri.f.3			\
-	man/man3/zpptrs.3			\
-	man/man3/zpptrs.f.3			\
-	man/man3/zpstf2.3			\
-	man/man3/zpstf2.f.3			\
-	man/man3/zpstrf.3			\
-	man/man3/zpstrf.f.3			\
-	man/man3/zptcon.3			\
-	man/man3/zptcon.f.3			\
-	man/man3/zpteqr.3			\
-	man/man3/zpteqr.f.3			\
-	man/man3/zptrfs.3			\
-	man/man3/zptrfs.f.3			\
-	man/man3/zptsv.3			\
-	man/man3/zptsv.f.3			\
-	man/man3/zptsvx.3			\
-	man/man3/zptsvx.f.3			\
-	man/man3/zpttrf.3			\
-	man/man3/zpttrf.f.3			\
-	man/man3/zpttrs.3			\
-	man/man3/zpttrs.f.3			\
-	man/man3/zptts2.3			\
-	man/man3/zptts2.f.3			\
-	man/man3/zrot.3			\
-	man/man3/zrot.f.3			\
-	man/man3/zrotg.3			\
-	man/man3/zrotg.f.3			\
-	man/man3/zscal.3			\
-	man/man3/zscal.f.3			\
-	man/man3/zspcon.3			\
-	man/man3/zspcon.f.3			\
-	man/man3/zspmv.3			\
-	man/man3/zspmv.f.3			\
-	man/man3/zspr.3			\
-	man/man3/zspr.f.3			\
-	man/man3/zsprfs.3			\
-	man/man3/zsprfs.f.3			\
-	man/man3/zspsv.3			\
-	man/man3/zspsv.f.3			\
-	man/man3/zspsvx.3			\
-	man/man3/zspsvx.f.3			\
-	man/man3/zsptrf.3			\
-	man/man3/zsptrf.f.3			\
-	man/man3/zsptri.3			\
-	man/man3/zsptri.f.3			\
-	man/man3/zsptrs.3			\
-	man/man3/zsptrs.f.3			\
-	man/man3/zstedc.3			\
-	man/man3/zstedc.f.3			\
-	man/man3/zstegr.3			\
-	man/man3/zstegr.f.3			\
-	man/man3/zstein.3			\
-	man/man3/zstein.f.3			\
-	man/man3/zstemr.3			\
-	man/man3/zstemr.f.3			\
-	man/man3/zsteqr.3			\
-	man/man3/zsteqr.f.3			\
-	man/man3/zswap.3			\
-	man/man3/zswap.f.3			\
-	man/man3/zsycon.3			\
-	man/man3/zsycon.f.3			\
-	man/man3/zsycon_rook.3		\
-	man/man3/zsycon_rook.f.3		\
-	man/man3/zsyconv.3			\
-	man/man3/zsyconv.f.3		\
-	man/man3/zsyequb.3			\
-	man/man3/zsyequb.f.3		\
-	man/man3/zsymm.3			\
-	man/man3/zsymm.f.3			\
-	man/man3/zsymv.3			\
-	man/man3/zsymv.f.3			\
-	man/man3/zsyr2k.3			\
-	man/man3/zsyr2k.f.3			\
-	man/man3/zsyr.3			\
-	man/man3/zsyr.f.3			\
-	man/man3/zsyrfs.3			\
-	man/man3/zsyrfs.f.3			\
-	man/man3/zsyrfsx.3			\
-	man/man3/zsyrfsx.f.3		\
-	man/man3/zsyrk.3			\
-	man/man3/zsyrk.f.3			\
-	man/man3/zsysv.3			\
-	man/man3/zsysv.f.3			\
-	man/man3/zsysv_rook.3		\
-	man/man3/zsysv_rook.f.3		\
-	man/man3/zsysvx.3			\
-	man/man3/zsysvx.f.3			\
-	man/man3/zsysvxx.3			\
-	man/man3/zsysvxx.f.3		\
-	man/man3/zsyswapr.3			\
-	man/man3/zsyswapr.f.3		\
-	man/man3/zsytf2.3			\
-	man/man3/zsytf2.f.3			\
-	man/man3/zsytf2_rook.3		\
-	man/man3/zsytf2_rook.f.3		\
-	man/man3/zsytrf.3			\
-	man/man3/zsytrf.f.3			\
-	man/man3/zsytrf_rook.3		\
-	man/man3/zsytrf_rook.f.3		\
-	man/man3/zsytri2.3			\
-	man/man3/zsytri2.f.3		\
-	man/man3/zsytri2x.3			\
-	man/man3/zsytri2x.f.3		\
-	man/man3/zsytri.3			\
-	man/man3/zsytri.f.3			\
-	man/man3/zsytri_rook.3		\
-	man/man3/zsytri_rook.f.3		\
-	man/man3/zsytrs2.3			\
-	man/man3/zsytrs2.f.3		\
-	man/man3/zsytrs.3			\
-	man/man3/zsytrs.f.3			\
-	man/man3/zsytrs_rook.3		\
-	man/man3/zsytrs_rook.f.3		\
-	man/man3/ztbcon.3			\
-	man/man3/ztbcon.f.3			\
-	man/man3/ztbmv.3			\
-	man/man3/ztbmv.f.3			\
-	man/man3/ztbrfs.3			\
-	man/man3/ztbrfs.f.3			\
-	man/man3/ztbsv.3			\
-	man/man3/ztbsv.f.3			\
-	man/man3/ztbtrs.3			\
-	man/man3/ztbtrs.f.3			\
-	man/man3/ztfsm.3			\
-	man/man3/ztfsm.f.3			\
-	man/man3/ztftri.3			\
-	man/man3/ztftri.f.3			\
-	man/man3/ztfttp.3			\
-	man/man3/ztfttp.f.3			\
-	man/man3/ztfttr.3			\
-	man/man3/ztfttr.f.3			\
-	man/man3/ztgevc.3			\
-	man/man3/ztgevc.f.3			\
-	man/man3/ztgex2.3			\
-	man/man3/ztgex2.f.3			\
-	man/man3/ztgexc.3			\
-	man/man3/ztgexc.f.3			\
-	man/man3/ztgsen.3			\
-	man/man3/ztgsen.f.3			\
-	man/man3/ztgsja.3			\
-	man/man3/ztgsja.f.3			\
-	man/man3/ztgsna.3			\
-	man/man3/ztgsna.f.3			\
-	man/man3/ztgsy2.3			\
-	man/man3/ztgsy2.f.3			\
-	man/man3/ztgsyl.3			\
-	man/man3/ztgsyl.f.3			\
-	man/man3/ztpcon.3			\
-	man/man3/ztpcon.f.3			\
-	man/man3/ztpmqrt.3			\
-	man/man3/ztpmqrt.f.3		\
-	man/man3/ztpmv.3			\
-	man/man3/ztpmv.f.3			\
-	man/man3/ztpqrt2.3			\
-	man/man3/ztpqrt2.f.3		\
-	man/man3/ztpqrt.3			\
-	man/man3/ztpqrt.f.3			\
-	man/man3/ztprfb.3			\
-	man/man3/ztprfb.f.3			\
-	man/man3/ztprfs.3			\
-	man/man3/ztprfs.f.3			\
-	man/man3/ztpsv.3			\
-	man/man3/ztpsv.f.3			\
-	man/man3/ztptri.3			\
-	man/man3/ztptri.f.3			\
-	man/man3/ztptrs.3			\
-	man/man3/ztptrs.f.3			\
-	man/man3/ztpttf.3			\
-	man/man3/ztpttf.f.3			\
-	man/man3/ztpttr.3			\
-	man/man3/ztpttr.f.3			\
-	man/man3/ztrcon.3			\
-	man/man3/ztrcon.f.3			\
-	man/man3/ztrevc.3			\
-	man/man3/ztrevc.f.3			\
-	man/man3/ztrexc.3			\
-	man/man3/ztrexc.f.3			\
-	man/man3/ztrmm.3			\
-	man/man3/ztrmm.f.3			\
-	man/man3/ztrmv.3			\
-	man/man3/ztrmv.f.3			\
-	man/man3/ztrrfs.3			\
-	man/man3/ztrrfs.f.3			\
-	man/man3/ztrsen.3			\
-	man/man3/ztrsen.f.3			\
-	man/man3/ztrsm.3			\
-	man/man3/ztrsm.f.3			\
-	man/man3/ztrsna.3			\
-	man/man3/ztrsna.f.3			\
-	man/man3/ztrsv.3			\
-	man/man3/ztrsv.f.3			\
-	man/man3/ztrsyl.3			\
-	man/man3/ztrsyl.f.3			\
-	man/man3/ztrti2.3			\
-	man/man3/ztrti2.f.3			\
-	man/man3/ztrtri.3			\
-	man/man3/ztrtri.f.3			\
-	man/man3/ztrtrs.3			\
-	man/man3/ztrtrs.f.3			\
-	man/man3/ztrttf.3			\
-	man/man3/ztrttf.f.3			\
-	man/man3/ztrttp.3			\
-	man/man3/ztrttp.f.3			\
-	man/man3/ztzrqf.3			\
-	man/man3/ztzrqf.f.3			\
-	man/man3/ztzrzf.3			\
-	man/man3/ztzrzf.f.3			\
-	man/man3/zunbdb1.3			\
-	man/man3/zunbdb1.f.3		\
-	man/man3/zunbdb2.3			\
-	man/man3/zunbdb2.f.3		\
-	man/man3/zunbdb.3			\
-	man/man3/zunbdb3.3			\
-	man/man3/zunbdb3.f.3		\
-	man/man3/zunbdb4.3			\
-	man/man3/zunbdb4.f.3		\
-	man/man3/zunbdb5.3			\
-	man/man3/zunbdb5.f.3		\
-	man/man3/zunbdb6.3			\
-	man/man3/zunbdb6.f.3		\
-	man/man3/zunbdb.f.3			\
-	man/man3/zuncsd2by1.3		\
-	man/man3/zuncsd2by1.f.3		\
-	man/man3/zuncsd.3			\
-	man/man3/zuncsd.f.3			\
-	man/man3/zung2l.3			\
-	man/man3/zung2l.f.3			\
-	man/man3/zung2r.3			\
-	man/man3/zung2r.f.3			\
-	man/man3/zungbr.3			\
-	man/man3/zungbr.f.3			\
-	man/man3/zunghr.3			\
-	man/man3/zunghr.f.3			\
-	man/man3/zungl2.3			\
-	man/man3/zungl2.f.3			\
-	man/man3/zunglq.3			\
-	man/man3/zunglq.f.3			\
-	man/man3/zungql.3			\
-	man/man3/zungql.f.3			\
-	man/man3/zungqr.3			\
-	man/man3/zungqr.f.3			\
-	man/man3/zungr2.3			\
-	man/man3/zungr2.f.3			\
-	man/man3/zungrq.3			\
-	man/man3/zungrq.f.3			\
-	man/man3/zungtr.3			\
-	man/man3/zungtr.f.3			\
-	man/man3/zunm2l.3			\
-	man/man3/zunm2l.f.3			\
-	man/man3/zunm2r.3			\
-	man/man3/zunm2r.f.3			\
-	man/man3/zunmbr.3			\
-	man/man3/zunmbr.f.3			\
-	man/man3/zunmhr.3			\
-	man/man3/zunmhr.f.3			\
-	man/man3/zunml2.3			\
-	man/man3/zunml2.f.3			\
-	man/man3/zunmlq.3			\
-	man/man3/zunmlq.f.3			\
-	man/man3/zunmql.3			\
-	man/man3/zunmql.f.3			\
-	man/man3/zunmqr.3			\
-	man/man3/zunmqr.f.3			\
-	man/man3/zunmr2.3			\
-	man/man3/zunmr2.f.3			\
-	man/man3/zunmr3.3			\
-	man/man3/zunmr3.f.3			\
-	man/man3/zunmrq.3			\
-	man/man3/zunmrq.f.3			\
-	man/man3/zunmrz.3			\
-	man/man3/zunmrz.f.3			\
-	man/man3/zunmtr.3			\
-	man/man3/zunmtr.f.3			\
-	man/man3/zupgtr.3			\
-	man/man3/zupgtr.f.3			\
-	man/man3/zupmtr.3			\
-	man/man3/zupmtr.f.3
+dist_man_MANS =	\
+	man/man3/cggsvd.f.3	man/man3/csteqr.f.3	man/man3/dorglq.f.3	\
+	man/man3/zlahrd.f.3	man/man3/ztrttf.3	man/man3/ssytrs_rook.3	\
+	man/man3/zsytf2_rook.3	man/man3/stfttp.f.3	man/man3/slamrg.f.3	\
+	man/man3/zhbmv.3	man/man3/dorgtr.f.3	man/man3/dggbal.f.3	\
+	man/man3/ctpcon.f.3	man/man3/sormr3.f.3	man/man3/dlas2.3	\
+	man/man3/slarrk.f.3	man/man3/zhetrf.3	man/man3/chpgv.3	\
+	man/man3/clauum.3	man/man3/zspr.3	man/man3/zlantp.f.3	\
+	man/man3/zla_porcond_x.f.3	man/man3/dtrrfs.3	man/man3/sspgvx.f.3	\
+	man/man3/cggev.f.3	man/man3/zhemv.3	man/man3/zherfs.3	\
+	man/man3/cptts2.3	man/man3/chbgst.3	man/man3/dlaed9.f.3	\
+	man/man3/scabs1.f.3	man/man3/zhegs2.3	man/man3/sstevd.f.3	\
+	man/man3/cgels.f.3	man/man3/dtrti2.3	man/man3/dtrti2.f.3	\
+	man/man3/caxpy.3	man/man3/zhpmv.3	man/man3/sspsvx.f.3	\
+	man/man3/ssysvx.f.3	man/man3/dpocon.3	man/man3/zlatzm.f.3	\
+	man/man3/cgesc2.3	man/man3/sppsvx.3	man/man3/cpbtrf.f.3	\
+	man/man3/slarrc.3	man/man3/dgbsvx.f.3	man/man3/slalsa.3	\
+	man/man3/dormtr.f.3	man/man3/zbbcsd.3	man/man3/sorgrq.3	\
+	man/man3/sgeqrt3.3	man/man3/stpsv.3	man/man3/ztptri.f.3	\
+	man/man3/dormrz.f.3	man/man3/dormr2.f.3	man/man3/dlaed7.f.3	\
+	man/man3/cheev.f.3	man/man3/claqsy.f.3	man/man3/cgbmv.3	\
+	man/man3/clasr.f.3	man/man3/dlarrk.3	man/man3/dgees.f.3	\
+	man/man3/cpbsv.f.3	man/man3/scabs1.3	man/man3/zgegs.f.3	\
+	man/man3/slaein.f.3	man/man3/zla_herfsx_extended.3	man/man3/dlaein.3	\
+	man/man3/dspsv.f.3	man/man3/zheev.f.3	man/man3/sstegr.f.3	\
+	man/man3/zhegst.3	man/man3/ssbgvx.3	man/man3/ssyswapr.3	\
+	man/man3/dtzrqf.f.3	man/man3/cla_gbrcond_x.f.3	man/man3/dtptrs.3	\
+	man/man3/dorbdb3.f.3	man/man3/ssyrfs.f.3	man/man3/sorbdb1.3	\
+	man/man3/sgbrfsx.f.3	man/man3/dlasq1.3	man/man3/sbbcsd.f.3	\
+	man/man3/zhbev.3	man/man3/dlansy.f.3	man/man3/slanst.3	\
+	man/man3/dlamc1.3	man/man3/zgeqpf.3	man/man3/zlarnv.f.3	\
+	man/man3/sormbr.3	man/man3/slagts.3	man/man3/slantp.3	\
+	man/man3/ssyrfsx.f.3	man/man3/ctpqrt.3	man/man3/zunghr.f.3	\
+	man/man3/ztfttp.f.3	man/man3/ctfttp.3	man/man3/dlaqtr.3	\
+	man/man3/zla_hercond_c.f.3	man/man3/slae2.3	man/man3/dgbsvxx.3	\
+	man/man3/cgbcon.3	man/man3/ztgsja.f.3	man/man3/sorgl2.3	\
+	man/man3/csysv.3	man/man3/zlanht.f.3	man/man3/dlarra.3	\
+	man/man3/sgelqf.3	man/man3/dsgesv.3	man/man3/iladlr.3	\
+	man/man3/zgbequ.3	man/man3/zhfrk.3	man/man3/zlahef.3	\
+	man/man3/dnrm2.3	man/man3/sspevx.3	man/man3/dlasdq.f.3	\
+	man/man3/csytri.3	man/man3/cspr.3	man/man3/zhbgst.f.3	\
+	man/man3/saxpy.3	man/man3/cgels.3	man/man3/slag2d.f.3	\
+	man/man3/spocon.3	man/man3/zstemr.3	man/man3/ctftri.3	\
+	man/man3/ssptrs.f.3	man/man3/zsptrf.3	man/man3/slasv2.f.3	\
+	man/man3/cunbdb1.3	man/man3/sormrz.3	man/man3/dlasd4.3	\
+	man/man3/csptri.f.3	man/man3/dsecnd.3	man/man3/idamax.3	\
+	man/man3/zungr2.f.3	man/man3/sggsvp.f.3	man/man3/zsycon.f.3	\
+	man/man3/dspgvd.3	man/man3/clantr.f.3	man/man3/stzrqf.f.3	\
+	man/man3/sgebak.3	man/man3/zgerq2.f.3	man/man3/zpbsvx.3	\
+	man/man3/dgelqf.3	man/man3/zgesvd.f.3	man/man3/chegvx.f.3	\
+	man/man3/zung2r.f.3	man/man3/csytri2x.f.3	man/man3/zlarfg.3	\
+	man/man3/shsein.f.3	man/man3/clargv.f.3	man/man3/zunmhr.f.3	\
+	man/man3/strti2.3	man/man3/dorgrq.f.3	man/man3/checon.f.3	\
+	man/man3/claqhe.3	man/man3/slaed2.3	man/man3/ztrtrs.3	\
+	man/man3/dlanhs.f.3	man/man3/slatbs.f.3	man/man3/zhetri_rook.f.3	\
+	man/man3/slartv.f.3	man/man3/cscal.3	man/man3/dlamchf77.f.3	\
+	man/man3/zla_gbrcond_c.3	man/man3/zla_syrcond_c.3	man/man3/cgerfsx.3	\
+	man/man3/sormql.f.3	man/man3/zppsvx.f.3	man/man3/sggglm.f.3	\
+	man/man3/clacgv.f.3	man/man3/dtprfb.f.3	man/man3/sorbdb.f.3	\
+	man/man3/cla_syrpvgrw.3	man/man3/dlarrb.3	man/man3/cla_gbrpvgrw.f.3	\
+	man/man3/cpbtrs.f.3	man/man3/dlacon.3	man/man3/dstedc.f.3	\
+	man/man3/zgerqf.f.3	man/man3/dlasq3.f.3	man/man3/claesy.f.3	\
+	man/man3/slatbs.3	man/man3/cgttrs.f.3	man/man3/dsygvx.3	\
+	man/man3/sgetf2.3	man/man3/csyequb.f.3	man/man3/dlaed4.f.3	\
+	man/man3/sgesc2.3	man/man3/zlacrm.f.3	man/man3/chegv.f.3	\
+	man/man3/dgelsy.3	man/man3/dlarzt.3	man/man3/zgbsvx.f.3	\
+	man/man3/zlarft.3	man/man3/dlatdf.f.3	man/man3/cgecon.f.3	\
+	man/man3/clanhs.f.3	man/man3/ilazlc.f.3	man/man3/ctpmv.3	\
+	man/man3/cgesv.f.3	man/man3/sptts2.3	man/man3/cggsvp.3	\
+	man/man3/zporfs.3	man/man3/zhptri.f.3	man/man3/dlaqsp.3	\
+	man/man3/chetrd.f.3	man/man3/dorgr2.f.3	man/man3/csscal.3	\
+	man/man3/cporfsx.3	man/man3/sgbequb.3	man/man3/ctrttp.f.3	\
+	man/man3/zgbtrs.3	man/man3/dlasd7.f.3	man/man3/zhbevx.3	\
+	man/man3/dgeequb.f.3	man/man3/sgeql2.3	man/man3/dpstrf.f.3	\
+	man/man3/zgebak.3	man/man3/zlarzt.f.3	man/man3/dla_geamv.f.3	\
+	man/man3/dlantr.3	man/man3/spprfs.3	man/man3/ssyev.f.3	\
+	man/man3/spbrfs.3	man/man3/dgbequb.3	man/man3/checon_rook.3	\
+	man/man3/clacp2.3	man/man3/stprfs.3	man/man3/cgtsv.3	\
+	man/man3/dpftrs.f.3	man/man3/cladiv.3	man/man3/zgeevx.f.3	\
+	man/man3/ctgsy2.f.3	man/man3/zpoequ.3	man/man3/zpptrf.3	\
+	man/man3/dsyevx.3	man/man3/dgelss.3	man/man3/zher.f.3	\
+	man/man3/dgttrf.f.3	man/man3/ctrsna.f.3	man/man3/scasum.3	\
+	man/man3/sgeqrf.f.3	man/man3/dgbsvxx.f.3	man/man3/zgegs.3	\
+	man/man3/dgemqrt.3	man/man3/dpotri.f.3	man/man3/sgelsy.3	\
+	man/man3/chegst.3	man/man3/dsyequb.3	man/man3/dlarfb.3	\
+	man/man3/cggbak.f.3	man/man3/cla_syrcond_x.3	man/man3/dggqrf.3	\
+	man/man3/dgelq2.3	man/man3/cppcon.3	man/man3/zsytri2x.3	\
+	man/man3/cla_gbrfsx_extended.f.3	man/man3/slarfx.f.3	man/man3/csptri.3	\
+	man/man3/dlaqr5.3	man/man3/dgsvj0.3	man/man3/zhpsv.f.3	\
+	man/man3/dcopy.f.3	man/man3/zhpgvd.3	man/man3/zstedc.3	\
+	man/man3/spptrs.3	man/man3/zposvx.f.3	man/man3/dgelq2.f.3	\
+	man/man3/slasq5.f.3	man/man3/ctbtrs.3	man/man3/slaed3.f.3	\
+	man/man3/zlarzb.3	man/man3/dlanv2.f.3	man/man3/ctrti2.f.3	\
+	man/man3/ssymm.3	man/man3/zhsein.3	man/man3/dorbdb2.3	\
+	man/man3/ssbgst.f.3	man/man3/zhseqr.3	man/man3/ztprfb.f.3	\
+	man/man3/dlarscl2.3	man/man3/dtgsy2.3	man/man3/zhetf2.f.3	\
+	man/man3/sdsdot.3	man/man3/dorbdb5.3	man/man3/ctrtrs.f.3	\
+	man/man3/ctbcon.f.3	man/man3/zunbdb2.f.3	man/man3/spoequb.f.3	\
+	man/man3/spbtf2.3	man/man3/stftri.f.3	man/man3/slarscl2.3	\
+	man/man3/dgbcon.f.3	man/man3/zgeqp3.3	man/man3/slamc5.3	\
+	man/man3/dlatbs.3	man/man3/cspsv.f.3	man/man3/zgbsv.f.3	\
+	man/man3/slansp.f.3	man/man3/stfsm.f.3	man/man3/sorm2r.3	\
+	man/man3/dtpttr.3	man/man3/cgemv.f.3	man/man3/saxpy.f.3	\
+	man/man3/slaqr1.f.3	man/man3/zhetrf_rook.f.3	man/man3/zgelqf.3	\
+	man/man3/zlarz.3	man/man3/cpstrf.f.3	man/man3/dpbsvx.f.3	\
+	man/man3/dppcon.f.3	man/man3/ztptrs.3	man/man3/srscl.f.3	\
+	man/man3/ssytf2_rook.3	man/man3/chesv.3	man/man3/ztftri.3	\
+	man/man3/dlasq2.3	man/man3/dgbsv.f.3	man/man3/dsytf2_rook.3	\
+	man/man3/dgerfsx.3	man/man3/cherfs.3	man/man3/slaev2.3	\
+	man/man3/dgetrs.3	man/man3/cpbsv.3	man/man3/sgeqr2p.f.3	\
+	man/man3/cgemqrt.f.3	man/man3/slansy.3	man/man3/dggbak.3	\
+	man/man3/sgebrd.3	man/man3/cpoequ.f.3	man/man3/sgttrs.f.3	\
+	man/man3/zlaed0.f.3	man/man3/drot.3	man/man3/zspcon.f.3	\
+	man/man3/dposv.3	man/man3/cposv.f.3	man/man3/ztgsyl.3	\
+	man/man3/slaqr5.3	man/man3/cptts2.f.3	man/man3/dlatrz.3	\
+	man/man3/dpftri.f.3	man/man3/cpbtrf.3	man/man3/sormrz.f.3	\
+	man/man3/ztprfs.f.3	man/man3/zlatzm.3	man/man3/claqge.3	\
+	man/man3/zlaqp2.f.3	man/man3/clarzt.3	man/man3/zsytrs_rook.3	\
+	man/man3/slamch.3	man/man3/zungqr.3	man/man3/sscal.f.3	\
+	man/man3/cggrqf.f.3	man/man3/zpoequb.f.3	man/man3/dlassq.f.3	\
+	man/man3/slarfb.3	man/man3/spbequ.3	man/man3/strmm.f.3	\
+	man/man3/zsytrf.3	man/man3/claqr0.f.3	man/man3/cgbequ.f.3	\
+	man/man3/scasum.f.3	man/man3/ssptri.f.3	man/man3/dlagtm.3	\
+	man/man3/dtgsja.3	man/man3/sspcon.f.3	man/man3/zgebd2.f.3	\
+	man/man3/cpptrf.f.3	man/man3/cgtsv.f.3	man/man3/cgbcon.f.3	\
+	man/man3/ssytf2.f.3	man/man3/ssyrk.3	man/man3/csytri.f.3	\
+	man/man3/dgehd2.f.3	man/man3/sgelss.3	man/man3/ssytri2x.3	\
+	man/man3/zlaed8.3	man/man3/cgtcon.3	man/man3/zhbmv.f.3	\
+	man/man3/cunbdb4.3	man/man3/zgebd2.3	man/man3/dla_syrpvgrw.3	\
+	man/man3/cgelss.f.3	man/man3/zbdsqr.3	man/man3/clangb.3	\
+	man/man3/cggevx.3	man/man3/cgelsx.3	man/man3/csytrs2.f.3	\
+	man/man3/chpsv.f.3	man/man3/sggbal.3	man/man3/dggsvp.f.3	\
+	man/man3/clahrd.f.3	man/man3/slanv2.3	man/man3/cposvx.3	\
+	man/man3/spstrf.f.3	man/man3/ztrsv.f.3	man/man3/dlangt.f.3	\
+	man/man3/dorm2l.3	man/man3/zla_syrfsx_extended.3	man/man3/zpoequ.f.3	\
+	man/man3/csyrfs.f.3	man/man3/cgglse.3	man/man3/zgemqrt.f.3	\
+	man/man3/cunmbr.f.3	man/man3/cunmr2.3	man/man3/dstegr.3	\
+	man/man3/spbtrs.3	man/man3/dgeqr2.3	man/man3/slantb.f.3	\
+	man/man3/sgeesx.3	man/man3/dsbmv.3	man/man3/sgerqf.3	\
+	man/man3/zupmtr.3	man/man3/sorgr2.f.3	man/man3/dgbbrd.f.3	\
+	man/man3/slapy3.f.3	man/man3/cunml2.f.3	man/man3/sbdsdc.3	\
+	man/man3/dasum.3	man/man3/cpbstf.f.3	man/man3/dgesdd.3	\
+	man/man3/cpbtf2.3	man/man3/dla_gbrcond.3	man/man3/cung2r.f.3	\
+	man/man3/stpqrt2.3	man/man3/zgbbrd.3	man/man3/sorgrq.f.3	\
+	man/man3/dlatbs.f.3	man/man3/slaed9.f.3	man/man3/ctrmm.f.3	\
+	man/man3/chetri2x.f.3	man/man3/zgemqrt.3	man/man3/dposv.f.3	\
+	man/man3/dgbequ.f.3	man/man3/zlaev2.3	man/man3/spprfs.f.3	\
+	man/man3/dla_lin_berr.3	man/man3/dsytri2x.3	man/man3/dstevx.f.3	\
+	man/man3/slangt.3	man/man3/zrot.3	man/man3/zsytf2_rook.f.3	\
+	man/man3/csrot.f.3	man/man3/cgtcon.f.3	man/man3/zppcon.3	\
+	man/man3/dpbsv.f.3	man/man3/dlags2.3	man/man3/dgtsvx.f.3	\
+	man/man3/sspevd.3	man/man3/chetri_rook.f.3	man/man3/zungl2.3	\
+	man/man3/cgebak.f.3	man/man3/dlagtf.f.3	man/man3/dlaic1.f.3	\
+	man/man3/cgeqr2.f.3	man/man3/chbgvx.3	man/man3/zunmqr.3	\
+	man/man3/cunmrq.f.3	man/man3/ztrsna.f.3	man/man3/sspmv.3	\
+	man/man3/zhesv_rook.3	man/man3/sladiv2.3	man/man3/clacrt.3	\
+	man/man3/zgerfsx.f.3	man/man3/sgtts2.3	man/man3/sorglq.f.3	\
+	man/man3/sgelsx.f.3	man/man3/clasr.3	man/man3/dlaset.f.3	\
+	man/man3/dtprfs.3	man/man3/dhsein.3	man/man3/ctbsv.3	\
+	man/man3/zgtrfs.3	man/man3/chptri.f.3	man/man3/slahrd.f.3	\
+	man/man3/zpftri.3	man/man3/dtrevc.3	man/man3/zgelss.3	\
+	man/man3/zla_syrpvgrw.3	man/man3/cgtrfs.f.3	man/man3/stgsja.f.3	\
+	man/man3/dlatrz.f.3	man/man3/sgetrf.f.3	man/man3/cgeqpf.3	\
+	man/man3/zhpgvx.f.3	man/man3/sgebal.f.3	man/man3/csyr.f.3	\
+	man/man3/sormr2.3	man/man3/slatrz.f.3	man/man3/cgbsvxx.f.3	\
+	man/man3/dtgsna.3	man/man3/dlagts.3	man/man3/sgbsv.f.3	\
+	man/man3/zgelq2.3	man/man3/cuncsd2by1.3	man/man3/dopmtr.3	\
+	man/man3/sopmtr.3	man/man3/spbcon.f.3	man/man3/zlatbs.f.3	\
+	man/man3/dlaed4.3	man/man3/ztpttr.3	man/man3/slaqr0.f.3	\
+	man/man3/dlabrd.f.3	man/man3/csytf2_rook.3	man/man3/cgelq2.f.3	\
+	man/man3/zla_gerfsx_extended.f.3	man/man3/cla_syrfsx_extended.3	man/man3/zhemm.3	\
+	man/man3/dgebd2.3	man/man3/daxpy.3	man/man3/dlatzm.f.3	\
+	man/man3/zhetrs_rook.3	man/man3/dgghrd.f.3	man/man3/zgegv.3	\
+	man/man3/zbbcsd.f.3	man/man3/cspsvx.3	man/man3/zlaqr2.f.3	\
+	man/man3/zgbmv.3	man/man3/zlangb.f.3	man/man3/cpftrf.3	\
+	man/man3/dgetri.f.3	man/man3/claed7.f.3	man/man3/slansb.3	\
+	man/man3/sgttrs.3	man/man3/zposvx.3	man/man3/claqsb.f.3	\
+	man/man3/cptcon.f.3	man/man3/slamrg.3	man/man3/sormhr.f.3	\
+	man/man3/sgbequb.f.3	man/man3/zlasyf_rook.3	man/man3/cgees.3	\
+	man/man3/slae2.f.3	man/man3/sstevr.3	man/man3/zpbtrs.3	\
+	man/man3/zhpevx.f.3	man/man3/ctbsv.f.3	man/man3/zungr2.3	\
+	man/man3/dgebrd.3	man/man3/spotrf.3	man/man3/slahqr.3	\
+	man/man3/dnrm2.f.3	man/man3/zlaqsb.f.3	man/man3/dgels.f.3	\
+	man/man3/cgerfs.f.3	man/man3/clarzb.3	man/man3/dsytrs_rook.3	\
+	man/man3/cgeqr2.3	man/man3/spbstf.3	man/man3/slatrd.3	\
+	man/man3/zlaqr3.f.3	man/man3/dsterf.3	man/man3/slapll.3	\
+	man/man3/ccopy.3	man/man3/dladiv.f.3	man/man3/zlacpy.3	\
+	man/man3/dopgtr.f.3	man/man3/slaln2.f.3	man/man3/dsbev.f.3	\
+	man/man3/slaqge.f.3	man/man3/zher2.f.3	man/man3/slas2.3	\
+	man/man3/dtbcon.3	man/man3/dlantp.f.3	man/man3/ctgsna.3	\
+	man/man3/zgerfs.3	man/man3/sdot.3	man/man3/clarft.3	\
+	man/man3/claed8.3	man/man3/slaset.3	man/man3/dlasdq.3	\
+	man/man3/ssytrs_rook.f.3	man/man3/dla_geamv.3	man/man3/cunbdb6.3	\
+	man/man3/slasd5.f.3	man/man3/zlanhs.f.3	man/man3/dlasq1.f.3	\
+	man/man3/dgeesx.f.3	man/man3/chetrs.f.3	man/man3/cgebal.f.3	\
+	man/man3/SRC_ilaver.f.3	man/man3/ssbevx.f.3	man/man3/cunmqr.3	\
+	man/man3/ctgsja.f.3	man/man3/dsyr.f.3	man/man3/sspmv.f.3	\
+	man/man3/shseqr.3	man/man3/scsum1.f.3	man/man3/ztrevc.3	\
+	man/man3/cgbsvx.f.3	man/man3/clarfgp.f.3	man/man3/dggsvp.3	\
+	man/man3/cgesv.3	man/man3/dlasd0.f.3	man/man3/ssptri.3	\
+	man/man3/dgtts2.f.3	man/man3/sggbal.f.3	man/man3/cspmv.f.3	\
+	man/man3/chpcon.f.3	man/man3/dpotrs.3	man/man3/cgbsv.f.3	\
+	man/man3/zgebal.f.3	man/man3/zgeqrt2.f.3	man/man3/dlartg.3	\
+	man/man3/chetrs.3	man/man3/zpstf2.f.3	man/man3/dbdsdc.f.3	\
+	man/man3/clarrv.f.3	man/man3/sla_syrpvgrw.3	man/man3/dpoequ.f.3	\
+	man/man3/zhptrd.f.3	man/man3/slarnv.f.3	man/man3/sgeqr2.f.3	\
+	man/man3/ssymv.3	man/man3/dorgqr.f.3	man/man3/dggbal.3	\
+	man/man3/sgeqrt2.3	man/man3/slamc4.3	man/man3/sla_gerfsx_extended.3	\
+	man/man3/zunbdb5.3	man/man3/claesy.3	man/man3/cunbdb6.f.3	\
+	man/man3/csytri2.f.3	man/man3/cposvx.f.3	man/man3/zlaqge.f.3	\
+	man/man3/cgerfs.3	man/man3/zlaqp2.3	man/man3/sgeev.f.3	\
+	man/man3/ztrcon.f.3	man/man3/dla_gerfsx_extended.f.3	man/man3/cppsvx.f.3	\
+	man/man3/zggqrf.3	man/man3/zgesv.f.3	man/man3/dtfttr.f.3	\
+	man/man3/zher2.3	man/man3/dormr2.3	man/man3/dlarre.f.3	\
+	man/man3/ssbtrd.3	man/man3/spbtrf.3	man/man3/cpbequ.3	\
+	man/man3/dgbmv.3	man/man3/dlag2.3	man/man3/dposvx.3	\
+	man/man3/csytrs_rook.3	man/man3/slaed1.3	man/man3/dlaqr1.3	\
+	man/man3/zlaqr0.f.3	man/man3/sgemqrt.3	man/man3/dpptrs.3	\
+	man/man3/chptrd.3	man/man3/cheevd.3	man/man3/drotg.3	\
+	man/man3/dlasyf_rook.3	man/man3/ztzrzf.3	man/man3/dpotf2.f.3	\
+	man/man3/slarrr.3	man/man3/dspr2.3	man/man3/ctgsna.f.3	\
+	man/man3/zgeequ.3	man/man3/sppsv.3	man/man3/cggsvp.f.3	\
+	man/man3/cgghrd.3	man/man3/stpqrt.f.3	man/man3/zpprfs.3	\
+	man/man3/csyrfs.3	man/man3/dgbtf2.f.3	man/man3/dlaqr5.f.3	\
+	man/man3/cspr.f.3	man/man3/sgbrfs.f.3	man/man3/ssbgvd.3	\
+	man/man3/dlagtf.3	man/man3/clahr2.3	man/man3/dtbcon.f.3	\
+	man/man3/zlauum.f.3	man/man3/ilatrans.f.3	man/man3/strmv.f.3	\
+	man/man3/dlanhs.3	man/man3/dsyevr.f.3	man/man3/chsein.3	\
+	man/man3/zhptrf.f.3	man/man3/dgeqrt2.3	man/man3/ilaslr.3	\
+	man/man3/ssyr2k.3	man/man3/clacpy.3	man/man3/zlag2c.3	\
+	man/man3/cunghr.f.3	man/man3/ztrmv.f.3	man/man3/dtrsm.f.3	\
+	man/man3/sggesx.f.3	man/man3/sgeqrfp.f.3	man/man3/dgeevx.3	\
+	man/man3/zgesvx.f.3	man/man3/slangb.3	man/man3/cung2l.3	\
+	man/man3/clapmr.3	man/man3/cpteqr.3	man/man3/dsbgvd.3	\
+	man/man3/SRC_xerbla_array.f.3	man/man3/stgex2.f.3	man/man3/cpbsvx.3	\
+	man/man3/cungr2.f.3	man/man3/dgeqrt3.f.3	man/man3/dlarre.3	\
+	man/man3/slatdf.3	man/man3/zhprfs.3	man/man3/clansy.3	\
+	man/man3/slasd3.f.3	man/man3/zhpr2.3	man/man3/zla_herfsx_extended.f.3	\
+	man/man3/dorm2l.f.3	man/man3/izamax.f.3	man/man3/dsytri2.3	\
+	man/man3/sgecon.3	man/man3/zlanhf.f.3	man/man3/zhesvx.3	\
+	man/man3/slansf.f.3	man/man3/cswap.f.3	man/man3/zpbsv.f.3	\
+	man/man3/ctrtrs.3	man/man3/stgsen.f.3	man/man3/claqsb.3	\
+	man/man3/zppsv.3	man/man3/shsein.3	man/man3/zhemv.f.3	\
+	man/man3/sscal.3	man/man3/zcposv.f.3	man/man3/zlacon.3	\
+	man/man3/dsecnd_EXT_ETIME.f.3	man/man3/ssycon_rook.3	man/man3/clarfg.f.3	\
+	man/man3/csrscl.f.3	man/man3/claqsy.3	man/man3/chptrd.f.3	\
+	man/man3/ssytd2.f.3	man/man3/dgttrs.f.3	man/man3/strtrs.f.3	\
+	man/man3/spftrs.3	man/man3/strevc.3	man/man3/dlaqr4.f.3	\
+	man/man3/dlassq.3	man/man3/dorbdb6.f.3	man/man3/zsptrs.3	\
+	man/man3/dlantb.f.3	man/man3/cgelsd.3	man/man3/sgeesx.f.3	\
+	man/man3/dgerqf.f.3	man/man3/ssyr.f.3	man/man3/cgbrfsx.f.3	\
+	man/man3/dzasum.3	man/man3/zla_syamv.f.3	man/man3/clatzm.f.3	\
+	man/man3/zlarf.3	man/man3/clahef_rook.f.3	man/man3/cgehd2.3	\
+	man/man3/dorgrq.3	man/man3/ssycon.f.3	man/man3/srotmg.f.3	\
+	man/man3/ztpcon.f.3	man/man3/zlasyf.3	man/man3/strttp.3	\
+	man/man3/slasd0.f.3	man/man3/dtptri.3	man/man3/slansp.3	\
+	man/man3/sorm2r.f.3	man/man3/cgttrs.3	man/man3/sgetrs.f.3	\
+	man/man3/stgevc.3	man/man3/zgeqp3.f.3	man/man3/dgetc2.f.3	\
+	man/man3/slatrd.f.3	man/man3/LAPACK_version.f.3	man/man3/dlacn2.3	\
+	man/man3/slange.3	man/man3/ssytri2.3	man/man3/zstemr.f.3	\
+	man/man3/clarzb.f.3	man/man3/cunm2l.3	man/man3/dlasd3.f.3	\
+	man/man3/zsyrfs.3	man/man3/strttp.f.3	man/man3/sbbcsd.3	\
+	man/man3/sggbak.f.3	man/man3/csysv_rook.f.3	man/man3/clahrd.3	\
+	man/man3/slaqsp.3	man/man3/dtfsm.f.3	man/man3/slaqp2.f.3	\
+	man/man3/dsfrk.f.3	man/man3/cscal.f.3	man/man3/zlangb.3	\
+	man/man3/zgebrd.f.3	man/man3/dlaswp.f.3	man/man3/ztpcon.3	\
+	man/man3/zlauu2.f.3	man/man3/dlarrd.f.3	man/man3/cunml2.3	\
+	man/man3/dlarra.f.3	man/man3/cdotc.3	man/man3/slasq2.f.3	\
+	man/man3/zgglse.3	man/man3/dlamch.3	man/man3/sbdsqr.3	\
+	man/man3/sladiv.3	man/man3/ssbevx.3	man/man3/cgeequ.3	\
+	man/man3/cla_syrfsx_extended.f.3	man/man3/cgegs.f.3	man/man3/dlae2.3	\
+	man/man3/dgecon.f.3	man/man3/dlasyf.f.3	man/man3/dgetrf.f.3	\
+	man/man3/ssptrd.3	man/man3/dsytri2.f.3	man/man3/zgerqf.3	\
+	man/man3/cgbtrf.3	man/man3/csysvxx.f.3	man/man3/slaqsb.3	\
+	man/man3/dtpqrt.3	man/man3/zhpgvd.f.3	man/man3/sspr.3	\
+	man/man3/zgesc2.f.3	man/man3/dpbsv.3	man/man3/stfttr.3	\
+	man/man3/cposvxx.3	man/man3/cgeqlf.3	man/man3/__lapack_version.f__.3	\
+	man/man3/dgemm.f.3	man/man3/clacon.f.3	man/man3/ztpmv.3	\
+	man/man3/dlapy3.f.3	man/man3/ssygvx.f.3	man/man3/sggev.f.3	\
+	man/man3/zheev.3	man/man3/dpbcon.3	man/man3/spptri.3	\
+	man/man3/strmm.3	man/man3/cla_porcond_x.f.3	man/man3/zlangt.f.3	\
+	man/man3/csyswapr.f.3	man/man3/dlasrt.3	man/man3/dgesvxx.3	\
+	man/man3/tstiee.f.3	man/man3/dsyevd.3	man/man3/dlasrt.f.3	\
+	man/man3/__dsecndtst.f__.3	man/man3/slacon.f.3	man/man3/ctbrfs.f.3	\
+	man/man3/clatbs.3	man/man3/crot.f.3	man/man3/zlanht.3	\
+	man/man3/sgels.f.3	man/man3/cgesvx.f.3	man/man3/drscl.f.3	\
+	man/man3/zpbstf.3	man/man3/clartv.3	man/man3/zla_syrfsx_extended.f.3	\
+	man/man3/cgeqr2p.3	man/man3/zgees.f.3	man/man3/cgeqp3.3	\
+	man/man3/sstegr.3	man/man3/ssytri_rook.3	man/man3/sgeqlf.f.3	\
+	man/man3/zheevr.3	man/man3/dsptrd.f.3	man/man3/zunbdb1.f.3	\
+	man/man3/stpqrt.3	man/man3/zhegv.3	man/man3/cpbsvx.f.3	\
+	man/man3/zlatrs.f.3	man/man3/dsytf2_rook.f.3	man/man3/idamax.f.3	\
+	man/man3/spttrs.3	man/man3/dla_gbamv.3	man/man3/dgesvd.3	\
+	man/man3/dlag2s.f.3	man/man3/csytri2x.3	man/man3/zgtsv.3	\
+	man/man3/zggsvd.3	man/man3/cgeqrt2.f.3	man/man3/zlagtm.f.3	\
+	man/man3/clalsa.3	man/man3/clauum.f.3	man/man3/sgeevx.3	\
+	man/man3/dlargv.f.3	man/man3/clarfx.3	man/man3/zpstf2.3	\
+	man/man3/dlasy2.3	man/man3/zgeqr2.3	man/man3/dsbevd.f.3	\
+	man/man3/zsytf2.f.3	man/man3/sggrqf.3	man/man3/dla_porcond.f.3	\
+	man/man3/dpstf2.3	man/man3/shseqr.f.3	man/man3/chetrs2.3	\
+	man/man3/spotri.f.3	man/man3/cla_hercond_c.3	man/man3/dtrsm.3	\
+	man/man3/dger.3	man/man3/sgeevx.f.3	man/man3/zuncsd2by1.f.3	\
+	man/man3/spftrf.3	man/man3/ssytrs.f.3	man/man3/zswap.3	\
+	man/man3/clasyf.f.3	man/man3/sgelsx.3	man/man3/zpbtf2.3	\
+	man/man3/zhegvx.3	man/man3/zsyrfsx.f.3	man/man3/cupgtr.3	\
+	man/man3/ctzrqf.f.3	man/man3/slaisnan.3	man/man3/slaneg.3	\
+	man/man3/dlagtm.f.3	man/man3/stprfs.f.3	man/man3/dorgbr.f.3	\
+	man/man3/cgeqrt.f.3	man/man3/chseqr.f.3	man/man3/drscl.3	\
+	man/man3/dsygst.f.3	man/man3/zhbtrd.f.3	man/man3/zungrq.f.3	\
+	man/man3/strmv.3	man/man3/zppequ.3	man/man3/cgesvxx.3	\
+	man/man3/ctrmv.3	man/man3/dggesx.3	man/man3/zlacrm.3	\
+	man/man3/slarft.f.3	man/man3/ssbevd.3	man/man3/cladiv.f.3	\
+	man/man3/dsyconv.3	man/man3/ilaclc.3	man/man3/chesv_rook.f.3	\
+	man/man3/zhesv_rook.f.3	man/man3/slabad.3	man/man3/ssyr2.f.3	\
+	man/man3/cpttrf.3	man/man3/dla_syamv.3	man/man3/shgeqz.f.3	\
+	man/man3/slassq.3	man/man3/dpteqr.f.3	man/man3/sspgvd.f.3	\
+	man/man3/iladlr.f.3	man/man3/zsyrk.f.3	man/man3/sgtrfs.3	\
+	man/man3/ctrsen.3	man/man3/zstein.3	man/man3/dsyr2.3	\
+	man/man3/sgesdd.3	man/man3/dlabrd.3	man/man3/zla_gbrcond_c.f.3	\
+	man/man3/dptsvx.f.3	man/man3/slacn2.f.3	man/man3/zgtts2.f.3	\
+	man/man3/sgtsv.f.3	man/man3/slargv.3	man/man3/spstf2.3	\
+	man/man3/slamc3.3	man/man3/cgesdd.3	man/man3/zla_gercond_c.f.3	\
+	man/man3/zpbtrf.f.3	man/man3/zunbdb.3	man/man3/chbevx.3	\
+	man/man3/zla_gercond_c.3	man/man3/cgetri.3	man/man3/dbbcsd.f.3	\
+	man/man3/disnan.3	man/man3/cunbdb.3	man/man3/clapmr.f.3	\
+	man/man3/sorgtr.3	man/man3/zhpr.f.3	man/man3/cla_porcond_c.3	\
+	man/man3/zupgtr.3	man/man3/strtrs.3	man/man3/zggbal.f.3	\
+	man/man3/sla_syrpvgrw.f.3	man/man3/dlansb.3	man/man3/slasdq.f.3	\
+	man/man3/zunm2r.f.3	man/man3/zgelsd.f.3	man/man3/slasyf.f.3	\
+	man/man3/ssytrf_rook.3	man/man3/clansp.3	man/man3/dggrqf.f.3	\
+	man/man3/clansp.f.3	man/man3/slacn2.3	man/man3/zsyrk.3	\
+	man/man3/slarzb.3	man/man3/dlals0.f.3	man/man3/slasq4.3	\
+	man/man3/slatrz.3	man/man3/zhpsv.3	man/man3/sporfsx.f.3	\
+	man/man3/slapll.f.3	man/man3/cgbtrs.f.3	man/man3/sptsvx.f.3	\
+	man/man3/cunmql.3	man/man3/dlaqgb.3	man/man3/dtpcon.f.3	\
+	man/man3/cungbr.3	man/man3/ssymv.f.3	man/man3/slasd8.f.3	\
+	man/man3/ssytrf_rook.f.3	man/man3/clag2z.3	man/man3/slasd4.f.3	\
+	man/man3/dtpmv.3	man/man3/cgeru.f.3	man/man3/dpstrf.3	\
+	man/man3/zlauum.3	man/man3/ilazlc.3	man/man3/dsytri.3	\
+	man/man3/zla_wwaddw.3	man/man3/zlarzt.3	man/man3/spbrfs.f.3	\
+	man/man3/sspevd.f.3	man/man3/zpotri.3	man/man3/zgtsv.f.3	\
+	man/man3/clanhs.3	man/man3/claev2.3	man/man3/ilaprec.3	\
+	man/man3/dtpqrt2.3	man/man3/cheswapr.3	man/man3/strsm.3	\
+	man/man3/zgghrd.3	man/man3/sppcon.f.3	man/man3/stgevc.f.3	\
+	man/man3/zlaqhp.f.3	man/man3/zunml2.f.3	man/man3/zptcon.3	\
+	man/man3/dtbrfs.f.3	man/man3/sgghrd.f.3	man/man3/csytf2.3	\
+	man/man3/zgels.f.3	man/man3/zheevd.3	man/man3/clacrt.f.3	\
+	man/man3/zsprfs.3	man/man3/clatrd.3	man/man3/ctrsv.f.3	\
+	man/man3/cgebak.3	man/man3/clarfb.3	man/man3/ssbgvd.f.3	\
+	man/man3/zla_gbamv.f.3	man/man3/cgbtrf.f.3	man/man3/zhpsvx.3	\
+	man/man3/dorgr2.3	man/man3/icamax.3	man/man3/ssbgvx.f.3	\
+	man/man3/cspcon.f.3	man/man3/claic1.f.3	man/man3/zspmv.f.3	\
+	man/man3/drotmg.3	man/man3/stpqrt2.f.3	man/man3/strcon.3	\
+	man/man3/spbequ.f.3	man/man3/sstevr.f.3	man/man3/slabrd.f.3	\
+	man/man3/zgbcon.3	man/man3/ssysv.f.3	man/man3/sggsvp.3	\
+	man/man3/zdotc.f.3	man/man3/sposvxx.3	man/man3/chetd2.3	\
+	man/man3/dlaqp2.f.3	man/man3/dorbdb5.f.3	man/man3/dladiv.3	\
+	man/man3/cpstrf.3	man/man3/cgtts2.f.3	man/man3/zlaqps.3	\
+	man/man3/zgtts2.3	man/man3/clahef_rook.3	man/man3/chpsvx.f.3	\
+	man/man3/dsyrk.3	man/man3/sorcsd2by1.f.3	man/man3/dlags2.f.3	\
+	man/man3/dpbstf.f.3	man/man3/clascl2.f.3	man/man3/zdrscl.f.3	\
+	man/man3/zgeevx.3	man/man3/cgesvxx.f.3	man/man3/dlaqr0.3	\
+	man/man3/cswap.3	man/man3/zpotri.f.3	man/man3/cla_syrcond_c.3	\
+	man/man3/claev2.f.3	man/man3/lsametst.f.3	man/man3/cspsv.3	\
+	man/man3/iladiag.3	man/man3/dger.f.3	man/man3/zpptri.3	\
+	man/man3/sgegv.3	man/man3/sptcon.3	man/man3/cppcon.f.3	\
+	man/man3/zgbtrf.3	man/man3/ddot.f.3	man/man3/dsytrs.3	\
+	man/man3/zhetf2_rook.f.3	man/man3/zhesv.f.3	man/man3/slarrc.f.3	\
+	man/man3/zgehrd.3	man/man3/slaed5.3	man/man3/cungqr.3	\
+	man/man3/dpptri.f.3	man/man3/dpbtrs.3	man/man3/ilazlr.f.3	\
+	man/man3/ctpmv.f.3	man/man3/dspevx.f.3	man/man3/dlasd0.3	\
+	man/man3/chbmv.3	man/man3/zpftrf.3	man/man3/ztbrfs.f.3	\
+	man/man3/claqps.f.3	man/man3/dla_syrpvgrw.f.3	man/man3/dladiv1.3	\
+	man/man3/zgeqr2p.3	man/man3/dtpttf.f.3	man/man3/dlaqr3.3	\
+	man/man3/zhesv.3	man/man3/clatbs.f.3	man/man3/ssyevr.f.3	\
+	man/man3/stbrfs.f.3	man/man3/sgesvx.f.3	man/man3/cgerq2.f.3	\
+	man/man3/ctpmqrt.f.3	man/man3/dlaswp.3	man/man3/zlarfx.f.3	\
+	man/man3/ssbtrd.f.3	man/man3/dlarfgp.f.3	man/man3/dtrsen.f.3	\
+	man/man3/dsytrs2.f.3	man/man3/sgbsvx.3	man/man3/zla_gbrcond_x.f.3	\
+	man/man3/ctptri.3	man/man3/cbdsqr.3	man/man3/dgehd2.3	\
+	man/man3/cstemr.f.3	man/man3/stprfb.f.3	man/man3/sgeqrf.3	\
+	man/man3/zunmr3.3	man/man3/dlalsa.3	man/man3/cgebrd.f.3	\
+	man/man3/dsbgst.3	man/man3/ctgsy2.3	man/man3/zgesvxx.3	\
+	man/man3/slasq1.f.3	man/man3/dlasq5.3	man/man3/chfrk.3	\
+	man/man3/zgeev.f.3	man/man3/sspgv.3	man/man3/sorm2l.f.3	\
+	man/man3/zlarrv.f.3	man/man3/zgttrs.f.3	man/man3/dlauum.3	\
+	man/man3/zgeql2.3	man/man3/slauum.f.3	man/man3/zgttrf.3	\
+	man/man3/dlaed2.3	man/man3/ssysv_rook.f.3	man/man3/stgsy2.3	\
+	man/man3/dlatps.3	man/man3/dsymm.f.3	man/man3/zhptrs.3	\
+	man/man3/sspcon.3	man/man3/sgelsd.3	man/man3/clacn2.3	\
+	man/man3/dggglm.3	man/man3/sgehrd.f.3	man/man3/dsyrfsx.3	\
+	man/man3/zlaic1.3	man/man3/cla_gbrcond_c.f.3	man/man3/dlar1v.3	\
+	man/man3/dlasd2.3	man/man3/dgeqrt2.f.3	man/man3/zggevx.3	\
+	man/man3/zggesx.3	man/man3/checon_rook.f.3	man/man3/zgttrs.3	\
+	man/man3/zlansp.3	man/man3/ssytrs.3	man/man3/ctprfb.3	\
+	man/man3/zher.3	man/man3/cgbrfs.3	man/man3/dsptrd.3	\
+	man/man3/dlar1v.f.3	man/man3/ctgexc.f.3	man/man3/ssptrs.3	\
+	man/man3/ssterf.f.3	man/man3/sgemv.3	man/man3/dhsein.f.3	\
+	man/man3/dgeqrfp.f.3	man/man3/sasum.f.3	man/man3/dtgex2.3	\
+	man/man3/dtptri.f.3	man/man3/slauu2.3	man/man3/slartv.3	\
+	man/man3/dgeqrfp.3	man/man3/claqhe.f.3	man/man3/ssbev.3	\
+	man/man3/ssptrf.f.3	man/man3/dpftrf.f.3	man/man3/zdrot.f.3	\
+	man/man3/zpteqr.f.3	man/man3/sgbcon.f.3	man/man3/cher.3	\
+	man/man3/dtgsja.f.3	man/man3/cla_geamv.f.3	man/man3/zpptrs.f.3	\
+	man/man3/dsygvd.f.3	man/man3/cggglm.3	man/man3/dlaqsy.3	\
+	man/man3/dgetrf.3	man/man3/dlartg.f.3	man/man3/claqp2.3	\
+	man/man3/dsymm.3	man/man3/sggev.3	man/man3/dgbequ.3	\
+	man/man3/slaruv.f.3	man/man3/dorbdb.f.3	man/man3/ddisna.f.3	\
+	man/man3/dsbtrd.f.3	man/man3/chetri.f.3	man/man3/zunmql.3	\
+	man/man3/dsygs2.f.3	man/man3/sgbmv.3	man/man3/dtbmv.f.3	\
+	man/man3/zlascl.3	man/man3/dlagv2.f.3	man/man3/slantr.f.3	\
+	man/man3/dlamc4.3	man/man3/ctrti2.3	man/man3/dlarft.3	\
+	man/man3/zggqrf.f.3	man/man3/chpev.f.3	man/man3/zunmrq.3	\
+	man/man3/zhetrs.3	man/man3/clalsa.f.3	man/man3/zungql.3	\
+	man/man3/zlatrz.3	man/man3/cspcon.3	man/man3/dlacn2.f.3	\
+	man/man3/zherfs.f.3	man/man3/chetrf.f.3	man/man3/chbgst.f.3	\
+	man/man3/ztrsen.f.3	man/man3/zhetrs2.f.3	man/man3/zlasr.3	\
+	man/man3/dlartgp.f.3	man/man3/csrscl.3	man/man3/dlascl.f.3	\
+	man/man3/dlaed2.f.3	man/man3/ctzrzf.f.3	man/man3/cpptrs.3	\
+	man/man3/dsposv.3	man/man3/cbdsqr.f.3	man/man3/slarzb.f.3	\
+	man/man3/cunbdb1.f.3	man/man3/chbev.f.3	man/man3/ztrrfs.3	\
+	man/man3/stbrfs.3	man/man3/zpptrf.f.3	man/man3/__slamchtst.f__.3	\
+	man/man3/dorg2l.3	man/man3/cggqrf.3	man/man3/ctpttr.3	\
+	man/man3/clarfx.f.3	man/man3/sppequ.3	man/man3/zhgeqz.f.3	\
+	man/man3/dlangt.3	man/man3/sstemr.f.3	man/man3/zgesvxx.f.3	\
+	man/man3/stgsen.3	man/man3/zpbtrs.f.3	man/man3/dtgsy2.f.3	\
+	man/man3/slar1v.f.3	man/man3/sstedc.f.3	man/man3/dsbgst.f.3	\
+	man/man3/dzasum.f.3	man/man3/cgebrd.3	man/man3/cungql.f.3	\
+	man/man3/cgerc.f.3	man/man3/chpr.3	man/man3/ztrmm.f.3	\
+	man/man3/cgesdd.f.3	man/man3/dbdsqr.f.3	man/man3/dsytri_rook.3	\
+	man/man3/zgeqrfp.3	man/man3/slag2.f.3	man/man3/zgeequ.f.3	\
+	man/man3/dlaqsp.f.3	man/man3/slaic1.f.3	man/man3/csyswapr.3	\
+	man/man3/csyr2k.3	man/man3/dlaqr3.f.3	man/man3/dsptrf.3	\
+	man/man3/cgeqpf.f.3	man/man3/sgghrd.3	man/man3/zlaed8.f.3	\
+	man/man3/zunmql.f.3	man/man3/claed7.3	man/man3/sormqr.3	\
+	man/man3/sstein.3	man/man3/ssytrf.f.3	man/man3/dlahqr.f.3	\
+	man/man3/zlanhp.f.3	man/man3/cptsv.f.3	man/man3/stpcon.3	\
+	man/man3/sswap.3	man/man3/cla_gerpvgrw.f.3	man/man3/slaswp.f.3	\
+	man/man3/dsysv_rook.3	man/man3/sggevx.f.3	man/man3/dlarrk.f.3	\
+	man/man3/claqhb.3	man/man3/zla_porcond_c.f.3	man/man3/dgttrs.3	\
+	man/man3/clatps.f.3	man/man3/dstevd.f.3	man/man3/dlarrv.f.3	\
+	man/man3/sla_porcond.3	man/man3/dtpmv.f.3	man/man3/zgbtrs.f.3	\
+	man/man3/zlarfg.f.3	man/man3/sposvx.f.3	man/man3/stbmv.3	\
+	man/man3/ctpttf.3	man/man3/cpptrs.f.3	man/man3/sgerfs.f.3	\
+	man/man3/dsytrd.f.3	man/man3/dgbtrf.3	man/man3/zlantb.3	\
+	man/man3/cla_gbamv.f.3	man/man3/cungbr.f.3	man/man3/cgbsvxx.3	\
+	man/man3/icmax1.f.3	man/man3/zunmr2.3	man/man3/ctpmqrt.3	\
+	man/man3/dlasd8.3	man/man3/cgelss.3	man/man3/zpoequb.3	\
+	man/man3/strexc.f.3	man/man3/ztgsy2.f.3	man/man3/dsecnd_INT_CPU_TIME.f.3	\
+	man/man3/dla_porpvgrw.3	man/man3/sger.f.3	man/man3/slaeda.f.3	\
+	man/man3/dlamchtst.f.3	man/man3/slasd0.3	man/man3/cunm2r.3	\
+	man/man3/zlaqhb.f.3	man/man3/sorg2l.3	man/man3/dtfsm.3	\
+	man/man3/sgesc2.f.3	man/man3/csymv.f.3	man/man3/cdotu.3	\
+	man/man3/slasda.f.3	man/man3/dgbrfs.3	man/man3/spbsvx.3	\
+	man/man3/ssptrf.3	man/man3/clatzm.3	man/man3/slagtm.3	\
+	man/man3/dlaed7.3	man/man3/dtpmqrt.3	man/man3/dlarft.f.3	\
+	man/man3/dpbtf2.3	man/man3/dlamc2.3	man/man3/csytrf_rook.3	\
+	man/man3/slaed3.3	man/man3/dtbmv.3	man/man3/slasy2.3	\
+	man/man3/dlasd8.f.3	man/man3/stpmv.3	man/man3/cpbstf.3	\
+	man/man3/sla_geamv.f.3	man/man3/sspgv.f.3	man/man3/dtgevc.3	\
+	man/man3/slangb.f.3	man/man3/zgbcon.f.3	man/man3/slansb.f.3	\
+	man/man3/zladiv.f.3	man/man3/ctgevc.f.3	man/man3/cgglse.f.3	\
+	man/man3/ssycon.3	man/man3/zunmlq.f.3	man/man3/cunbdb2.3	\
+	man/man3/cporfs.f.3	man/man3/chetrf_rook.3	man/man3/ztbsv.3	\
+	man/man3/clags2.f.3	man/man3/zsymv.3	man/man3/ssytd2.3	\
+	man/man3/ilaclc.f.3	man/man3/sppequ.f.3	man/man3/cla_syrcond_c.f.3	\
+	man/man3/dgemv.3	man/man3/clauu2.3	man/man3/slatps.3	\
+	man/man3/slaed6.f.3	man/man3/ztgexc.3	man/man3/ssysv.3	\
+	man/man3/zunmrq.f.3	man/man3/chsein.f.3	man/man3/zpbtf2.f.3	\
+	man/man3/zhptri.3	man/man3/dznrm2.3	man/man3/srotm.3	\
+	man/man3/clapll.3	man/man3/sgesvj.3	man/man3/sorgl2.f.3	\
+	man/man3/sla_syrfsx_extended.3	man/man3/slaeda.3	man/man3/zhbgv.f.3	\
+	man/man3/ctprfb.f.3	man/man3/stpcon.f.3	man/man3/slarzt.3	\
+	man/man3/dlantp.3	man/man3/cgeqrfp.f.3	man/man3/ssyrfsx.3	\
+	man/man3/dptcon.f.3	man/man3/dtbsv.3	man/man3/zlahrd.3	\
+	man/man3/stpmv.f.3	man/man3/zhetrf_rook.3	man/man3/zgeru.f.3	\
+	man/man3/ssytri.3	man/man3/sbdsqr.f.3	man/man3/zhbgvx.3	\
+	man/man3/dlansp.f.3	man/man3/ztzrqf.f.3	man/man3/zlange.f.3	\
+	man/man3/dlansf.3	man/man3/ctgsyl.3	man/man3/dlanst.f.3	\
+	man/man3/dorcsd.f.3	man/man3/slarfx.3	man/man3/zla_geamv.f.3	\
+	man/man3/dtfttr.3	man/man3/sgglse.f.3	man/man3/ilazlr.3	\
+	man/man3/clacp2.f.3	man/man3/zla_porcond_c.3	man/man3/dtrexc.f.3	\
+	man/man3/zdotc.3	man/man3/clarz.3	man/man3/cgbequb.3	\
+	man/man3/zgbequb.3	man/man3/zdscal.3	man/man3/cuncsd.3	\
+	man/man3/ilaslc.3	man/man3/clacon.3	man/man3/sgemv.f.3	\
+	man/man3/ssyequb.3	man/man3/claein.3	man/man3/csyconv.f.3	\
+	man/man3/sorgqr.f.3	man/man3/dormbr.f.3	man/man3/dlatps.f.3	\
+	man/man3/sptts2.f.3	man/man3/sswap.f.3	man/man3/dlaqp2.3	\
+	man/man3/zsysv_rook.3	man/man3/dspr.3	man/man3/zherk.3	\
+	man/man3/dopgtr.3	man/man3/spotf2.f.3	man/man3/slaed2.f.3	\
+	man/man3/sgesvd.f.3	man/man3/dgbrfsx.3	man/man3/cunbdb5.f.3	\
+	man/man3/sgeqrt.f.3	man/man3/dgerfs.3	man/man3/claqr5.f.3	\
+	man/man3/dzsum1.f.3	man/man3/sgeqpf.f.3	man/man3/zlacp2.f.3	\
+	man/man3/dlaneg.3	man/man3/icmax1.3	man/man3/ztgex2.f.3	\
+	man/man3/slaqr3.f.3	man/man3/sgetf2.f.3	man/man3/zlargv.f.3	\
+	man/man3/cla_syamv.3	man/man3/clasyf_rook.3	man/man3/dznrm2.f.3	\
+	man/man3/INSTALL_lsame.f.3	man/man3/dsytrd.3	man/man3/sgbsvxx.f.3	\
+	man/man3/sstev.f.3	man/man3/dorghr.3	man/man3/zdotu.f.3	\
+	man/man3/sspgvd.3	man/man3/zggev.f.3	man/man3/dpoequb.3	\
+	man/man3/cstemr.3	man/man3/sgeev.3	man/man3/clanht.f.3	\
+	man/man3/dtpttr.f.3	man/man3/ztgsyl.f.3	man/man3/ctbcon.3	\
+	man/man3/dla_gbamv.f.3	man/man3/cgeesx.f.3	man/man3/dormr3.3	\
+	man/man3/clarzt.f.3	man/man3/dsgesv.f.3	man/man3/ssygvd.f.3	\
+	man/man3/zuncsd.f.3	man/man3/dlaisnan.3	man/man3/dorml2.3	\
+	man/man3/dorbdb2.f.3	man/man3/sgbrfs.3	man/man3/chpsvx.3	\
+	man/man3/slanhs.3	man/man3/dpptrf.3	man/man3/sposvx.3	\
+	man/man3/zunbdb4.f.3	man/man3/zla_hercond_c.3	man/man3/zsysvx.3	\
+	man/man3/slaqsy.3	man/man3/spbstf.f.3	man/man3/dgegv.f.3	\
+	man/man3/sormrq.3	man/man3/dsysvx.3	man/man3/zggglm.3	\
+	man/man3/slaed7.f.3	man/man3/sgttrf.3	man/man3/sormlq.f.3	\
+	man/man3/ztrtrs.f.3	man/man3/ssteqr.f.3	man/man3/spstrf.3	\
+	man/man3/dhseqr.3	man/man3/ccopy.f.3	man/man3/dlalsd.3	\
+	man/man3/cgges.3	man/man3/slarrj.3	man/man3/dlanst.3	\
+	man/man3/sasum.3	man/man3/sorglq.3	man/man3/dsysvxx.f.3	\
+	man/man3/dlansp.3	man/man3/slapmr.f.3	man/man3/sgttrf.f.3	\
+	man/man3/cpotrs.3	man/man3/csytri_rook.f.3	man/man3/zla_herpvgrw.f.3	\
+	man/man3/dlarrj.f.3	man/man3/spotrs.3	man/man3/zgetf2.f.3	\
+	man/man3/dlaqps.3	man/man3/dtrrfs.f.3	man/man3/sstev.3	\
+	man/man3/ssfrk.3	man/man3/dgeqpf.f.3	man/man3/sgemm.f.3	\
+	man/man3/dstev.f.3	man/man3/ssfrk.f.3	man/man3/dggev.3	\
+	man/man3/dlaqtr.f.3	man/man3/zsytri.3	man/man3/zhsein.f.3	\
+	man/man3/zhetrf.f.3	man/man3/dorbdb.3	man/man3/chetri2x.3	\
+	man/man3/clartg.f.3	man/man3/zlarfx.3	man/man3/ctrsm.f.3	\
+	man/man3/dgbtrf.f.3	man/man3/slaqr3.3	man/man3/sgbsvxx.3	\
+	man/man3/zhptrs.f.3	man/man3/dgesc2.3	man/man3/zlahr2.f.3	\
+	man/man3/zlascl.f.3	man/man3/dlauum.f.3	man/man3/dorbdb4.f.3	\
+	man/man3/dspevd.3	man/man3/zhpmv.f.3	man/man3/dgbrfs.f.3	\
+	man/man3/dppsv.3	man/man3/dgesvj.3	man/man3/zsycon_rook.3	\
+	man/man3/zgels.3	man/man3/dsbmv.f.3	man/man3/cggsvd.3	\
+	man/man3/dlaqsb.f.3	man/man3/cupmtr.f.3	man/man3/sgebd2.f.3	\
+	man/man3/dtpttf.3	man/man3/dtprfb.3	man/man3/zgbrfsx.f.3	\
+	man/man3/dlaln2.3	man/man3/slarf.3	man/man3/dlag2.f.3	\
+	man/man3/dpotrs.f.3	man/man3/dstevd.3	man/man3/cla_porfsx_extended.f.3	\
+	man/man3/claqge.f.3	man/man3/dstein.f.3	man/man3/dorml2.f.3	\
+	man/man3/zla_lin_berr.3	man/man3/zlarcm.3	man/man3/dlahqr.3	\
+	man/man3/zsymm.3	man/man3/ssyr.3	man/man3/dtrttf.3	\
+	man/man3/dlaed0.f.3	man/man3/chla_transtype.f.3	man/man3/cgbrfs.f.3	\
+	man/man3/slartgp.f.3	man/man3/zhetrs.f.3	man/man3/ssyequb.f.3	\
+	man/man3/dcopy.3	man/man3/stzrqf.3	man/man3/zsytri2.3	\
+	man/man3/dspcon.f.3	man/man3/sla_porpvgrw.f.3	man/man3/dlar2v.3	\
+	man/man3/zla_gercond_x.f.3	man/man3/cherk.f.3	man/man3/cgeqrf.3	\
+	man/man3/spptri.f.3	man/man3/zsyr2k.f.3	man/man3/zlapmr.3	\
+	man/man3/dpbsvx.3	man/man3/sgtcon.f.3	man/man3/slasd6.3	\
+	man/man3/zposvxx.3	man/man3/dpotrf.3	man/man3/slaqsp.f.3	\
+	man/man3/ssygvx.3	man/man3/slahrd.3	man/man3/zgemv.3	\
+	man/man3/sgbtf2.3	man/man3/zheequb.3	man/man3/dlaed6.3	\
+	man/man3/cgelsy.f.3	man/man3/slarzt.f.3	man/man3/ztfttr.3	\
+	man/man3/dorgql.3	man/man3/dlarzb.3	man/man3/sormlq.3	\
+	man/man3/zsytf2.3	man/man3/slasr.f.3	man/man3/dgesvxx.f.3	\
+	man/man3/cpstf2.3	man/man3/zlapmt.f.3	man/man3/dggqrf.f.3	\
+	man/man3/ssytrd.3	man/man3/dlasq3.3	man/man3/zlaqgb.f.3	\
+	man/man3/slapmt.3	man/man3/clalsd.3	man/man3/cunbdb3.f.3	\
+	man/man3/slarrv.f.3	man/man3/ssygst.f.3	man/man3/sgerq2.3	\
+	man/man3/snrm2.f.3	man/man3/zlahr2.3	man/man3/zgges.3	\
+	man/man3/zgelsx.3	man/man3/zlanhe.f.3	man/man3/cung2r.3	\
+	man/man3/zla_heamv.3	man/man3/dggev.f.3	man/man3/dlascl2.3	\
+	man/man3/zlassq.f.3	man/man3/clasyf_rook.f.3	man/man3/sopgtr.3	\
+	man/man3/zgbtf2.f.3	man/man3/ssytri2x.f.3	man/man3/dstebz.f.3	\
+	man/man3/dgeql2.f.3	man/man3/dggrqf.3	man/man3/slange.f.3	\
+	man/man3/cla_gbamv.3	man/man3/ztprfs.3	man/man3/cgecon.3	\
+	man/man3/zhetri2x.f.3	man/man3/ssygs2.3	man/man3/dstevr.3	\
+	man/man3/ctpttr.f.3	man/man3/sposv.f.3	man/man3/ztfttr.f.3	\
+	man/man3/zdotu.3	man/man3/sgbcon.3	man/man3/sgeqrt.3	\
+	man/man3/cgelq2.3	man/man3/dlatrd.f.3	man/man3/ctftri.f.3	\
+	man/man3/srotg.f.3	man/man3/claqr1.f.3	man/man3/dgebd2.f.3	\
+	man/man3/dtftri.f.3	man/man3/dlarfg.3	man/man3/ztrttf.f.3	\
+	man/man3/chpevd.f.3	man/man3/zgeqrt3.3	man/man3/dorgql.f.3	\
+	man/man3/ctpttf.f.3	man/man3/cunbdb.f.3	man/man3/cposvxx.f.3	\
+	man/man3/cla_wwaddw.f.3	man/man3/ztrsm.3	man/man3/cgeqrt2.3	\
+	man/man3/clarz.f.3	man/man3/dgerfsx.f.3	man/man3/dlasr.f.3	\
+	man/man3/zunbdb2.3	man/man3/dsptri.3	man/man3/zhpr2.f.3	\
+	man/man3/ztgsen.f.3	man/man3/dgtsvx.3	man/man3/cheevx.3	\
+	man/man3/dla_gbrpvgrw.3	man/man3/slarrd.3	man/man3/zunbdb.f.3	\
+	man/man3/sorbdb6.f.3	man/man3/dgebal.f.3	man/man3/slasy2.f.3	\
+	man/man3/dorbdb3.3	man/man3/ztrti2.f.3	man/man3/zpbrfs.f.3	\
+	man/man3/slasyf.3	man/man3/slasyf_rook.3	man/man3/clansb.f.3	\
+	man/man3/zdscal.f.3	man/man3/zla_gbrfsx_extended.f.3	man/man3/ztgevc.f.3	\
+	man/man3/slagv2.3	man/man3/__secondtst.f__.3	man/man3/ssygv.f.3	\
+	man/man3/crotg.f.3	man/man3/cporfs.3	man/man3/sorgbr.f.3	\
+	man/man3/dsteqr.3	man/man3/cpotri.3	man/man3/cupgtr.f.3	\
+	man/man3/slasd7.3	man/man3/chetd2.f.3	man/man3/ctrsm.3	\
+	man/man3/dsyev.f.3	man/man3/ctrmm.3	man/man3/zgbsvxx.f.3	\
+	man/man3/zgeequb.f.3	man/man3/zgesdd.f.3	man/man3/zhpevd.f.3	\
+	man/man3/cheevr.3	man/man3/dgejsv.f.3	man/man3/clalsd.f.3	\
+	man/man3/cla_geamv.3	man/man3/zposvxx.f.3	man/man3/dgeqpf.3	\
+	man/man3/sspev.f.3	man/man3/cpocon.3	man/man3/slauu2.f.3	\
+	man/man3/cgerqf.f.3	man/man3/zgbrfs.f.3	man/man3/sorbdb3.f.3	\
+	man/man3/cla_gerpvgrw.3	man/man3/ssteqr.3	man/man3/slanst.f.3	\
+	man/man3/sgebd2.3	man/man3/dlange.f.3	man/man3/dgbsv.3	\
+	man/man3/chetri.3	man/man3/dgbsvx.3	man/man3/cgeql2.f.3	\
+	man/man3/zlalsa.3	man/man3/sggqrf.f.3	man/man3/dlaed5.f.3	\
+	man/man3/cgtsvx.3	man/man3/sggqrf.3	man/man3/clarf.3	\
+	man/man3/dgerfs.f.3	man/man3/dlarz.3	man/man3/clagtm.3	\
+	man/man3/zunmlq.3	man/man3/sorml2.f.3	man/man3/sggrqf.f.3	\
+	man/man3/dtgsna.f.3	man/man3/zgehd2.3	man/man3/dtrmv.f.3	\
+	man/man3/sdsdot.f.3	man/man3/zsptrf.f.3	man/man3/dlapmr.f.3	\
+	man/man3/slaset.f.3	man/man3/zswap.f.3	man/man3/dlasd4.f.3	\
+	man/man3/zlaqsp.f.3	man/man3/zsyrfsx.3	man/man3/cungqr.f.3	\
+	man/man3/zhetri2.3	man/man3/cgelqf.3	man/man3/zla_geamv.3	\
+	man/man3/dlahrd.f.3	man/man3/cpocon.f.3	man/man3/ssterf.3	\
+	man/man3/clahef.f.3	man/man3/zsytrf_rook.f.3	man/man3/csyconv.3	\
+	man/man3/sorbdb6.3	man/man3/cgemqrt.3	man/man3/dla_syamv.f.3	\
+	man/man3/zhegvx.f.3	man/man3/cgesvd.f.3	man/man3/dspgv.3	\
+	man/man3/claqhb.f.3	man/man3/ilatrans.3	man/man3/slasq1.3	\
+	man/man3/dsbevd.3	man/man3/cunbdb3.3	man/man3/dsbevx.f.3	\
+	man/man3/zpbequ.3	man/man3/slasq2.3	man/man3/sgeqlf.3	\
+	man/man3/clarrv.3	man/man3/zhbgvd.f.3	man/man3/strti2.f.3	\
+	man/man3/dgbtf2.3	man/man3/scopy.f.3	man/man3/sgetc2.f.3	\
+	man/man3/dlaneg.f.3	man/man3/dsyevd.f.3	man/man3/zlarzb.f.3	\
+	man/man3/csymm.3	man/man3/dgerq2.3	man/man3/sormr2.f.3	\
+	man/man3/zhbgst.3	man/man3/ctrexc.3	man/man3/cgeqrt3.3	\
+	man/man3/zsyequb.f.3	man/man3/dlarzb.f.3	man/man3/stftri.3	\
+	man/man3/spftrs.f.3	man/man3/dsptrs.3	man/man3/chprfs.f.3	\
+	man/man3/dgels.3	man/man3/cheequb.3	man/man3/zlansp.f.3	\
+	man/man3/cgegv.f.3	man/man3/zhfrk.f.3	man/man3/clartv.f.3	\
+	man/man3/zlat2c.f.3	man/man3/zppsvx.3	man/man3/zhbevd.3	\
+	man/man3/cpbrfs.f.3	man/man3/chbmv.f.3	man/man3/sspgvx.3	\
+	man/man3/zlaqhb.3	man/man3/dsyrk.f.3	man/man3/dormtr.3	\
+	man/man3/cungtr.f.3	man/man3/dlaed5.3	man/man3/slamch.f.3	\
+	man/man3/dlarfb.f.3	man/man3/dgetf2.f.3	man/man3/dtrsv.f.3	\
+	man/man3/chemv.f.3	man/man3/second_INT_CPU_TIME.f.3	man/man3/dlartgs.3	\
+	man/man3/cla_syamv.f.3	man/man3/sgeqp3.f.3	man/man3/cgbrfsx.3	\
+	man/man3/chbevd.3	man/man3/csytrs_rook.f.3	man/man3/zheswapr.f.3	\
+	man/man3/zlaed7.3	man/man3/zhpcon.f.3	man/man3/ilaslr.f.3	\
+	man/man3/zsytrf_rook.3	man/man3/stbtrs.3	man/man3/dsyrfs.f.3	\
+	man/man3/zsytri2.f.3	man/man3/sgtsv.3	man/man3/zgegv.f.3	\
+	man/man3/dlaed6.f.3	man/man3/dla_gerpvgrw.3	man/man3/zgelss.f.3	\
+	man/man3/dlahr2.3	man/man3/dlagts.f.3	man/man3/slaqr5.f.3	\
+	man/man3/zgeesx.3	man/man3/slatrs.f.3	man/man3/zlar1v.f.3	\
+	man/man3/cla_gbrpvgrw.3	man/man3/zhetri.f.3	man/man3/claqr3.f.3	\
+	man/man3/dormql.3	man/man3/slarra.3	man/man3/csteqr.3	\
+	man/man3/zlansy.f.3	man/man3/zcgesv.3	man/man3/ctrexc.f.3	\
+	man/man3/zlalsa.f.3	man/man3/ssbgv.f.3	man/man3/zlasr.f.3	\
+	man/man3/dsytri.f.3	man/man3/dlartv.3	man/man3/dlasq4.3	\
+	man/man3/sgtsvx.f.3	man/man3/stpmqrt.3	man/man3/strsv.f.3	\
+	man/man3/zlarft.f.3	man/man3/ctptrs.3	man/man3/slaqr2.3	\
+	man/man3/drotm.f.3	man/man3/sorghr.f.3	man/man3/cunglq.3	\
+	man/man3/dzsum1.3	man/man3/sggesx.3	man/man3/ilaenv.3	\
+	man/man3/ilauplo.f.3	man/man3/sladiv1.3	man/man3/ztgsja.3	\
+	man/man3/cheev.3	man/man3/zunbdb4.3	man/man3/dgeqr2.f.3	\
+	man/man3/ztpttf.f.3	man/man3/dsyswapr.3	man/man3/cgelsy.3	\
+	man/man3/cggesx.f.3	man/man3/stgexc.f.3	man/man3/slaexc.f.3	\
+	man/man3/zunmr3.f.3	man/man3/stzrzf.f.3	man/man3/zla_gerpvgrw.3	\
+	man/man3/zhesvx.f.3	man/man3/dorcsd2by1.f.3	man/man3/zlacpy.f.3	\
+	man/man3/cheswapr.f.3	man/man3/dgelsy.f.3	man/man3/cgeequb.f.3	\
+	man/man3/ctgsen.3	man/man3/ztprfb.3	man/man3/cungl2.3	\
+	man/man3/slasq6.f.3	man/man3/sgehrd.3	man/man3/claed8.f.3	\
+	man/man3/zpttrf.f.3	man/man3/chetrf_rook.f.3	man/man3/dtrtrs.3	\
+	man/man3/clabrd.3	man/man3/cppequ.3	man/man3/ztrttp.3	\
+	man/man3/sgerqf.f.3	man/man3/chetf2_rook.f.3	man/man3/dlansf.f.3	\
+	man/man3/cggglm.f.3	man/man3/zsytrf.f.3	man/man3/sormtr.f.3	\
+	man/man3/ssyr2k.f.3	man/man3/dgelsd.3	man/man3/dgbbrd.3	\
+	man/man3/dtpqrt2.f.3	man/man3/ssyconv.f.3	man/man3/cunbdb2.f.3	\
+	man/man3/slaed4.3	man/man3/zgeqlf.f.3	man/man3/dsdot.f.3	\
+	man/man3/dlauu2.3	man/man3/cppsvx.3	man/man3/zgbequb.f.3	\
+	man/man3/dpotri.3	man/man3/dorg2r.f.3	man/man3/dhgeqz.f.3	\
+	man/man3/sorgbr.3	man/man3/ssytri2.f.3	man/man3/sgges.f.3	\
+	man/man3/zggsvp.f.3	man/man3/cpftri.3	man/man3/dormqr.f.3	\
+	man/man3/dorgl2.3	man/man3/ieeeck.f.3	man/man3/ctrsen.f.3	\
+	man/man3/ddot.3	man/man3/ztpmqrt.f.3	man/man3/clanht.3	\
+	man/man3/sla_gercond.f.3	man/man3/zhetf2.3	man/man3/slagtm.f.3	\
+	man/man3/classq.f.3	man/man3/sgejsv.f.3	man/man3/dgges.f.3	\
+	man/man3/zheequb.f.3	man/man3/ssbev.f.3	man/man3/dgecon.3	\
+	man/man3/chfrk.f.3	man/man3/dggevx.f.3	man/man3/sgsvj1.f.3	\
+	man/man3/dlaqsb.3	man/man3/dlacpy.3	man/man3/spptrf.f.3	\
+	man/man3/slarfg.3	man/man3/sgemm.3	man/man3/ztrcon.3	\
+	man/man3/cptcon.3	man/man3/sgegs.f.3	man/man3/zgtcon.3	\
+	man/man3/sisnan.f.3	man/man3/sgemqrt.f.3	man/man3/zggev.3	\
+	man/man3/zggbal.3	man/man3/slascl.f.3	man/man3/stgexc.3	\
+	man/man3/chpr2.3	man/man3/cla_hercond_x.3	man/man3/slagtf.3	\
+	man/man3/cpotrs.f.3	man/man3/cung2l.f.3	man/man3/zunmbr.3	\
+	man/man3/ctzrzf.3	man/man3/strexc.3	man/man3/cla_syrcond_x.f.3	\
+	man/man3/cpprfs.f.3	man/man3/dgeql2.3	man/man3/zlatrz.f.3	\
+	man/man3/daxpy.f.3	man/man3/strttf.f.3	man/man3/dlasd2.f.3	\
+	man/man3/dcabs1.3	man/man3/second_EXT_ETIME.f.3	man/man3/cla_gercond_c.3	\
+	man/man3/dsycon_rook.3	man/man3/dlagv2.3	man/man3/clanhf.3	\
+	man/man3/csysv_rook.3	man/man3/slarrb.3	man/man3/dlamch.f.3	\
+	man/man3/slalsd.f.3	man/man3/cpbtf2.f.3	man/man3/chetrd.3	\
+	man/man3/sgelss.f.3	man/man3/cgesvd.3	man/man3/cptrfs.3	\
+	man/man3/dsyswapr.f.3	man/man3/chbevd.f.3	man/man3/dptts2.3	\
+	man/man3/ssytrd.f.3	man/man3/dscal.3	man/man3/slapy2.f.3	\
+	man/man3/dlamrg.3	man/man3/cgetri.f.3	man/man3/slamc2.3	\
+	man/man3/dladiv2.3	man/man3/chesv_rook.3	man/man3/zlaqge.3	\
+	man/man3/zrotg.f.3	man/man3/ztpqrt2.3	man/man3/dlasdt.3	\
+	man/man3/zlantr.3	man/man3/dlasv2.f.3	man/man3/ssymm.f.3	\
+	man/man3/dsbgv.f.3	man/man3/zpftri.f.3	man/man3/sgeqrt2.f.3	\
+	man/man3/dtrcon.f.3	man/man3/zheevx.3	man/man3/ctzrqf.3	\
+	man/man3/chpevd.3	man/man3/zunmr2.f.3	man/man3/cpptri.3	\
+	man/man3/zpotrs.3	man/man3/zsytri2x.f.3	man/man3/ztgsna.3	\
+	man/man3/zladiv.3	man/man3/cgeqrf.f.3	man/man3/zla_gerfsx_extended.3	\
+	man/man3/clanhp.3	man/man3/cunmhr.f.3	man/man3/dptcon.3	\
+	man/man3/csytrf.3	man/man3/dgetf2.3	man/man3/dggsvd.3	\
+	man/man3/csytf2_rook.f.3	man/man3/chesv.f.3	man/man3/zgeequb.3	\
+	man/man3/zggglm.f.3	man/man3/zlanhb.f.3	man/man3/csysv.f.3	\
+	man/man3/cpotf2.3	man/man3/dlatrs.3	man/man3/zsytri_rook.3	\
+	man/man3/zlahef.f.3	man/man3/zunm2l.f.3	man/man3/zpbstf.f.3	\
+	man/man3/sorm2l.3	man/man3/zhesvxx.3	man/man3/slagv2.f.3	\
+	man/man3/dgemm.3	man/man3/cunmrz.f.3	man/man3/cgbtf2.3	\
+	man/man3/dlarz.f.3	man/man3/slatps.f.3	man/man3/cgeesx.3	\
+	man/man3/ssyrfs.3	man/man3/dspev.3	man/man3/_Users_julie_Documents_Boulot_lapack-dev_lapack_trunk_BLAS_.3	\
+	man/man3/sgejsv.3	man/man3/zsycon.3	man/man3/zlantp.3	\
+	man/man3/slarz.f.3	man/man3/cgtts2.3	man/man3/zlaqr1.f.3	\
+	man/man3/sggsvd.f.3	man/man3/dlarf.3	man/man3/dgttrf.3	\
+	man/man3/clatrd.f.3	man/man3/slaqr4.f.3	man/man3/sgetc2.3	\
+	man/man3/sla_syrcond.3	man/man3/zgehrd.f.3	man/man3/dspgst.3	\
+	man/man3/sla_geamv.3	man/man3/zlanhe.3	man/man3/srot.3	\
+	man/man3/zhpgv.f.3	man/man3/zsprfs.f.3	man/man3/dormrq.3	\
+	man/man3/clatdf.3	man/man3/zlacon.f.3	man/man3/ztzrzf.f.3	\
+	man/man3/dla_porcond.3	man/man3/cheequb.f.3	man/man3/zunmqr.f.3	\
+	man/man3/chegvd.f.3	man/man3/zpotrs.f.3	man/man3/zpptri.f.3	\
+	man/man3/ssbevd.f.3	man/man3/cunmrz.3	man/man3/scnrm2.3	\
+	man/man3/ctrtri.3	man/man3/slantp.f.3	man/man3/sorbdb2.3	\
+	man/man3/dlasy2.f.3	man/man3/cgesc2.f.3	man/man3/clanhe.f.3	\
+	man/man3/sorg2r.f.3	man/man3/csymv.3	man/man3/zlaesy.f.3	\
+	man/man3/zlarfgp.f.3	man/man3/chbtrd.3	man/man3/zgbsvxx.3	\
+	man/man3/zla_gerpvgrw.f.3	man/man3/slar2v.f.3	man/man3/dlaruv.3	\
+	man/man3/zcposv.3	man/man3/dgebal.3	man/man3/cunmtr.3	\
+	man/man3/zlassq.3	man/man3/sla_gerpvgrw.3	man/man3/dlaln2.f.3	\
+	man/man3/zhegv.f.3	man/man3/dtrevc.f.3	man/man3/dtbsv.f.3	\
+	man/man3/cpptrf.3	man/man3/slantb.3	man/man3/dlaexc.3	\
+	man/man3/zgemm.f.3	man/man3/cpbcon.f.3	man/man3/clargv.3	\
+	man/man3/zcgesv.f.3	man/man3/isamax.3	man/man3/dsytf2.3	\
+	man/man3/strtri.3	man/man3/cstedc.f.3	man/man3/clange.3	\
+	man/man3/cla_gbrcond_c.3	man/man3/slacon.3	man/man3/cstein.f.3	\
+	man/man3/slaed5.f.3	man/man3/dporfs.f.3	man/man3/dtgsen.3	\
+	man/man3/sopmtr.f.3	man/man3/zlascl2.f.3	man/man3/stfttp.3	\
+	man/man3/strsyl.f.3	man/man3/dorcsd2by1.3	man/man3/drotmg.f.3	\
+	man/man3/stgsy2.f.3	man/man3/dggevx.3	man/man3/dgeev.3	\
+	man/man3/zlagtm.3	man/man3/drotm.3	man/man3/zlarfgp.3	\
+	man/man3/slabad.f.3	man/man3/ssyevx.f.3	man/man3/zla_syrcond_c.f.3	\
+	man/man3/cla_porcond_c.f.3	man/man3/slartg.f.3	man/man3/dtftri.3	\
+	man/man3/chseqr.3	man/man3/chetrf.3	man/man3/slasv2.3	\
+	man/man3/zlatrd.f.3	man/man3/zgetrf.3	man/man3/slaqsy.f.3	\
+	man/man3/cgeevx.f.3	man/man3/ztrtri.f.3	man/man3/dgesdd.f.3	\
+	man/man3/sgbsvx.f.3	man/man3/BLAS_SRC_lsame.f.3	man/man3/clarcm.f.3	\
+	man/man3/csrot.3	man/man3/spbcon.3	man/man3/dgelsx.3	\
+	man/man3/dlasd1.f.3	man/man3/dla_gerpvgrw.f.3	man/man3/zpttrs.f.3	\
+	man/man3/cgeql2.3	man/man3/disnan.f.3	man/man3/dtzrqf.3	\
+	man/man3/zlaqr5.3	man/man3/zhpgvx.3	man/man3/dgelss.f.3	\
+	man/man3/claqr2.f.3	man/man3/zlaqr3.3	man/man3/slarrb.f.3	\
+	man/man3/cla_porfsx_extended.3	man/man3/dlatzm.3	man/man3/slasd3.3	\
+	man/man3/chesvx.3	man/man3/chetf2_rook.3	man/man3/dsytd2.3	\
+	man/man3/cla_herpvgrw.3	man/man3/zlag2c.f.3	man/man3/spoequ.3	\
+	man/man3/slasrt.f.3	man/man3/slaisnan.f.3	man/man3/sorgql.3	\
+	man/man3/dgeqrf.f.3	man/man3/ssyevd.3	man/man3/ctbmv.3	\
+	man/man3/zlartv.3	man/man3/zlaqgb.3	man/man3/dlals0.3	\
+	man/man3/dsytri_rook.f.3	man/man3/ssycon_rook.f.3	man/man3/dlaed3.3	\
+	man/man3/zgeesx.f.3	man/man3/dlarfgp.3	man/man3/ilaenv.f.3	\
+	man/man3/ctfsm.f.3	man/man3/ztrttp.f.3	man/man3/clarft.f.3	\
+	man/man3/zla_syrcond_x.3	man/man3/sspr.f.3	man/man3/slag2d.3	\
+	man/man3/izamax.3	man/man3/zpstrf.f.3	man/man3/dsytd2.f.3	\
+	man/man3/lsamen.3	man/man3/slacpy.f.3	man/man3/sgbmv.f.3	\
+	man/man3/slacpy.3	man/man3/zhecon_rook.3	man/man3/zhpev.f.3	\
+	man/man3/slarfg.f.3	man/man3/slanhs.f.3	man/man3/zdrot.3	\
+	man/man3/dorbdb4.3	man/man3/stbsv.3	man/man3/cuncsd.f.3	\
+	man/man3/zla_gbrcond_x.3	man/man3/zhetrd.f.3	man/man3/cunm2l.f.3	\
+	man/man3/ztptrs.f.3	man/man3/dla_lin_berr.f.3	man/man3/spbsv.3	\
+	man/man3/sgeequb.3	man/man3/sla_syrfsx_extended.f.3	man/man3/zpbequ.f.3	\
+	man/man3/zlargv.3	man/man3/cptsvx.3	man/man3/slalsa.f.3	\
+	man/man3/dspsvx.3	man/man3/dla_porfsx_extended.3	man/man3/chbgvd.f.3	\
+	man/man3/ssygst.3	man/man3/cspmv.3	man/man3/zgelqf.f.3	\
+	man/man3/dlapy2.3	man/man3/csysvxx.3	man/man3/cla_heamv.f.3	\
+	man/man3/dppsvx.3	man/man3/dgbtrs.f.3	man/man3/zuncsd.3	\
+	man/man3/xerbla.3	man/man3/dpbequ.f.3	man/man3/dsteqr.f.3	\
+	man/man3/ctrsyl.3	man/man3/zgesvd.3	man/man3/chbgv.3	\
+	man/man3/dgeevx.f.3	man/man3/dspmv.f.3	man/man3/sbdsdc.f.3	\
+	man/man3/zgesc2.3	man/man3/tstiee.3	man/man3/claed0.f.3	\
+	man/man3/dptts2.f.3	man/man3/dlasd5.3	man/man3/dpbtf2.f.3	\
+	man/man3/dlahrd.3	man/man3/dgeesx.3	man/man3/claic1.3	\
+	man/man3/dsdot.3	man/man3/slaqtr.f.3	man/man3/slasq5.3	\
+	man/man3/icamax.f.3	man/man3/zla_herpvgrw.3	man/man3/dggglm.f.3	\
+	man/man3/zggsvp.3	man/man3/chesvxx.3	man/man3/clarfg.3	\
+	man/man3/spstf2.f.3	man/man3/ssysvx.3	man/man3/mysub.3	\
+	man/man3/zlacgv.3	man/man3/dsyr.3	man/man3/cspsvx.f.3	\
+	man/man3/dlansb.f.3	man/man3/sgsvj0.3	man/man3/clanhb.f.3	\
+	man/man3/slaic1.3	man/man3/zggbak.3	man/man3/dgbequb.f.3	\
+	man/man3/csycon.f.3	man/man3/dorgtr.3	man/man3/sstevx.f.3	\
+	man/man3/iparmq.3	man/man3/dlarfg.f.3	man/man3/dspr.f.3	\
+	man/man3/dgges.3	man/man3/slag2.3	man/man3/zlags2.3	\
+	man/man3/dlarnv.f.3	man/man3/dlascl.3	man/man3/dlaev2.f.3	\
+	man/man3/zgelq2.f.3	man/man3/zungl2.f.3	man/man3/dsycon.f.3	\
+	man/man3/zpprfs.f.3	man/man3/sorbdb2.f.3	man/man3/slaebz.f.3	\
+	man/man3/zlarfb.3	man/man3/dlalsd.f.3	man/man3/dsytrf.3	\
+	man/man3/zposv.3	man/man3/dbdsdc.3	man/man3/zlarnv.3	\
+	man/man3/chpevx.3	man/man3/zlatdf.f.3	man/man3/chpsv.3	\
+	man/man3/dlasd3.3	man/man3/clarnv.f.3	man/man3/cheevr.f.3	\
+	man/man3/sla_gbrfsx_extended.f.3	man/man3/zgemm.3	man/man3/dgelsd.f.3	\
+	man/man3/dpttrf.3	man/man3/dgejsv.3	man/man3/sorbdb.3	\
+	man/man3/dlarrd.3	man/man3/dormr3.f.3	man/man3/dtrttf.f.3	\
+	man/man3/zla_porpvgrw.3	man/man3/zpftrf.f.3	man/man3/ctbmv.f.3	\
+	man/man3/zporfsx.f.3	man/man3/claqsp.3	man/man3/sptsv.f.3	\
+	man/man3/dptrfs.f.3	man/man3/scnrm2.f.3	man/man3/zla_gbrpvgrw.f.3	\
+	man/man3/zsteqr.f.3	man/man3/cgbtf2.f.3	man/man3/sopgtr.f.3	\
+	man/man3/cgeqp3.f.3	man/man3/dtrsv.3	man/man3/dpbtrf.3	\
+	man/man3/clacn2.f.3	man/man3/zla_gbamv.3	man/man3/cher2k.f.3	\
+	man/man3/dlaset.3	man/man3/csptrf.3	man/man3/chptri.3	\
+	man/man3/sla_porfsx_extended.3	man/man3/ssysvxx.f.3	man/man3/ztftri.f.3	\
+	man/man3/dla_syrfsx_extended.f.3	man/man3/zsyrfs.f.3	man/man3/dtfttp.f.3	\
+	man/man3/dtzrzf.3	man/man3/zsytrs_rook.f.3	man/man3/dtpqrt.f.3	\
+	man/man3/dgtcon.3	man/man3/dla_gercond.f.3	man/man3/clascl.3	\
+	man/man3/claqr4.f.3	man/man3/dlapmr.3	man/man3/cla_heamv.3	\
+	man/man3/ztgex2.3	man/man3/dpstf2.f.3	man/man3/dptsv.f.3	\
+	man/man3/second_INT_ETIME.f.3	man/man3/dgerqf.3	man/man3/cptsvx.f.3	\
+	man/man3/stbtrs.f.3	man/man3/sspr2.f.3	man/man3/cgehrd.f.3	\
+	man/man3/sgeql2.f.3	man/man3/cupmtr.3	man/man3/strsm.f.3	\
+	man/man3/strevc.f.3	man/man3/sgees.f.3	man/man3/zgges.f.3	\
+	man/man3/zlarscl2.f.3	man/man3/dsbtrd.3	man/man3/cgbsv.3	\
+	man/man3/chpr.f.3	man/man3/dgglse.3	man/man3/zla_porfsx_extended.f.3	\
+	man/man3/zpotf2.3	man/man3/slarfgp.3	man/man3/dposvxx.3	\
+	man/man3/zunbdb6.3	man/man3/chegv.3	man/man3/zuncsd2by1.3	\
+	man/man3/dpttrf.f.3	man/man3/_Users_julie_Documents_Boulot_lapack-dev_lapack_trunk_BLAS_SRC_.3	man/man3/dgemv.f.3	\
+	man/man3/zlanhs.3	man/man3/cgeev.f.3	man/man3/sgecon.f.3	\
+	man/man3/slasd2.3	man/man3/dlatdf.3	man/man3/cgees.f.3	\
+	man/man3/ilaslc.f.3	man/man3/dtrttp.3	man/man3/ctpcon.3	\
+	man/man3/dlaqge.3	man/man3/zher2k.f.3	man/man3/zrot.f.3	\
+	man/man3/cunmlq.3	man/man3/zhpsvx.f.3	man/man3/cherfs.f.3	\
+	man/man3/spteqr.f.3	man/man3/slarrj.f.3	man/man3/cpftri.f.3	\
+	man/man3/dsymv.3	man/man3/sla_gbrpvgrw.3	man/man3/dtbtrs.f.3	\
+	man/man3/zupmtr.f.3	man/man3/dlaruv.f.3	man/man3/chemm.3	\
+	man/man3/chetf2.f.3	man/man3/ztfsm.3	man/man3/dppequ.3	\
+	man/man3/zungbr.3	man/man3/cla_hercond_c.f.3	man/man3/dgeequ.f.3	\
+	man/man3/cgbtrs.3	man/man3/stpmqrt.f.3	man/man3/dlaed8.f.3	\
+	man/man3/ctrevc.f.3	man/man3/dlarzt.f.3	man/man3/zlaqsb.3	\
+	man/man3/cla_lin_berr.f.3	man/man3/ssytri.f.3	man/man3/sgetrs.3	\
+	man/man3/cppsv.3	man/man3/clasyf.3	man/man3/zscal.3	\
+	man/man3/dsptrf.f.3	man/man3/zsycon_rook.f.3	man/man3/zptrfs.3	\
+	man/man3/srotg.3	man/man3/dlaqr1.f.3	man/man3/strttf.3	\
+	man/man3/dpteqr.3	man/man3/ssyswapr.f.3	man/man3/dorgqr.3	\
+	man/man3/dlarrv.3	man/man3/zscal.f.3	man/man3/zsytrs.3	\
+	man/man3/dpotrf.f.3	man/man3/cla_herfsx_extended.3	man/man3/zlanhf.3	\
+	man/man3/cla_gercond_x.3	man/man3/zlalsd.f.3	man/man3/slartgs.3	\
+	man/man3/zunbdb1.3	man/man3/cpbcon.3	man/man3/zhetd2.3	\
+	man/man3/zspsvx.3	man/man3/ztgsen.3	man/man3/zheevr.f.3	\
+	man/man3/sgetri.3	man/man3/dporfs.3	man/man3/cstegr.f.3	\
+	man/man3/cbbcsd.f.3	man/man3/zrotg.3	man/man3/dswap.f.3	\
+	man/man3/zlaqr2.3	man/man3/dsysv_rook.f.3	man/man3/slarscl2.f.3	\
+	man/man3/dgeqrt.f.3	man/man3/strsen.3	man/man3/dorbdb6.3	\
+	man/man3/ssytri_rook.f.3	man/man3/claqhp.3	man/man3/zlaqsy.3	\
+	man/man3/spftri.3	man/man3/dlaeda.3	man/man3/clapmt.f.3	\
+	man/man3/sgtts2.f.3	man/man3/strsyl.3	man/man3/dsyr2.f.3	\
+	man/man3/chpgvd.3	man/man3/sla_syamv.f.3	man/man3/ctgevc.3	\
+	man/man3/cla_wwaddw.3	man/man3/dla_syrcond.f.3	man/man3/dgghrd.3	\
+	man/man3/slaed0.3	man/man3/ssyrk.f.3	man/man3/slaed9.3	\
+	man/man3/sstebz.3	man/man3/sspsvx.3	man/man3/cunmr3.3	\
+	man/man3/cgtrfs.3	man/man3/cgeqlf.f.3	man/man3/zsptri.3	\
+	man/man3/zlacrt.f.3	man/man3/sla_gbamv.3	man/man3/zggsvd.f.3	\
+	man/man3/dgeqr2p.f.3	man/man3/dbbcsd.3	man/man3/dorm2r.f.3	\
+	man/man3/sla_wwaddw.3	man/man3/cunbdb5.3	man/man3/dpbrfs.3	\
+	man/man3/dlar2v.f.3	man/man3/zlartv.f.3	man/man3/chbgv.f.3	\
+	man/man3/dpbrfs.f.3	man/man3/sgelq2.3	man/man3/clahr2.f.3	\
+	man/man3/dlasd7.3	man/man3/spttrf.f.3	man/man3/clatrs.f.3	\
+	man/man3/dlag2s.3	man/man3/sgeequb.f.3	man/man3/clar2v.f.3	\
+	man/man3/zgebrd.3	man/man3/zla_porfsx_extended.3	man/man3/ddisna.3	\
+	man/man3/zlarrv.3	man/man3/slapmt.f.3	man/man3/zlapll.3	\
+	man/man3/dla_gerfsx_extended.3	man/man3/slarra.f.3	man/man3/zgetc2.3	\
+	man/man3/zgetrf.f.3	man/man3/sgeqr2p.3	man/man3/clatps.3	\
+	man/man3/sdot.f.3	man/man3/slasdq.3	man/man3/zstein.f.3	\
+	man/man3/ctfsm.3	man/man3/ztpmv.f.3	man/man3/sgehd2.3	\
+	man/man3/ztgevc.3	man/man3/slahr2.f.3	man/man3/zlantr.f.3	\
+	man/man3/spbsvx.f.3	man/man3/ssprfs.f.3	man/man3/clar1v.3	\
+	man/man3/dlansy.3	man/man3/sggsvd.3	man/man3/zgtrfs.f.3	\
+	man/man3/dsytrs.f.3	man/man3/dsygv.3	man/man3/slasd6.f.3	\
+	man/man3/dlaed9.3	man/man3/sptsv.3	man/man3/clals0.3	\
+	man/man3/cla_lin_berr.3	man/man3/slasda.3	man/man3/ctrevc.3	\
+	man/man3/sorbdb4.3	man/man3/second_EXT_ETIME_.f.3	man/man3/ctgex2.f.3	\
+	man/man3/dstebz.3	man/man3/cla_hercond_x.f.3	man/man3/dgsvj0.f.3	\
+	man/man3/dpftri.3	man/man3/cpttrs.3	man/man3/ctgsen.f.3	\
+	man/man3/dggsvd.f.3	man/man3/zgbtrf.f.3	man/man3/zgeqrt.3	\
+	man/man3/zsyconv.3	man/man3/ctgexc.3	man/man3/slaqge.3	\
+	man/man3/ztbcon.3	man/man3/zlapll.f.3	man/man3/zggesx.f.3	\
+	man/man3/ztpmqrt.3	man/man3/claqr5.3	man/man3/slabrd.3	\
+	man/man3/zpbtrf.3	man/man3/sormtr.3	man/man3/dlarrf.f.3	\
+	man/man3/sgesvxx.f.3	man/man3/dgglse.f.3	man/man3/cungrq.f.3	\
+	man/man3/second_NONE.f.3	man/man3/dtrsen.3	man/man3/zggrqf.3	\
+	man/man3/sporfs.3	man/man3/dpoequb.f.3	man/man3/slarf.f.3	\
+	man/man3/sppcon.3	man/man3/sgesdd.f.3	man/man3/ssyconv.3	\
+	man/man3/zpptrs.3	man/man3/zungtr.3	man/man3/cgehrd.3	\
+	man/man3/stpttr.f.3	man/man3/ssygs2.f.3	man/man3/ztrsv.3	\
+	man/man3/zunbdb3.3	man/man3/clahef.3	man/man3/cgghrd.f.3	\
+	man/man3/cgeqr2p.f.3	man/man3/dormqr.3	man/man3/ctpqrt.f.3	\
+	man/man3/ssbgv.3	man/man3/zptts2.f.3	man/man3/ilauplo.3	\
+	man/man3/sppsv.f.3	man/man3/dtbrfs.3	man/man3/slapy3.3	\
+	man/man3/sormql.3	man/man3/clauu2.f.3	man/man3/dspevx.3	\
+	man/man3/zhptrd.3	man/man3/cheevd.f.3	man/man3/dstevx.3	\
+	man/man3/zlatps.3	man/man3/clacgv.3	man/man3/dsytrs2.3	\
+	man/man3/slargv.f.3	man/man3/dtrsyl.3	man/man3/dtzrzf.f.3	\
+	man/man3/sla_gerfsx_extended.f.3	man/man3/sspevx.f.3	man/man3/dhgeqz.3	\
+	man/man3/zgehd2.f.3	man/man3/zgecon.3	man/man3/chegst.f.3	\
+	man/man3/dtrsna.f.3	man/man3/dlaqge.f.3	man/man3/cstein.3	\
+	man/man3/zptsvx.3	man/man3/chptrs.3	man/man3/zsptrs.f.3	\
+	man/man3/slags2.f.3	man/man3/zsysvxx.f.3	man/man3/dlasd6.f.3	\
+	man/man3/zla_gbrfsx_extended.3	man/man3/zlacgv.f.3	man/man3/dlaisnan.f.3	\
+	man/man3/cunglq.f.3	man/man3/chpgvd.f.3	man/man3/zggbak.f.3	\
+	man/man3/dsycon_rook.f.3	man/man3/clarf.f.3	man/man3/zsyswapr.f.3	\
+	man/man3/dlaed8.3	man/man3/ztpqrt.f.3	man/man3/zgeev.3	\
+	man/man3/dlahr2.f.3	man/man3/dlarfx.f.3	man/man3/dlasda.3	\
+	man/man3/dtrmm.f.3	man/man3/dlange.3	man/man3/dbdsqr.3	\
+	man/man3/zlahqr.3	man/man3/cggbal.3	man/man3/zgghrd.f.3	\
+	man/man3/dlaeda.f.3	man/man3/cher2k.3	man/man3/ztptri.3	\
+	man/man3/stbcon.f.3	man/man3/zlarscl2.3	man/man3/ilaclr.f.3	\
+	man/man3/cggev.3	man/man3/ztfsm.f.3	man/man3/dporfsx.f.3	\
+	man/man3/dgeequb.3	man/man3/sla_porfsx_extended.f.3	man/man3/dstevr.f.3	\
+	man/man3/snrm2.3	man/man3/zlaein.f.3	man/man3/slangt.f.3	\
+	man/man3/zheevd.f.3	man/man3/dlalsa.f.3	man/man3/ssyev.3	\
+	man/man3/chpmv.3	man/man3/dppcon.3	man/man3/claqsp.f.3	\
+	man/man3/clangb.f.3	man/man3/sgeequ.3	man/man3/zspsvx.f.3	\
+	man/man3/cgbbrd.f.3	man/man3/drot.f.3	man/man3/sorgqr.3	\
+	man/man3/slasd5.3	man/man3/zlaqhe.f.3	man/man3/sgebal.3	\
+	man/man3/sgelqf.f.3	man/man3/csytrs2.3	man/man3/sgeqrfp.3	\
+	man/man3/dsterf.f.3	man/man3/dlat2s.f.3	man/man3/dsysvxx.3	\
+	man/man3/dsysvx.f.3	man/man3/sptrfs.f.3	man/man3/dstev.3	\
+	man/man3/cunmqr.f.3	man/man3/sgerfs.3	man/man3/cgttrf.f.3	\
+	man/man3/zhemm.f.3	man/man3/zla_hercond_x.3	man/man3/dlarfx.3	\
+	man/man3/dgebak.f.3	man/man3/sspsv.f.3	man/man3/cgetrf.3	\
+	man/man3/dgelqf.f.3	man/man3/dposvxx.f.3	man/man3/sorgtr.f.3	\
+	man/man3/chetrs_rook.3	man/man3/spotrf.f.3	man/man3/zgeru.3	\
+	man/man3/sgesv.3	man/man3/dgesv.f.3	man/man3/sgeqp3.3	\
+	man/man3/ztgsy2.3	man/man3/sormhr.3	man/man3/cgetc2.f.3	\
+	man/man3/dlantr.f.3	man/man3/clacpy.f.3	man/man3/cunmql.f.3	\
+	man/man3/csptrs.3	man/man3/dgesvx.f.3	man/man3/zhecon.f.3	\
+	man/man3/sgsvj0.f.3	man/man3/cpotri.f.3	man/man3/zlaqr1.3	\
+	man/man3/dsposv.f.3	man/man3/zheswapr.3	man/man3/dlapy3.3	\
+	man/man3/zgesvx.3	man/man3/cunmhr.3	man/man3/chpev.3	\
+	man/man3/dpbtrf.f.3	man/man3/dlapll.3	man/man3/zhetrd.3	\
+	man/man3/spftrf.f.3	man/man3/dgtts2.3	man/man3/dpbequ.3	\
+	man/man3/ctgsyl.f.3	man/man3/sptcon.f.3	man/man3/clarfgp.3	\
+	man/man3/cpptri.f.3	man/man3/claqr4.3	man/man3/zlar2v.3	\
+	man/man3/zsptri.f.3	man/man3/dlarrc.f.3	man/man3/dlasyf.3	\
+	man/man3/stgsna.f.3	man/man3/claqhp.f.3	man/man3/ztbmv.f.3	\
+	man/man3/dsbgvx.f.3	man/man3/sla_syrcond.f.3	man/man3/dsygst.3	\
+	man/man3/dsytrf.f.3	man/man3/zung2l.f.3	man/man3/ztbmv.3	\
+	man/man3/cposv.3	man/man3/sorgr2.3	man/man3/zheevx.f.3	\
+	man/man3/zgbequ.f.3	man/man3/sgbequ.f.3	man/man3/dspgvx.3	\
+	man/man3/stpttf.3	man/man3/spotf2.3	man/man3/slasd7.f.3	\
+	man/man3/dhseqr.f.3	man/man3/zlansy.3	man/man3/dgerq2.f.3	\
+	man/man3/dorglq.3	man/man3/dlasyf_rook.f.3	man/man3/zpbcon.3	\
+	man/man3/cgegv.3	man/man3/ctrmv.f.3	man/man3/zgeql2.f.3	\
+	man/man3/zgelsy.f.3	man/man3/sla_gbamv.f.3	man/man3/sgbsv.3	\
+	man/man3/zgerc.3	man/man3/csyrfsx.f.3	man/man3/sgetrf.3	\
+	man/man3/zhegs2.f.3	man/man3/slasd2.f.3	man/man3/ctptri.f.3	\
+	man/man3/zhbgv.3	man/man3/dlasq6.3	man/man3/zlahef_rook.3	\
+	man/man3/dstemr.f.3	man/man3/zlabrd.f.3	man/man3/dlasq4.f.3	\
+	man/man3/zsyconv.f.3	man/man3/zlasyf_rook.f.3	man/man3/dpftrs.3	\
+	man/man3/SRC_xerbla.f.3	man/man3/dtgsyl.3	man/man3/zla_heamv.f.3	\
+	man/man3/zlanhb.3	man/man3/chetf2.3	man/man3/cunmr2.f.3	\
+	man/man3/dlaed0.3	man/man3/zhetd2.f.3	man/man3/sgelsd.f.3	\
+	man/man3/dspsvx.f.3	man/man3/spbtrf.f.3	man/man3/zgeqrt3.f.3	\
+	man/man3/dsyrfs.3	man/man3/slasd1.3	man/man3/ssyevx.3	\
+	man/man3/dsytrs_rook.f.3	man/man3/strsna.f.3	man/man3/chesvx.f.3	\
+	man/man3/clag2z.f.3	man/man3/ctrcon.f.3	man/man3/cherfsx.f.3	\
+	man/man3/dsytri2x.f.3	man/man3/clabrd.f.3	man/man3/__lsametst.f__.3	\
+	man/man3/dstein.3	man/man3/stpttf.f.3	man/man3/dcabs1.f.3	\
+	man/man3/zsyswapr.3	man/man3/zlaesy.3	man/man3/ctfttr.3	\
+	man/man3/zaxpy.3	man/man3/slaqr0.3	man/man3/chpcon.3	\
+	man/man3/spttrf.3	man/man3/dtrmm.3	man/man3/dlarnv.3	\
+	man/man3/sgelsy.f.3	man/man3/zgeqrfp.f.3	man/man3/cpotf2.f.3	\
+	man/man3/cla_gerfsx_extended.f.3	man/man3/chetrs_rook.f.3	man/man3/sla_gercond.3	\
+	man/man3/zpbsvx.f.3	man/man3/clartg.3	man/man3/slaein.3	\
+	man/man3/dtgex2.f.3	man/man3/zptcon.f.3	man/man3/cgetf2.f.3	\
+	man/man3/zgetf2.3	man/man3/csycon_rook.f.3	man/man3/clarfb.f.3	\
+	man/man3/dgesc2.f.3	man/man3/zgetri.f.3	man/man3/zhbgvd.3	\
+	man/man3/claqr3.3	man/man3/sgerq2.f.3	man/man3/csytrs.3	\
+	man/man3/slaed6.3	man/man3/sggglm.3	man/man3/cggevx.f.3	\
+	man/man3/cgesvx.3	man/man3/lsamen.f.3	man/man3/dlat2s.3	\
+	man/man3/ssytf2_rook.f.3	man/man3/slags2.3	man/man3/chgeqz.3	\
+	man/man3/sisnan.3	man/man3/claswp.f.3	man/man3/cunmtr.f.3	\
+	man/man3/zgetc2.f.3	man/man3/srotm.f.3	man/man3/dsycon.3	\
+	man/man3/sormbr.f.3	man/man3/dlamrg.f.3	man/man3/ctrrfs.f.3	\
+	man/man3/dlasd5.f.3	man/man3/zlaein.3	man/man3/chpgv.f.3	\
+	man/man3/chemm.f.3	man/man3/dspmv.3	man/man3/csptrs.f.3	\
+	man/man3/zunbdb5.f.3	man/man3/slaexc.3	man/man3/sgeqrt3.f.3	\
+	man/man3/ztfttp.3	man/man3/zsymv.f.3	man/man3/slarft.3	\
+	man/man3/stgsja.3	man/man3/dspcon.3	man/man3/sgbbrd.3	\
+	man/man3/slatrs.3	man/man3/slasrt.3	man/man3/cdotu.f.3	\
+	man/man3/shgeqz.3	man/man3/zunmhr.3	man/man3/sorghr.3	\
+	man/man3/ctrtri.f.3	man/man3/zunbdb6.f.3	man/man3/dormlq.f.3	\
+	man/man3/zungrq.3	man/man3/sger.3	man/man3/ztbsv.f.3	\
+	man/man3/dppsvx.f.3	man/man3/dlascl2.f.3	man/man3/ssygvd.3	\
+	man/man3/dlacon.f.3	man/man3/sorml2.3	man/man3/claqr2.3	\
+	man/man3/ctbtrs.f.3	man/man3/dptrfs.3	man/man3/sgbtrs.3	\
+	man/man3/zla_wwaddw.f.3	man/man3/cla_gbrcond_x.3	man/man3/dlacpy.f.3	\
+	man/man3/cunghr.3	man/man3/zgtcon.f.3	man/man3/cdotc.f.3	\
+	man/man3/zunmtr.f.3	man/man3/zlansb.f.3	man/man3/dsecnd_EXT_ETIME_.f.3	\
+	man/man3/dsptri.f.3	man/man3/zstegr.3	man/man3/dtpmqrt.f.3	\
+	man/man3/zlarz.f.3	man/man3/strrfs.f.3	man/man3/dsbev.3	\
+	man/man3/dpotf2.3	man/man3/ssbgst.3	man/man3/slarrf.3	\
+	man/man3/dpprfs.3	man/man3/slar1v.3	man/man3/cla_gercond_c.f.3	\
+	man/man3/dlatrd.3	man/man3/zlacrt.3	man/man3/izmax1.3	\
+	man/man3/sorcsd.f.3	man/man3/ssysv_rook.3	man/man3/cla_porpvgrw.f.3	\
+	man/man3/zgecon.f.3	man/man3/dsygvx.f.3	man/man3/zbdsqr.f.3	\
+	man/man3/_Users_julie_Documents_Boulot_lapack-dev_lapack_trunk_SRC_.3	man/man3/cher.f.3	man/man3/cunmr3.f.3	\
+	man/man3/dsytrf_rook.f.3	man/man3/srot.f.3	man/man3/dstemr.3	\
+	man/man3/slaed8.f.3	man/man3/sla_porpvgrw.3	man/man3/sgsvj1.3	\
+	man/man3/chbtrd.f.3	man/man3/cgehd2.f.3	man/man3/zhgeqz.3	\
+	man/man3/crotg.3	man/man3/cpoequ.3	man/man3/clagtm.f.3	\
+	man/man3/cpprfs.3	man/man3/cla_gercond_x.f.3	man/man3/zgesdd.3	\
+	man/man3/zsysv.f.3	man/man3/clascl.f.3	man/man3/zunm2r.3	\
+	man/man3/dorg2l.f.3	man/man3/slaqgb.3	man/man3/cla_herpvgrw.f.3	\
+	man/man3/dlasd6.3	man/man3/claset.3	man/man3/zgbrfsx.3	\
+	man/man3/zlapmt.3	man/man3/zgeqr2.f.3	man/man3/cgelsd.f.3	\
+	man/man3/izmax1.f.3	man/man3/dlanv2.3	man/man3/slaqsb.f.3	\
+	man/man3/chetri_rook.3	man/man3/slasq3.3	man/man3/sspgst.3	\
+	man/man3/slamc1.3	man/man3/zherfsx.3	man/man3/dorcsd.3	\
+	man/man3/slaqgb.f.3	man/man3/zgeqpf.f.3	man/man3/ztpsv.f.3	\
+	man/man3/dgegv.3	man/man3/zgeqlf.3	man/man3/zpttrf.3	\
+	man/man3/isamax.f.3	man/man3/cpftrs.3	man/man3/__dlamchtst.f__.3	\
+	man/man3/spptrf.3	man/man3/dlarrj.3	man/man3/zhpevd.3	\
+	man/man3/cppsv.f.3	man/man3/stbsv.f.3	man/man3/zsysv.3	\
+	man/man3/ctrttf.f.3	man/man3/dla_porpvgrw.f.3	man/man3/ssyevr.3	\
+	man/man3/dlaqps.f.3	man/man3/zlascl2.3	man/man3/ztpsv.3	\
+	man/man3/ssytrs2.f.3	man/man3/zla_syrpvgrw.f.3	man/man3/dlauu2.f.3	\
+	man/man3/zhetri2x.3	man/man3/chegs2.f.3	man/man3/cporfsx.f.3	\
+	man/man3/dtrttp.f.3	man/man3/chpgst.f.3	man/man3/clantr.3	\
+	man/man3/dgtcon.f.3	man/man3/stfsm.3	man/man3/ztpqrt.3	\
+	man/man3/dtgsyl.f.3	man/man3/zgebak.f.3	man/man3/zsytrs2.f.3	\
+	man/man3/zposv.f.3	man/man3/dgebrd.f.3	man/man3/dlaqr4.3	\
+	man/man3/dormhr.f.3	man/man3/slaqp2.3	man/man3/cgerqf.3	\
+	man/man3/chbevx.f.3	man/man3/sorbdb5.3	man/man3/sla_wwaddw.f.3	\
+	man/man3/dgeequ.3	man/man3/chetri2.f.3	man/man3/slarz.3	\
+	man/man3/slantr.3	man/man3/slaqr2.f.3	man/man3/zlaev2.f.3	\
+	man/man3/spocon.f.3	man/man3/dtbtrs.3	man/man3/zungql.f.3	\
+	man/man3/sla_porcond.f.3	man/man3/sspgst.f.3	man/man3/chptrf.3	\
+	man/man3/ilaver.3	man/man3/sgebrd.f.3	man/man3/cgetrs.3	\
+	man/man3/cungrq.3	man/man3/dstedc.3	man/man3/clatdf.f.3	\
+	man/man3/zpotrf.3	man/man3/cggrqf.3	man/man3/csptrf.f.3	\
+	man/man3/csycon.3	man/man3/dswap.3	man/man3/dsyconv.f.3	\
+	man/man3/spptrs.f.3	man/man3/dgbmv.f.3	man/man3/ztzrqf.3	\
+	man/man3/stzrzf.3	man/man3/sptrfs.3	man/man3/dgetc2.3	\
+	man/man3/zunmbr.f.3	man/man3/dlaqsy.f.3	man/man3/ctpqrt2.f.3	\
+	man/man3/cgtsvx.f.3	man/man3/zung2l.3	man/man3/ssysvxx.3	\
+	man/man3/zggrqf.f.3	man/man3/chptrs.f.3	man/man3/ztrsyl.3	\
+	man/man3/clahqr.3	man/man3/ztrexc.3	man/man3/ctpsv.f.3	\
+	man/man3/zhbevx.f.3	man/man3/cpftrs.f.3	man/man3/slanv2.f.3	\
+	man/man3/cla_porpvgrw.3	man/man3/dspr2.f.3	man/man3/ztrsyl.f.3	\
+	man/man3/slansy.f.3	man/man3/zgelsy.3	man/man3/zptsvx.f.3	\
+	man/man3/clantb.f.3	man/man3/cgbsvx.3	man/man3/dlartgs.f.3	\
+	man/man3/cgerc.3	man/man3/zhbgvx.f.3	man/man3/zspmv.3	\
+	man/man3/stptri.3	man/man3/dorg2r.3	man/man3/zptrfs.f.3	\
+	man/man3/clahqr.f.3	man/man3/zgttrf.f.3	man/man3/zsytri.f.3	\
+	man/man3/dggesx.f.3	man/man3/second.3	man/man3/zhpevx.3	\
+	man/man3/chegvx.3	man/man3/ctbrfs.3	man/man3/sorbdb3.3	\
+	man/man3/chpgst.3	man/man3/zhegvd.f.3	man/man3/zspsv.3	\
+	man/man3/zgerfs.f.3	man/man3/slarrk.3	man/man3/cggesx.3	\
+	man/man3/cgeequb.3	man/man3/zlar2v.f.3	man/man3/zpftrs.f.3	\
+	man/man3/zhbevd.f.3	man/man3/zla_gercond_x.3	man/man3/csscal.f.3	\
+	man/man3/dla_porfsx_extended.f.3	man/man3/zgtsvx.3	man/man3/cpotrf.f.3	\
+	man/man3/zgeqr2p.f.3	man/man3/zpocon.f.3	man/man3/sorbdb4.f.3	\
+	man/man3/cgetf2.3	man/man3/zlatrs.3	man/man3/clanhb.3	\
+	man/man3/dgehrd.3	man/man3/dtrtri.3	man/man3/cgebd2.f.3	\
+	man/man3/clatrs.3	man/man3/ssytrf.3	man/man3/slalsd.3	\
+	man/man3/dsytrf_rook.3	man/man3/stprfb.3	man/man3/dlamc3.3	\
+	man/man3/sporfs.f.3	man/man3/slahqr.f.3	man/man3/dlaqgb.f.3	\
+	man/man3/dgehrd.f.3	man/man3/zhetri2.f.3	man/man3/zspr.f.3	\
+	man/man3/zlahqr.f.3	man/man3/dgeqrt3.3	man/man3/dsygv.f.3	\
+	man/man3/clanhe.3	man/man3/zgbtf2.3	man/man3/ssygv.3	\
+	man/man3/stgsyl.f.3	man/man3/sla_lin_berr.3	man/man3/dgbtrs.3	\
+	man/man3/cstedc.3	man/man3/slatdf.f.3	man/man3/slaebz.3	\
+	man/man3/slarre.f.3	man/man3/dgegs.f.3	man/man3/dlae2.f.3	\
+	man/man3/cher2.f.3	man/man3/slahr2.3	man/man3/cherfsx.3	\
+	man/man3/crot.3	man/man3/ztpttf.3	man/man3/zsytrs.f.3	\
+	man/man3/zungqr.f.3	man/man3/cgges.f.3	man/man3/dsytf2.f.3	\
+	man/man3/chpevx.f.3	man/man3/sdisna.3	man/man3/strrfs.3	\
+	man/man3/csysvx.f.3	man/man3/ztbrfs.3	man/man3/cgbequ.3	\
+	man/man3/slarnv.3	man/man3/dsygvd.3	man/man3/dgetri.3	\
+	man/man3/csyrk.f.3	man/man3/zspcon.3	man/man3/dsyr2k.f.3	\
+	man/man3/dlarrb.f.3	man/man3/sgbtrf.3	man/man3/dlasv2.3	\
+	man/man3/dpocon.f.3	man/man3/cgeru.3	man/man3/zlarf.f.3	\
+	man/man3/slarrd.f.3	man/man3/zsymm.f.3	man/man3/zhegvd.3	\
+	man/man3/ztpttr.f.3	man/man3/csyr2k.f.3	man/man3/sgeequ.f.3	\
+	man/man3/zstedc.f.3	man/man3/cgemm.3	man/man3/sgehd2.f.3	\
+	man/man3/clange.f.3	man/man3/chpgvx.3	man/man3/chpgvx.f.3	\
+	man/man3/slaneg.f.3	man/man3/clantp.3	man/man3/dopmtr.f.3	\
+	man/man3/sstedc.3	man/man3/zhpgv.3	man/man3/sorg2l.f.3	\
+	man/man3/zunghr.3	man/man3/zhbev.f.3	man/man3/dggbak.f.3	\
+	man/man3/zhetri.3	man/man3/spotrs.f.3	man/man3/dlaed3.f.3	\
+	man/man3/iparmq.f.3	man/man3/dormrz.3	man/man3/zhptrf.3	\
+	man/man3/stgsyl.3	man/man3/claqr0.3	man/man3/dlaqr2.f.3	\
+	man/man3/dpbcon.f.3	man/man3/dtrcon.3	man/man3/sgegs.3	\
+	man/man3/csprfs.f.3	man/man3/dspgv.f.3	man/man3/ztbcon.f.3	\
+	man/man3/chesvxx.f.3	man/man3/slaed1.f.3	man/man3/ctrrfs.3	\
+	man/man3/dspevd.f.3	man/man3/strtri.f.3	man/man3/slaqps.3	\
+	man/man3/zpteqr.3	man/man3/dsyrfsx.f.3	man/man3/clanhp.f.3	\
+	man/man3/slapmr.3	man/man3/zlaqr5.f.3	man/man3/sspsv.3	\
+	man/man3/sgesvd.3	man/man3/sggevx.3	man/man3/sstebz.f.3	\
+	man/man3/cgttrf.3	man/man3/sgbequ.3	man/man3/zgbsv.3	\
+	man/man3/spftri.f.3	man/man3/dlarrc.3	man/man3/zgelsx.f.3	\
+	man/man3/dormql.f.3	man/man3/zhpgst.f.3	man/man3/zla_lin_berr.f.3	\
+	man/man3/zhpgst.3	man/man3/cungr2.3	man/man3/dsyr2k.3	\
+	man/man3/dspgvd.f.3	man/man3/dtgsen.f.3	man/man3/sormr3.3	\
+	man/man3/zhpr.3	man/man3/cpbtrs.3	man/man3/zgetrs.3	\
+	man/man3/zsyr2k.3	man/man3/sgesv.f.3	man/man3/zlaswp.f.3	\
+	man/man3/zgeqrt2.3	man/man3/ztpqrt2.f.3	man/man3/clapll.f.3	\
+	man/man3/cpotrf.3	man/man3/sgetri.f.3	man/man3/slaruv.3	\
+	man/man3/zcopy.f.3	man/man3/dpftrf.3	man/man3/dgeqrt.3	\
+	man/man3/clansb.3	man/man3/sppsvx.f.3	man/man3/csyrfsx.3	\
+	man/man3/zgetrs.f.3	man/man3/ztrexc.f.3	man/man3/csytrs.f.3	\
+	man/man3/claein.f.3	man/man3/zlat2c.3	man/man3/stpsv.f.3	\
+	man/man3/zsysv_rook.f.3	man/man3/slaed8.3	man/man3/dpprfs.f.3	\
+	man/man3/dscal.f.3	man/man3/ctfttr.f.3	man/man3/ctrsna.3	\
+	man/man3/dpttrs.f.3	man/man3/csytri2.3	man/man3/zaxpy.f.3	\
+	man/man3/dlantb.3	man/man3/sstevd.3	man/man3/dspgst.f.3	\
+	man/man3/slasyf_rook.f.3	man/man3/sgees.3	man/man3/zporfs.f.3	\
+	man/man3/slarrv.3	man/man3/zppsv.f.3	man/man3/cunmbr.3	\
+	man/man3/dla_gbrpvgrw.f.3	man/man3/cgeqrt3.f.3	man/man3/slals0.3	\
+	man/man3/srotmg.3	man/man3/dptsvx.3	man/man3/zlacn2.3	\
+	man/man3/_Users_julie_Documents_Boulot_lapack-dev_lapack_trunk_INSTALL_.3	man/man3/cgeqrfp.3	man/man3/zunglq.f.3	\
+	man/man3/slaqps.f.3	man/man3/caxpy.f.3	man/man3/zspsv.f.3	\
+	man/man3/cgbmv.f.3	man/man3/zunmrz.3	man/man3/zptts2.3	\
+	man/man3/cgetrf.f.3	man/man3/dgtsv.3	man/man3/chbev.3	\
+	man/man3/dgeqrf.3	man/man3/zlaqps.f.3	man/man3/slamchtst.f.3	\
+	man/man3/ctrttp.3	man/man3/dgemqrt.f.3	man/man3/dpptrs.f.3	\
+	man/man3/dtpsv.f.3	man/man3/ztrrfs.f.3	man/man3/clacrm.f.3	\
+	man/man3/chemv.3	man/man3/dla_gercond.3	man/man3/csytf2.f.3	\
+	man/man3/dpttrs.3	man/man3/ztrsm.f.3	man/man3/zgtsvx.f.3	\
+	man/man3/chbgvx.f.3	man/man3/zlags2.f.3	man/man3/zhpcon.3	\
+	man/man3/iladiag.f.3	man/man3/csyr.3	man/man3/slascl2.3	\
+	man/man3/ssbmv.3	man/man3/slamchf77.f.3	man/man3/zhetrs2.3	\
+	man/man3/sorcsd.3	man/man3/zgees.3	man/man3/cptsv.3	\
+	man/man3/csprfs.3	man/man3/dlasr.3	man/man3/sstein.f.3	\
+	man/man3/dlartgp.3	man/man3/dsbgvx.3	man/man3/dlasq2.f.3	\
+	man/man3/sgtrfs.f.3	man/man3/zlansb.3	man/man3/secondtst.f.3	\
+	man/man3/slaed0.f.3	man/man3/dlangb.3	man/man3/dposvx.f.3	\
+	man/man3/stptri.f.3	man/man3/lsame.3	man/man3/spteqr.3	\
+	man/man3/ctpqrt2.3	man/man3/slaln2.3	man/man3/cunmrq.3	\
+	man/man3/dla_syrcond.3	man/man3/zlatdf.3	man/man3/dlasdt.f.3	\
+	man/man3/zlalsd.3	man/man3/cggbal.f.3	man/man3/zsyequb.3	\
+	man/man3/chetrs2.f.3	man/man3/sorbdb1.f.3	man/man3/dgetrs.f.3	\
+	man/man3/slasdt.3	man/man3/sla_gbrfsx_extended.3	man/man3/zgerc.f.3	\
+	man/man3/slar2v.3	man/man3/zcopy.3	man/man3/sgbtrf.f.3	\
+	man/man3/dla_gbrcond.f.3	man/man3/chpr2.f.3	man/man3/sla_gbrcond.f.3	\
+	man/man3/ssbmv.f.3	man/man3/dtgexc.f.3	man/man3/ztrmv.3	\
+	man/man3/sspr2.3	man/man3/BLAS_SRC_xerbla.f.3	man/man3/sgglse.3	\
+	man/man3/clantp.f.3	man/man3/zstegr.f.3	man/man3/sorcsd2by1.3	\
+	man/man3/zunmtr.3	man/man3/dlaebz.3	man/man3/zunml2.3	\
+	man/man3/cppequ.f.3	man/man3/csysvx.3	man/man3/zhesvxx.f.3	\
+	man/man3/slarrf.f.3	man/man3/zgglse.f.3	man/man3/dspev.f.3	\
+	man/man3/stgsna.3	man/man3/sormqr.f.3	man/man3/zunbdb3.f.3	\
+	man/man3/zpotrf.f.3	man/man3/dgesv.3	man/man3/dgeqp3.3	\
+	man/man3/cunm2r.f.3	man/man3/zhseqr.f.3	man/man3/cggqrf.f.3	\
+	man/man3/sorbdb5.f.3	man/man3/dgsvj1.3	man/man3/cla_gbrfsx_extended.3	\
+	man/man3/zlabrd.3	man/man3/cpttrs.f.3	man/man3/strcon.f.3	\
+	man/man3/cgbequb.f.3	man/man3/cuncsd2by1.f.3	man/man3/dlarf.f.3	\
+	man/man3/slasq4.f.3	man/man3/dla_gbrfsx_extended.f.3	man/man3/cunbdb4.f.3	\
+	man/man3/zpstrf.3	man/man3/dgeqlf.f.3	man/man3/dgbrfsx.f.3	\
+	man/man3/zungbr.f.3	man/man3/csycon_rook.3	man/man3/dsysv.3	\
+	man/man3/dla_wwaddw.f.3	man/man3/cher2.3	man/man3/clarnv.3	\
+	man/man3/zlaset.f.3	man/man3/sla_syamv.3	man/man3/ssyevd.f.3	\
+	man/man3/zher2k.3	man/man3/csytrf_rook.f.3	man/man3/clatrz.f.3	\
+	man/man3/dlabad.f.3	man/man3/dstegr.f.3	man/man3/slascl2.f.3	\
+	man/man3/cgelqf.f.3	man/man3/slarrr.f.3	man/man3/cgelsx.f.3	\
+	man/man3/dporfsx.3	man/man3/dorgbr.3	man/man3/ieeeck.3	\
+	man/man3/dorm2r.3	man/man3/dpoequ.3	man/man3/ztrti2.3	\
+	man/man3/slasd8.3	man/man3/zppcon.f.3	man/man3/dlaexc.f.3	\
+	man/man3/cgebal.3	man/man3/clar1v.f.3	man/man3/claqps.3	\
+	man/man3/sgges.3	man/man3/ztbtrs.f.3	man/man3/cgetrs.f.3	\
+	man/man3/clals0.f.3	man/man3/zherfsx.f.3	man/man3/zpttrs.3	\
+	man/man3/sgeqr2.3	man/man3/zgbbrd.f.3	man/man3/sgbrfsx.3	\
+	man/man3/clar2v.3	man/man3/cpstf2.f.3	man/man3/dgeqr2p.3	\
+	man/man3/zggevx.f.3	man/man3/slatzm.f.3	man/man3/ctrttf.3	\
+	man/man3/dgees.3	man/man3/dsbgv.3	man/man3/csyrk.3	\
+	man/man3/slapy2.3	man/man3/zlaic1.f.3	man/man3/sporfsx.3	\
+	man/man3/dpbtrs.f.3	man/man3/sla_gbrpvgrw.f.3	man/man3/zsysvx.f.3	\
+	man/man3/zgbmv.f.3	man/man3/zhetrs_rook.f.3	man/man3/dormhr.3	\
+	man/man3/zunmrz.f.3	man/man3/zung2r.3	man/man3/zla_porpvgrw.f.3	\
+	man/man3/zlatrd.3	man/man3/zlartg.f.3	man/man3/dsprfs.3	\
+	man/man3/dlabad.3	man/man3/zlarfb.f.3	man/man3/ctprfs.3	\
+	man/man3/cpteqr.f.3	man/man3/dtprfs.f.3	man/man3/slals0.f.3	\
+	man/man3/clapmt.3	man/man3/sposv.3	man/man3/dgesvx.3	\
+	man/man3/zlaqsy.f.3	man/man3/clarscl2.f.3	man/man3/ilaclr.3	\
+	man/man3/cla_gerfsx_extended.3	man/man3/dgtrfs.f.3	man/man3/claswp.3	\
+	man/man3/cpbequ.f.3	man/man3/dpptri.3	man/man3/clacrm.3	\
+	man/man3/ilaprec.f.3	man/man3/dtgevc.f.3	man/man3/dgbcon.3	\
+	man/man3/zla_gbrpvgrw.3	man/man3/spbtrs.f.3	man/man3/sgtsvx.3	\
+	man/man3/ztrtri.3	man/man3/classq.3	man/man3/csymm.f.3	\
+	man/man3/stgex2.3	man/man3/zlartg.3	man/man3/scsum1.3	\
+	man/man3/zptsv.3	man/man3/clarcm.3	man/man3/stptrs.3	\
+	man/man3/zsytri_rook.f.3	man/man3/sgesvj.f.3	man/man3/cla_porcond_x.3	\
+	man/man3/dlaed1.3	man/man3/dsfrk.3	man/man3/zlarcm.f.3	\
+	man/man3/zgeqrt.f.3	man/man3/slasq6.3	man/man3/dla_wwaddw.3	\
+	man/man3/zlaed7.f.3	man/man3/zpbrfs.3	man/man3/cgerfsx.f.3	\
+	man/man3/dasum.f.3	man/man3/strsv.3	man/man3/zupgtr.f.3	\
+	man/man3/claset.f.3	man/man3/dlaqr2.3	man/man3/dlaev2.3	\
+	man/man3/zlange.3	man/man3/sla_gerpvgrw.f.3	man/man3/iladlc.3	\
+	man/man3/zlatps.f.3	man/man3/BLAS_SRC_xerbla_array.f.3	man/man3/zhetri_rook.3	\
+	man/man3/zlaqhe.3	man/man3/dlasq6.f.3	man/man3/sstemr.3	\
+	man/man3/slas2.f.3	man/man3/clanhf.f.3	man/man3/spoequ.f.3	\
+	man/man3/zlaqhp.3	man/man3/ssytrs2.3	man/man3/scopy.3	\
+	man/man3/cgetc2.3	man/man3/zla_hercond_x.f.3	man/man3/slaed7.3	\
+	man/man3/zlangt.3	man/man3/zgetri.3	man/man3/spbtf2.f.3	\
+	man/man3/zgeqrf.3	man/man3/ztrmm.3	man/man3/ctfttp.f.3	\
+	man/man3/slaed4.f.3	man/man3/INSTALL_ilaver.f.3	man/man3/zsteqr.3	\
+	man/man3/zporfsx.3	man/man3/slartgp.3	man/man3/sgesvx.3	\
+	man/man3/dla_syrfsx_extended.3	man/man3/dormlq.3	man/man3/slagtf.f.3	\
+	man/man3/zla_porcond_x.3	man/man3/ctrsv.3	man/man3/dlaqr0.f.3	\
+	man/man3/dsysv.f.3	man/man3/zherk.f.3	man/man3/clags2.3	\
+	man/man3/stfttr.f.3	man/man3/cla_herfsx_extended.f.3	man/man3/dorbdb1.3	\
+	man/man3/sspev.3	man/man3/zppequ.f.3	man/man3/dtgexc.3	\
+	man/man3/ssptrd.f.3	man/man3/ctprfs.f.3	man/man3/slasq3.f.3	\
+	man/man3/drotg.f.3	man/man3/slascl.3	man/man3/ssytf2.3	\
+	man/man3/cptrfs.f.3	man/man3/dgelsx.f.3	man/man3/dsbevx.3	\
+	man/man3/slansf.3	man/man3/dgesvj.f.3	man/man3/claqgb.3	\
+	man/man3/dlaic1.3	man/man3/cgeev.3	man/man3/slasdt.f.3	\
+	man/man3/dgeqp3.f.3	man/man3/zlaqr4.3	man/man3/zlaqr4.f.3	\
+	man/man3/dtfttp.3	man/man3/ctgsja.3	man/man3/dlarscl2.f.3	\
+	man/man3/ctgex2.3	man/man3/cpbrfs.3	man/man3/slaqr1.3	\
+	man/man3/slaev2.f.3	man/man3/ztrsna.3	man/man3/slaqr4.3	\
+	man/man3/dtrexc.3	man/man3/zhprfs.f.3	man/man3/chptrf.f.3	\
+	man/man3/sorgql.f.3	man/man3/checon.3	man/man3/spbsv.f.3	\
+	man/man3/zlals0.f.3	man/man3/clarscl2.3	man/man3/zpbsv.3	\
+	man/man3/cgemv.3	man/man3/cpoequb.f.3	man/man3/zlatbs.3	\
+	man/man3/dsyevr.3	man/man3/sgels.3	man/man3/dgtsv.f.3	\
+	man/man3/slasd4.3	man/man3/zlauu2.3	man/man3/dspsv.3	\
+	man/man3/zpftrs.3	man/man3/claqp2.f.3	man/man3/zunglq.3	\
+	man/man3/dorbdb1.f.3	man/man3/cstegr.3	man/man3/dpbstf.3	\
+	man/man3/dsecnd_NONE.f.3	man/man3/ssyr2.3	man/man3/sgbtrs.f.3	\
+	man/man3/dtpcon.3	man/man3/clantb.3	man/man3/sormrq.f.3	\
+	man/man3/dsecnd_INT_ETIME.f.3	man/man3/zhbtrd.3	man/man3/slatzm.3	\
+	man/man3/csytrf.f.3	man/man3/slarfb.f.3	man/man3/ctptrs.f.3	\
+	man/man3/dlapll.f.3	man/man3/dtrtri.f.3	man/man3/zlaswp.3	\
+	man/man3/xerbla_array.3	man/man3/claqgb.f.3	man/man3/sgeqpf.3	\
+	man/man3/clatrz.3	man/man3/sladiv.f.3	man/man3/sgerfsx.3	\
+	man/man3/dormrq.f.3	man/man3/dtpsv.3	man/man3/sla_lin_berr.f.3	\
+	man/man3/zpbcon.f.3	man/man3/cheevx.f.3	man/man3/slagts.f.3	\
+	man/man3/ztgsna.f.3	man/man3/clangt.f.3	man/man3/dlapmt.f.3	\
+	man/man3/zsysvxx.3	man/man3/dsygs2.3	man/man3/dspgvx.f.3	\
+	man/man3/zlacp2.3	man/man3/slasd1.f.3	man/man3/dorghr.f.3	\
+	man/man3/stpttr.3	man/man3/dlarrr.f.3	man/man3/dgegs.3	\
+	man/man3/zlar1v.3	man/man3/slartg.3	man/man3/dlasq5.f.3	\
+	man/man3/claed0.3	man/man3/sggbak.3	man/man3/dtptrs.f.3	\
+	man/man3/zlantb.f.3	man/man3/zgbrfs.3	man/man3/slartgs.f.3	\
+	man/man3/zgbsvx.3	man/man3/dlapmt.3	man/man3/cherk.3	\
+	man/man3/cgeequ.f.3	man/man3/claqr1.3	man/man3/sdisna.f.3	\
+	man/man3/zgeqrf.f.3	man/man3/zhpev.3	man/man3/ssprfs.3	\
+	man/man3/zlaset.3	man/man3/zlacn2.f.3	man/man3/sgebak.f.3	\
+	man/man3/cungtr.3	man/man3/zlapmr.f.3	man/man3/ztrsen.3	\
+	man/man3/dsprfs.f.3	man/man3/dtrsyl.f.3	man/man3/spoequb.3	\
+	man/man3/cpftrf.f.3	man/man3/zlaqr0.3	man/man3/cgeqrt.3	\
+	man/man3/cgbbrd.3	man/man3/zpocon.3	man/man3/dtrtrs.f.3	\
+	man/man3/dpptrf.f.3	man/man3/chbgvd.3	man/man3/cgerq2.3	\
+	man/man3/cgegs.3	man/man3/slarfgp.f.3	man/man3/dtrsna.3	\
+	man/man3/dlarrf.3	man/man3/dlasda.f.3	man/man3/dsptrs.f.3	\
+	man/man3/chetri2.3	man/man3/dsyev.3	man/man3/zgebal.3	\
+	man/man3/ctrsyl.f.3	man/man3/dlasd1.3	man/man3/zla_syrcond_x.f.3	\
+	man/man3/dlatrs.f.3	man/man3/chegs2.3	man/man3/ctrcon.3	\
+	man/man3/cgebd2.3	man/man3/dorgl2.f.3	man/man3/sstevx.3	\
+	man/man3/dlaein.f.3	man/man3/dlangb.f.3	man/man3/zlals0.3	\
+	man/man3/ztgexc.f.3	man/man3/sgegv.f.3	man/man3/dlargv.3	\
+	man/man3/zlaqsp.3	man/man3/clascl2.3	man/man3/dppequ.f.3	\
+	man/man3/stbcon.3	man/man3/cungql.3	man/man3/dppsv.f.3	\
+	man/man3/strsna.3	man/man3/dtrmv.3	man/man3/dgtrfs.3	\
+	man/man3/cpoequb.3	man/man3/dormbr.3	man/man3/zunm2l.3	\
+	man/man3/zlasyf.f.3	man/man3/chgeqz.f.3	man/man3/dsyevx.f.3	\
+	man/man3/dlaebz.f.3	man/man3/sorg2r.3	man/man3/zsyr.3	\
+	man/man3/dla_gbrfsx_extended.3	man/man3/slauum.3	man/man3/sgerfsx.f.3	\
+	man/man3/zlanhp.3	man/man3/dptsv.3	man/man3/zsyr.f.3	\
+	man/man3/zpotf2.f.3	man/man3/dlaed1.f.3	man/man3/dgeqlf.3	\
+	man/man3/ztbtrs.3	man/man3/srscl.3	man/man3/zgerfsx.3	\
+	man/man3/cungl2.f.3	man/man3/sposvxx.f.3	man/man3/zgelsd.3	\
+	man/man3/dgeev.f.3	man/man3/slaswp.3	man/man3/clansy.f.3	\
+	man/man3/dsecndtst.f.3	man/man3/iladlc.f.3	man/man3/zhetf2_rook.3	\
+	man/man3/csytri_rook.3	man/man3/cgemm.f.3	man/man3/zhegst.f.3	\
+	man/man3/stbmv.f.3	man/man3/csyequb.3	man/man3/ctpsv.3	\
+	man/man3/spotri.3	man/man3/dsyequb.f.3	man/man3/dgsvj1.f.3	\
+	man/man3/zptsv.f.3	man/man3/cunmlq.f.3	man/man3/dgebak.3	\
+	man/man3/zgesv.3	man/man3/cgeevx.3	man/man3/cla_syrpvgrw.f.3	\
+	man/man3/sgesvxx.3	man/man3/chegvd.3	man/man3/sgelq2.f.3	\
+	man/man3/chla_transtype.3	man/man3/zgerq2.3	man/man3/zhecon_rook.f.3	\
+	man/man3/chpmv.f.3	man/man3/clangt.3	man/man3/sptsvx.3	\
+	man/man3/zhecon.3	man/man3/sgtcon.3	man/man3/spttrs.f.3	\
+	man/man3/sla_gbrcond.3	man/man3/strsen.f.3	man/man3/slarre.3	\
+	man/man3/zlaed0.3	man/man3/ztrevc.f.3	man/man3/zsytrs2.3	\
+	man/man3/zungtr.f.3	man/man3/zlahef_rook.f.3	man/man3/cbbcsd.3	\
+	man/man3/dsbgvd.f.3	man/man3/zdrscl.3	man/man3/zla_syamv.3	\
+	man/man3/dlapy2.f.3	man/man3/sgbbrd.f.3	man/man3/dsymv.f.3	\
+	man/man3/sgbtf2.f.3	man/man3/cpttrf.f.3	man/man3/dlas2.f.3	\
+	man/man3/dlartv.f.3	man/man3/dlarrr.3	man/man3/dlamc5.3	\
+	man/man3/cggbak.3	man/man3/stptrs.f.3	man/man3/zgemv.f.3	\
+	man/man3/chprfs.3	man/man3/slasr.3	man/man3/dgesvd.f.3	\
+	man/man3/slaqtr.3	man/man3/slassq.f.3
 
 ### end of file

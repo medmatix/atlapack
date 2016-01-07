@@ -1,10 +1,10 @@
 ## Process this file with automake to produce Makefile.in
 
-TMGLIB_SCATGEN = 	\
+TMGLIB_SCATGEN =	\
 	slatm1.f	slaran.f	\
 	slarnd.f
 
-TMGLIB_SMATGEN = 	\
+TMGLIB_SMATGEN =	\
 	slatms.f	slatme.f	\
 	slatmr.f	slatmt.f	\
 	slagge.f	slagsy.f	\
@@ -25,11 +25,11 @@ TMGLIB_CMATGEN =	\
 	clatm3.f	clatm5.f	\
 	clatm6.f	clahilb.f
 
-TMGLIB_DZATGEN = 	\
+TMGLIB_DZATGEN =	\
 	dlatm1.f	dlaran.f	\
 	dlarnd.f
 
-TMGLIB_DMATGEN = 	\
+TMGLIB_DMATGEN =	\
 	dlatms.f	dlatme.f	\
 	dlatmr.f	dlatmt.f	\
 	dlagge.f	dlagsy.f	\
@@ -53,15 +53,15 @@ TMGLIB_ZMATGEN =	\
 #page
 #### library
 
-TMGLIB_ALLOBJ = \
-	$(TMGLIB_SMATGEN) $(TMGLIB_CMATGEN) $(TMGLIB_SCATGEN) \
-	$(TMGLIB_DMATGEN) $(TMGLIB_ZMATGEN) $(TMGLIB_DZATGEN)
+TMGLIB_SOURCES = \
+	$(TMGLIB_SCATGEN) $(TMGLIB_SMATGEN) $(TMGLIB_CMATGEN) \
+	$(TMGLIB_DZATGEN) $(TMGLIB_DMATGEN) $(TMGLIB_ZMATGEN)
 
 if WANT_MATGEN
 lib_LTLIBRARIES		= libtmglib.la
 endif
 libtmglib_la_LDFLAGS	= -version-info 1:0:0
 #libtmglib_la_LIBADD	= ../lapack/liblapack.la
-libtmglib_la_SOURCES	= $(TMGLIB_ALLOBJ)
+libtmglib_la_SOURCES	= $(TMGLIB_SOURCES)
 
 ### end of file
