@@ -1,4 +1,4 @@
-Subject: [announce] ATLAPACK revision 3.5.0.2
+Subject: [announce] ATLAPACK revision 3.6.0
 
 		 LAPACK and LAPACKE with GNU Autotools
 		 =====================================
@@ -10,7 +10,7 @@ freely-available software, and is copyrighted.
 
   This distribution  repackages the  original LAPACK and  LAPACKE source
 code under the configuration and  installation framework provided by the
-GNU Autotools.  It was last updated with LAPACK 3.5.0.
+GNU Autotools.  It was last updated with LAPACK 3.6.0.
 
   ATLAPACK expects a BLAS library to be already installed on the system;
 when  no optimised  library is  available, it  is suggested  to use  the
@@ -18,7 +18,7 @@ ATBLAS distribution.
 
   The last revision of this package is available from:
 
-	   <http://sourceforge.net/projects/atlapack/files/>
+	 <https://bitbucket.org/marcomaggi/atlapack/downloads>
 
 the development of this package takes place at:
 
@@ -26,12 +26,19 @@ the development of this package takes place at:
 
 and as backup at:
 
-	      <http://sourceforge.net/projects/atlapack/>
+	      <https://bitbucket.org/marcomaggi/atlapack/>
 
   The original  LAPACK and LAPACKE  distribution is available  on Netlib
 and can be obtained via the World Wide Web and anonymous FTP:
 
 		    <http://www.netlib.org/lapack/>
+
+
+Notes for revision 3.6.0
+------------------------
+
+* Updated to  release 3.6 of  the upstream package.  Started  project at
+  Bitbucket.  Dropped project at Sourceforge.
 
 
 Notes for revision 3.5.0.2

@@ -27,7 +27,7 @@ freely-available software, and is copyrighted.
 
   This distribution  repackages the  original LAPACK and  LAPACKE source
 code under the configuration and  installation framework provided by the
-GNU Autotools.  It was last updated with LAPACK 3.5.0.
+GNU Autotools.  It was last updated with LAPACK 3.6.0.
 
   ATLAPACK expects a BLAS library to be already installed on the system;
 when  no optimised  library is  available, it  is suggested  to use  the
@@ -231,7 +231,7 @@ BLAS and CBLAS are available at:
 but it is suggested to build the shared libraries using ATBLAS:
 
 		 <http://github.com/marcomaggi/atblas/>
-	       <http://sourceforge.net/projects/atblas/>
+	  <https://bitbucket.org/marcomaggi/atblas/downloads>
 
 LAPACK is available on Netlib and can be obtained via the World Wide Web
 and anonymous ftp:
@@ -244,11 +244,11 @@ the development of this package takes place at:
 
 and as backup at:
 
-	      <http://sourceforge.net/projects/atlapack/>
+	      <https://bitbucket.org/marcomaggi/atlapack/>
 
 the last revision of this package is available from:
 
-	   <http://sourceforge.net/projects/atlapack/files/>
+	 <https://bitbucket.org/marcomaggi/atlapack/downloads>
 
   Always remember that at Netlib's site there are test data, results and
 programs for all the routines in LAPACK:
